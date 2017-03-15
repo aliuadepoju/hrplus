@@ -48,7 +48,7 @@
                         <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                             <tr>
                                 <td><?php echo e($sn); ?></td>
-                                <td><a href="<?php echo e(url('/system/users/profile/'.$user->id)); ?>" class="link"> <?php echo e($user->surname .' '.$user->first_name.' '.$user->middle_name); ?></a></td>
+                                <td><a href="<?php echo e(url('/system/users/profile/'.\Crypt::encrypt($user->id))); ?>" class="link"> <?php echo e($user->surname .' '.$user->first_name.' '.$user->middle_name); ?></a></td>
                                 <td><?php echo e($user->getBranch->branch_name); ?></td>
                                 <td><?php echo e($user->phone); ?></td>
                                 <td><?php echo e($user->email); ?></td>

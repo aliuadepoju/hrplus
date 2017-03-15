@@ -1,15 +1,13 @@
-@extends('layouts.masterpage')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="vbox">
     <header class="header bg-white b-b b-light">
-        <p>{{$sScale->scale}}'s profile</p>
+        <p><?php echo e($sScale->scale); ?>'s profile</p>
          <div class="pull-right">
             <br>
-                @role('hr-admin | administrator')
+                <?php if (Auth::check() && Auth::user()->hasRole('hr-admin | administrator')): ?>
                 <button class="btn btn-xs btn-success" type="button" data-toggle="collapse" data-target="#edit" aria-expanded="false" aria-controls="collapseExample"> <i class="fa fa-pencil"> </i> Edit</button>
                 <button class="btn btn-xs btn-danger" type="button" data-toggle="collapse" data-target="#dnperisable" aria-expanded="false" aria-controls="collapseExample"> <i class="fa fa-times"> </i> Disable</button>
-                @endrole
+                <?php endif; ?>
             </div>
     </header>
     <section class="scrollable">
@@ -25,28 +23,29 @@
                                 <div class="panel-body">
                                     <div class="clearfix text-center m-t">
                                         <div class="inline">
-                                            <div class="thumb-lg"> <img src="{{asset('incs/images/hr_logobig.png')}}" class=""> </div>
+                                            <div class="thumb-lg"> <img src="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" class=""> </div>
                                             <hr>
-                                            <div class="h4 m-t m-b-xs">{{$sScale->scale}}</div> 
+                                            <div class="h4 m-t m-b-xs"><?php echo e($sScale->scale); ?></div> 
                                             <!-- <small class="text-muted m-b"><i class="fa fa-map-marker"></i> </small>   -->
                                         </div>
                                     </div>
                                 </div>
-                                @if($sScale->status == 1)
+                                <?php if($sScale->status == 1): ?>
                                 <footer class="panel-footer bg-info text-center">
-                                @elseif($sScale->status == 2)
+                                <?php elseif($sScale->status == 2): ?>
                                 <footer class="panel-footer bg-warning text-center">
-                                @else
+                                <?php else: ?>
                                 <footer class="panel-footer bg-danger text-center">
-                                @endif
+                                <?php endif; ?>
                                     <div class="row pull-out">
                                         <div class="col-xs-6">
-                                            <div class="padder-v"> <span class="m-b-xs h3 block text-white">{{$sScale->getParent->category_name}}</span> <small class="text-muted">Parent Category</small> </div>
+                                            <div class="padder-v"> <span class="m-b-xs h3 block text-white"><?php echo e($sScale->getParent->category_name); ?></span> <small class="text-muted">Parent Category</small> </div>
                                         </div>
 
                                         <div class="col-xs-6">
                                             <div class="padder-v"> <span class="m-b-xs h3 block text-white">
-                                                {{number_format($sScale->getPersonnel->count(), 0)}}
+                                                <?php echo e(number_format($sScale->getPersonnel->count(), 0)); ?>
+
                                             </span> <small class="text-muted">Staff</small> </div>
                                         </div>
                                     </div>
@@ -75,15 +74,16 @@
                         	<div class="col-md-6">
                         		<section class="panel ">
 						            <div class="panel-body" style="height: ; width: ">
-                                    <p class="h5">Max. Salary Range (Annual) : <b>&#8358; {{number_format($sScale->max_sal_range,2)}}</b> </p> <hr>
-						            <p class="h5">Min. Salary Range (Annual) : <b> &#8358;{{number_format($sScale->min_sal_range, 2)}}</b> </p>
+                                    <p class="h5">Max. Salary Range (Annual) : <b>&#8358; <?php echo e(number_format($sScale->max_sal_range,2)); ?></b> </p> <hr>
+						            <p class="h5">Min. Salary Range (Annual) : <b> &#8358;<?php echo e(number_format($sScale->min_sal_range, 2)); ?></b> </p>
 						            </div>
 						        </section>
                         	</div>
                         	<div class="col-md-6">
                         		<section class="panel ">
 						            <div class="panel-body" align="right" style="height: ; width: ">
-						                {!!DNS2D::getBarcodeHTML($sScale->id, "QRCODE", 3,3);!!}
+						                <?php echo DNS2D::getBarcodeHTML($sScale->id, "QRCODE", 3,3);; ?>
+
 						            </div>
 						        </section>
                         	</div>
@@ -93,7 +93,7 @@
 						            </header>
 						            <div class="panel-body">
                                         <div class="p col-md-12">
-                                        @if(count($sScale->getPersonnel) > 0)
+                                        <?php if(count($sScale->getPersonnel) > 0): ?>
                                             <div class="table-responsive">
                                                 <table class="table">
                                                     <thead>
@@ -106,32 +106,32 @@
                                                     </thead>
                                                     <tbody>
                                                     <?php $no = 1;?>
-                                                    @foreach($sScale->getPersonnel as $scale)
+                                                    <?php $__currentLoopData = $sScale->getPersonnel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $scale): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                         <tr>
-                                                        @foreach($scale->personnels as $person)
+                                                        <?php $__currentLoopData = $scale->personnels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $person): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 
-                                                            <td>{{$no}}</td>
-                                                            <td><a href="{{url('/pim/employees/data/'.\Crypt::encrypt($person->id))}}">{{$person->surname. ' '.$person->first_name. ' '.$person->middle_name}}</a></td>
-                                                            <td>{{$person->getNOUNInfos->getBranch->branch_name}}</td>
-                                                            <!-- <td>{{isset($person->getNOUNInfos->getBranch->getDept ) ? $person->getNOUNInfos->getBranch->getDept->dept_name : "Not set"}}</td> -->
+                                                            <td><?php echo e($no); ?></td>
+                                                            <td><a href="<?php echo e(url('/pim/employees/data/'.\Crypt::encrypt($person->id))); ?>"><?php echo e($person->surname. ' '.$person->first_name. ' '.$person->middle_name); ?></a></td>
+                                                            <td><?php echo e($person->getNOUNInfos->getBranch->branch_name); ?></td>
+                                                            <!-- <td><?php echo e(isset($person->getNOUNInfos->getBranch->getDept ) ? $person->getNOUNInfos->getBranch->getDept->dept_name : "Not set"); ?></td> -->
                                                             <td>
-                                                                @if($scale->status == 1)
+                                                                <?php if($scale->status == 1): ?>
                                                                     <span class="label bg-primary">Active</span>
-                                                                @elseif($scale->status == 2)
+                                                                <?php elseif($scale->status == 2): ?>
                                                                     <span class="label bg-info">Suspended</span>
-                                                                @else
+                                                                <?php else: ?>
                                                                     <span class="label bg-danger">Inactive</span>
-                                                                @endif
+                                                                <?php endif; ?>
                                                             </td>
                                                         </tr>
-                                                    @endforeach
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     <?php $no++;?>
-                                                    @endforeach
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     </tbody>
                                                 </table>
-                                                @else
+                                                <?php else: ?>
                                                 <p class="h4 text-center" align="justify"> No personnel associated with this salary scale</p>
-                                                @endif
+                                                <?php endif; ?>
                                             </div>
                                         </div>
 						            </div>
@@ -143,4 +143,5 @@
         </section>
     </section>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

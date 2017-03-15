@@ -1,9 +1,7 @@
-@extends('layouts.masterpage')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="vbox">
     <header class="header bg-white b-b b-light">
-        <p>{{$salCat->category_name}}'s profile</p>
+        <p><?php echo e($salCat->category_name); ?>'s profile</p>
          
     </header>
     <section class="scrollable">
@@ -19,39 +17,42 @@
                                 <div class="panel-body">
                                     <div class="clearfix text-center m-t">
                                         <div class="inline">
-                                            <div class="thumb-lg"> <img src="{{asset('incs/images/hr_logobig.png')}}" class=""> </div>
+                                            <div class="thumb-lg"> <img src="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" class=""> </div>
                                             <hr>
-                                            <div class="h4 m-t m-b-xs">{{$salCat->category_name}}</div> 
+                                            <div class="h4 m-t m-b-xs"><?php echo e($salCat->category_name); ?></div> 
                                             <!-- <small class="text-muted m-b"><i class="fa fa-map-marker"></i> </small>   -->
                                         </div>
                                     </div>
                                 </div>
-                                @if($salCat->status == 1)
+                                <?php if($salCat->status == 1): ?>
                                 <footer class="panel-footer bg-info text-center">
-                                @elseif($salCat->status == 2)
+                                <?php elseif($salCat->status == 2): ?>
                                 <footer class="panel-footer bg-warning text-center">
-                                @else
+                                <?php else: ?>
                                 <footer class="panel-footer bg-danger text-center">
-                                @endif
+                                <?php endif; ?>
                                     <div class="row pull-out">
                                         <div class="col-xs-6">
-                                            <div class="padder-v"> <span class="m-b-xs h3 block text-white">{{$salCat->getScales->count()}}</span> <small class="text-muted">Salary Scales</small> </div>
+                                            <div class="padder-v"> <span class="m-b-xs h3 block text-white"><?php echo e($salCat->getScales->count()); ?></span> <small class="text-muted">Salary Scales</small> </div>
                                         </div>
 
                                         <div class="col-xs-6">
                                             <div class="padder-v"> <span class="m-b-xs h3 block text-white">
-                                                 @foreach($salCat->getScales as $scales)
-                                                        @foreach($scales->getPersonnel as $person)
-                                                        @endforeach
-                                                    @endforeach
+                                                 <?php $__currentLoopData = $salCat->getScales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $scales): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                        <?php $__currentLoopData = $scales->getPersonnel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $person): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     
-                                                    @if($salCat->id == 1)
-                                                        {{number_format(2429, 0)}}
-                                                    @elseif($salCat->id == 2)
-                                                        {{number_format(319, 0)}}
-                                                    @else
-                                                        {{number_format(0, 0)}}
-                                                    @endif
+                                                    <?php if($salCat->id == 1): ?>
+                                                        <?php echo e(number_format(2429, 0)); ?>
+
+                                                    <?php elseif($salCat->id == 2): ?>
+                                                        <?php echo e(number_format(319, 0)); ?>
+
+                                                    <?php else: ?>
+                                                        <?php echo e(number_format(0, 0)); ?>
+
+                                                    <?php endif; ?>
                                             </span> <small class="text-muted">Staff</small> </div>
                                         </div>
                                     </div>
@@ -62,10 +63,10 @@
                         </div>
                         <div class="" align="center">
                         <br>
-                            @role('hr-admin | administrator')
+                            <?php if (Auth::check() && Auth::user()->hasRole('hr-admin | administrator')): ?>
                             <button class="btn btn-xs btn-success" type="button" data-toggle="collapse" data-target="#editsalCat" aria-expanded="false" aria-controls="collapseExample"> <i class="fa fa-pencil"> </i> Edit</button>
                             <button class="btn btn-xs btn-danger" type="button" data-toggle="collapse" data-target="#deactivate" aria-expanded="false" aria-controls="collapseExample"> <i class="fa fa-times"> </i> Disable</button>
-                            @endrole
+                            <?php endif; ?>
                         </div>
                     </section>
 
@@ -81,24 +82,25 @@
                     <section class="scrollable">
                     <div class="row collapse" id="editsalCat">
                     <!-- include Edit salCat -->
-                    @include('system.salary-scales.edit')
+                    <?php echo $__env->make('system.salary-scales.edit', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     </div>
                     <div class="row collapse" id="deactivate">
                         <!-- include Deactivate salCat -->
-                    @include('system.salary-scales.deactivate')
+                    <?php echo $__env->make('system.salary-scales.deactivate', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		            </div>
 		            <br>
                         	<div class="col-md-6">
                         		<section class="panel ">
 						            <div class="panel-body" style="height: ; width: ">
-						            <p>Study Center: <br> {{$salCat->category_name}} </p>
+						            <p>Study Center: <br> <?php echo e($salCat->category_name); ?> </p>
 						            </div>
 						        </section>
                         	</div>
                         	<div class="col-md-6">
                         		<section class="panel ">
 						            <div class="panel-body" align="right" style="height: ; width: ">
-						                {!!DNS2D::getBarcodeHTML($salCat->id, "QRCODE", 3,3);!!}
+						                <?php echo DNS2D::getBarcodeHTML($salCat->id, "QRCODE", 3,3);; ?>
+
 						            </div>
 						        </section>
                         	</div>
@@ -120,24 +122,24 @@
                                                     </thead>
                                                     <tbody>
                                                     <?php $no = 1;?>
-                                                    @foreach($salCat->getScales as $scale)
+                                                    <?php $__currentLoopData = $salCat->getScales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $scale): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                         <tr>
-                                                            <td>{{$no}}</td>
-                                                            <td>{{$scale->scale}}</td>
-                                                            <td align="Center">{{$scale->getPersonnel->count()}}</td>
+                                                            <td><?php echo e($no); ?></td>
+                                                            <td><?php echo e($scale->scale); ?></td>
+                                                            <td align="Center"><?php echo e($scale->getPersonnel->count()); ?></td>
                                                             <td>
-                                                                @if($scale->status == 1)
+                                                                <?php if($scale->status == 1): ?>
                                                                     <span class="label bg-primary">Active</span>
-                                                                @elseif($scale->status == 2)
+                                                                <?php elseif($scale->status == 2): ?>
                                                                     <span class="label bg-info">Suspended</span>
-                                                                @else
+                                                                <?php else: ?>
                                                                     <span class="label bg-danger">Inactive</span>
-                                                                @endif
+                                                                <?php endif; ?>
                                                             </td>
                                                         </tr>
                                                     
                                                     <?php $no++;?>
-                                                    @endforeach
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -154,18 +156,18 @@
                                                     </thead>
                                                     <tbody>
                                                     <?php $no = 1;?>
-                                                    @foreach($salCat->getScales as $scales)
-                                                        @foreach($scales->getPersonnel as $person)
-                                                        @foreach($person->personnels as $prsn)
+                                                    <?php $__currentLoopData = $salCat->getScales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $scales): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                        <?php $__currentLoopData = $scales->getPersonnel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $person): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                        <?php $__currentLoopData = $person->personnels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prsn): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                         <tr>
-                                                            <td>{{$no}}</td>
-                                                            <td><a href="{{url('/pim/employees/data/'. \Crypt::encrypt($prsn->id))}}">{{$prsn->surname. ' ' .$prsn->first_name.' '.$prsn->middle_name}}</a></td>
-                                                            <td>{{$prsn->getNounInfos->getScale ? $prsn->getNounInfos->getScale->scale : "Not set"}}</td>
+                                                            <td><?php echo e($no); ?></td>
+                                                            <td><a href="<?php echo e(url('/pim/employees/data/'. $prsn->id)); ?>"><?php echo e($prsn->surname. ' ' .$prsn->first_name.' '.$prsn->middle_name); ?></a></td>
+                                                            <td><?php echo e($prsn->getNounInfos->getScale ? $prsn->getNounInfos->getScale->scale : "Not set"); ?></td>
                                                         </tr>
                                                     <?php $no++;?>
-                                                    @endforeach
-                                                        @endforeach
-                                                    @endforeach
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -180,4 +182,5 @@
         </section>
     </section>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -189,7 +189,7 @@
 							                        	@foreach($personnel->personnels as $person)
 							                        		<td>{{$no}}</td>
 															<td>NOUN/{{$person->unique_id}}</td>
-															<td> <a href="{{url('/pim/employees/data/'.$person->id)}}">{{$person->surname.' '.$person->first_name.' '.$person->middle_name}}</a></td>
+															<td> <a href="{{url('/pim/employees/data/'.\Crypt::encrypt($person->id))}}">{{$person->surname.' '.$person->first_name.' '.$person->middle_name}}</a></td>
 															<td>{{$person->phone_no}}</td>
 															<td>{{$person->getState->state}}</td>
 	                    									<td>{{isset($person->getLga) ? $person->getLga->lga_name : "Not set"}}</td>

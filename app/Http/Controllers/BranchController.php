@@ -46,7 +46,7 @@ class BranchController extends Controller
 
     public function oneBranch($id)
     {
-
+        $id = \Crypt::decrypt($id);
         $param['branch'] = \App\Branch::find($id);
         $param['units'] = \App\Unit::all();
         $param['branches'] = \App\Branch::all();
@@ -139,13 +139,15 @@ class BranchController extends Controller
 
     public function oneUnit($id)
     {
+        
+        $id = \Crypt::decrypt($id);
         $param['unit'] = \App\Unit::find($id);
         $param['branches'] = \App\Branch::all();
         $param['depts'] = \App\Department::all();
         $param['states'] = \App\State::all();
         $param['lgas'] = \App\Lga::all();
         $param['cords'] = \App\Personnel::where('status', '1')->get();
-        $param['pageName'] = "Unit | ". $param['unit']->unit_name;
+        $param['pageName'] = "Unit | Profile";
         return view('branch.units.oneUnit', $param);
     }
 

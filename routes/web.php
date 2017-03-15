@@ -72,7 +72,7 @@ Route::get('/pim/employees/appraisals', ['uses'=>'PersonnelController@appraisalI
 Route::post('/pim/employees/data/documents/upload', array('uses'=>'PersonnelController@uploadDocument', 'as'=>'uploadDoc' ));
 
 
-Route::get('/pim/employees/documentCenter', ['uses'=>'DocumentController@docCenter', 'as'=>'docCenter', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
+Route::get('/pim/employees/documentCenter/{id?}', ['uses'=>'DocumentController@docCenter', 'as'=>'docCenter', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 Route::get('/pim/employees/document/upload', array('uses'=>'DocumentController@docUpload', 'as'=>'docUpload' ));
 Route::get('/pim/employees/document/one/{id?}', ['uses'=>'DocumentController@oneDoc', 'as'=>'onedoc', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 
@@ -92,7 +92,7 @@ Route::post('/branches', array('uses'=>'BranchController@newBranch', 'as'=>'nbra
 Route::get('/branches/departments/{id?}', ['uses'=>'BranchController@departments', 'as'=>'departments', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 Route::post('/branches/departments', array('uses'=>'BranchController@newDepartment', 'as'=>'nDepartment' ));
 Route::get('/branches/departments/units/{id?}', ['uses'=>'BranchController@units', 'as'=>'units' , 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
-Route::get('/branches/departments/units/{id?}',['uses'=>'BranchController@oneUnit', 'as'=>'oneunit', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
+Route::get('/branches/departments/units/data/{id?}',['uses'=>'BranchController@oneUnit', 'as'=>'oneunit', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 Route::post('/branches/departments/units', array('uses'=>'BranchController@newUnit', 'as'=>'nunit' ));
 Route::post('/branches/data/deactivate/{id?}', array('uses'=>'BranchController@deactivate', 'as'=>'Dbranch' ));
 
@@ -112,12 +112,12 @@ Route::post('/system/user/account/verification/{id?}', array('uses'=>'SystemCont
 Route::post('/sendCode/', array('uses'=>'SystemController@resendCode','as'=>'sCode'));
 
 
-Route::get('/system/rbac/roles', array('uses'=>'SystemController@roles', 'as'=>'roles' ));
+Route::get('/system/rbac/roles/{id?}', array('uses'=>'SystemController@roles', 'as'=>'roles' ));
 Route::get('/system/rbac/role/data/{id?}', array('uses'=>'SystemController@viewOneR', 'as'=>'Proles' ));
 Route::post('/system/rbac/roles', array('uses'=>'SystemController@newRole', 'as'=>'nrole' ));
 
-Route::get('/system/salary-structures/categories', array('uses'=>'SystemController@salaryCats', 'as'=>'sCat' ));
-Route::get('/system/salary-structures/scales', array('uses'=>'SystemController@salaryScales', 'as'=>'sScale' ));
+Route::get('/system/salary-structures/categories/{id?}', array('uses'=>'SystemController@salaryCats', 'as'=>'sCat' ));
+Route::get('/system/salary-structures/scales/{id?}', array('uses'=>'SystemController@salaryScales', 'as'=>'sScale' ));
 Route::get('/system/salary-structures/categories/data/{id?}', array('uses'=>'SystemController@oneSalaryCat', 'as'=>'oneCat' ));
 Route::get('/system/salary-structures/scales/data/{id?}', array('uses'=>'SystemController@oneSalaryScale', 'as'=>'oneScale' ));
 Route::post('/system/salary-structures/categories', array('uses'=>'SystemController@newSalaryCategory', 'as'=>'nsCat' ));

@@ -51,7 +51,7 @@
                         @foreach($users as $user)
                             <tr>
                                 <td>{{$sn}}</td>
-                                <td><a href="{{url('/system/users/profile/'.$user->id)}}" class="link"> {{$user->surname .' '.$user->first_name.' '.$user->middle_name}}</a></td>
+                                <td><a href="{{url('/system/users/profile/'.\Crypt::encrypt($user->id))}}" class="link"> {{$user->surname .' '.$user->first_name.' '.$user->middle_name}}</a></td>
                                 <td>{{$user->getBranch->branch_name}}</td>
                                 <td>{{$user->phone}}</td>
                                 <td>{{$user->email}}</td>

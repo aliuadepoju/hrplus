@@ -136,7 +136,7 @@
 				                            <tr>
 				                                <td><?php echo e($count); ?></td>
 				                                <td><?php echo e($ticket->serial); ?></td>
-				                                <td><a href="/system/tickets/view/<?php echo e($ticket->id); ?>" style="color: #369;"><b><?php echo e($ticket->title); ?></b></a></td>
+				                                <td><a href="<?php echo e(url('/system/tickets/view/'.\Crypt::encrypt($ticket->id))); ?>" style="color: #369;"><b><?php echo e($ticket->title); ?></b></a></td>
 				                                <td align="left"><?php echo e($ticket->getCreator->getBranch->branch_name); ?></td>
 				                                <td align="left"><?php echo e($ticket->getCreator->surname.' '.$ticket->getCreator->first_name.' '.$ticket->getCreator->middle_name); ?></td>
 				                                <td><?php echo e($ticket->getCat->name); ?></td>

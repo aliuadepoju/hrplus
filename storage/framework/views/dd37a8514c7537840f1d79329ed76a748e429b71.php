@@ -187,7 +187,7 @@
 							                        	<?php $__currentLoopData = $personnel->personnels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $person): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 							                        		<td><?php echo e($no); ?></td>
 															<td>NOUN/<?php echo e($person->unique_id); ?></td>
-															<td> <a href="<?php echo e(url('/pim/employees/data/'.$person->id)); ?>"><?php echo e($person->surname.' '.$person->first_name.' '.$person->middle_name); ?></a></td>
+															<td> <a href="<?php echo e(url('/pim/employees/data/'.\Crypt::encrypt($person->id))); ?>"><?php echo e($person->surname.' '.$person->first_name.' '.$person->middle_name); ?></a></td>
 															<td><?php echo e($person->phone_no); ?></td>
 															<td><?php echo e($person->getState->state); ?></td>
 	                    									<td><?php echo e(isset($person->getLga) ? $person->getLga->lga_name : "Not set"); ?></td>

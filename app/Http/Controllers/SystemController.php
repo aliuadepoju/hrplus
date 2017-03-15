@@ -186,6 +186,7 @@ class SystemController extends Controller
 
     public function viewOneR($id)
     {
+        $id = \Crypt::decrypt($id);
         $param['role'] = \App\Role::find($id);
         $param['pageName'] = $param['role']->name ."'s Profile" ;
         $param['permissions'] = \App\Permission::all();

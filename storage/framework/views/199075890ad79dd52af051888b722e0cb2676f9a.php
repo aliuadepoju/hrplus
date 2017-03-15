@@ -51,7 +51,7 @@
 
                     </span> <?php echo e(Auth::user()->surname. ' '. Auth::user()->first_name .' '.Auth::user()->middle_name); ?> <b class="caret"></b> </a>
                     <ul class="dropdown-menu animated fadeInRight"> <span class="arrow top"></span>
-                        <li> <a href="<?php echo e(url('/system/users/profile/'.Auth::user()->id)); ?>">Profile</a> </li>
+                        <li> <a href="<?php echo e(url('/system/users/profile/'.\Crypt::encrypt(Auth::user()->id))); ?>">Profile</a> </li>
                         <li> <a href="<?php echo e(url('/help/faqs')); ?>">Help</a> </li>
                         <li class="divider"></li>
                         <li><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

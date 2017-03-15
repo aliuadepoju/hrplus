@@ -139,7 +139,7 @@
 				                            <tr>
 				                                <td>{{$count}}</td>
 				                                <td>{{$ticket->serial}}</td>
-				                                <td><a href="/system/tickets/view/{{$ticket->id}}" style="color: #369;"><b>{{$ticket->title}}</b></a></td>
+				                                <td><a href="{{url('/system/tickets/view/'.\Crypt::encrypt($ticket->id))}}" style="color: #369;"><b>{{$ticket->title}}</b></a></td>
 				                                <td align="left">{{$ticket->getCreator->getBranch->branch_name}}</td>
 				                                <td align="left">{{$ticket->getCreator->surname.' '.$ticket->getCreator->first_name.' '.$ticket->getCreator->middle_name}}</td>
 				                                <td>{{$ticket->getCat->name}}</td>

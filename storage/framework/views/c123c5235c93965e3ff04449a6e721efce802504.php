@@ -1,28 +1,25 @@
-
-@extends('layouts.masterpage')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <section class="vbox">
     <section class="scrollable padder">
         <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
-            <li><a href="{{url('/home')}}"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="{{url('/branches')}}"><i class="fa fa-cogs"></i> System Preference</a></li>
+            <li><a href="<?php echo e(url('/home')); ?>"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="<?php echo e(url('/branches')); ?>"><i class="fa fa-cogs"></i> System Preference</a></li>
             <li class="active">Roles</li>
         </ul>
         <div class="m-b-md">
             <!-- <h3 class="m-b-none">Datagrid</h3>  -->
         </div>
         <div class="row collapse" id="newrole">
-                 @include('system.acl.roles.new')
+                 <?php echo $__env->make('system.acl.roles.new', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             </div>
         <section class="panel panel-default">
             <header class="panel-heading"> Roles <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> 
                 <div class="pull-right">
-                @role('hr-admin | administrator')
+                <?php if (Auth::check() && Auth::user()->hasRole('hr-admin | administrator')): ?>
                     <button class="btn btn-xs btn-primary" type="button" data-toggle="collapse" data-target="#newrole" aria-expanded="false" aria-controls="collapseExample"> <i class="fa fa-plus-square"> </i> Setup New System Role</button>
-                @endrole
-                @role('hr-admin | report-only')
+                <?php endif; ?>
+                <?php if (Auth::check() && Auth::user()->hasRole('hr-admin | report-only')): ?>
                     <div class="btn-group">
                         <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-share"></i> Export Report <span class="caret"></span> </button>
                         <ul class="dropdown-menu">
@@ -30,7 +27,7 @@
                             <li><a href="#">Excel</a></li>
                         </ul>
                     </div>
-                @endrole
+                <?php endif; ?>
                 </div>
             </header>
             <div class="panel-body">
@@ -47,11 +44,11 @@
                         </thead>
                         <tbody>
                         <?php $sn = 1;?>
-                        @foreach($roles as $role)
+                        <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                             <tr>
-                                <td>{{$sn}}</td>
-                                <td><a href="{{url('/system/rbac/role/data/'.\Crypt::encrypt($role->id))}}" class="link"> {{$role->name}}</a></td>
-                                <td align="center">{{$role->users->count()}}</td>
+                                <td><?php echo e($sn); ?></td>
+                                <td><a href="<?php echo e(url('/system/rbac/role/data/'.\Crypt::encrypt($role->id))); ?>" class="link"> <?php echo e($role->name); ?></a></td>
+                                <td align="center"><?php echo e($role->users->count()); ?></td>
                                 <td align="left">
                                         <!-- if(count($perms)>0)
                                             foreach(perms as perm)
@@ -62,15 +59,15 @@
                                         endif -->
                                 </td>
                                 <td>
-                                    @if($role->status == 1)
+                                    <?php if($role->status == 1): ?>
                                     <span class="label bg-primary">Active</span>
-                                    @else
+                                    <?php else: ?>
                                     <span class="label bg-danger">Inactive</span>
-                                    @endif
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php $sn++;?>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                         </tbody>
                     </table>
                 </div>
@@ -79,4 +76,5 @@
     </section>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,21 +1,18 @@
-
-@extends('layouts.masterpage')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <section class="vbox">
     <section class="scrollable padder">
         <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
-            <li><a href="{{url('/home')}}"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="{{url('/branches')}}"><i class="fa fa-sitemap"></i> Branches</a></li>
-            <li><a href="{{url('/branches/departments')}}"><i class="fa fa-cubes"></i> Departments</a></li>
+            <li><a href="<?php echo e(url('/home')); ?>"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="<?php echo e(url('/branches')); ?>"><i class="fa fa-sitemap"></i> Branches</a></li>
+            <li><a href="<?php echo e(url('/branches/departments')); ?>"><i class="fa fa-cubes"></i> Departments</a></li>
             <li class="active">Units</li>
         </ul>
         <div class="m-b-md">
             <!-- <h3 class="m-b-none">Datagrid</h3>  -->
         </div>
         <div class="row collapse" id="newunit">
-             @include('branch.units.new')
+             <?php echo $__env->make('branch.units.new', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
         <section class="panel panel-default">
             <header class="panel-heading"> Units <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> 
@@ -46,16 +43,16 @@
                         </thead>
                         <tbody>
                         <?php $sn = 1;?>
-                        @foreach($units as $unit)
+                        <?php $__currentLoopData = $units; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unit): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                             <tr>
-                                <td>{{$sn}}</td>
-                                <td><a href="{{url('/branches/departments/units/data/'.\Crypt::encrypt($unit->id))}}" class="link"> {{$unit->unit_name}}</a></td>
-                                <td>{{$unit->getDept->dept_name}}</td>
-                                <td>{{$unit->getDept->getBranch->branch_name}}</td>
-                                <td align="center">{{$unit->getPersonnel->count()}}</td>
+                                <td><?php echo e($sn); ?></td>
+                                <td><a href="<?php echo e(url('/branches/departments/units/data/'.\Crypt::encrypt($unit->id))); ?>" class="link"> <?php echo e($unit->unit_name); ?></a></td>
+                                <td><?php echo e($unit->getDept->dept_name); ?></td>
+                                <td><?php echo e($unit->getDept->getBranch->branch_name); ?></td>
+                                <td align="center"><?php echo e($unit->getPersonnel->count()); ?></td>
                             </tr>
                         <?php $sn++;?>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                         </tbody>
                     </table>
                 </div>
@@ -64,4 +61,5 @@
     </section>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
