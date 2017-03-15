@@ -47,9 +47,7 @@ Auth::routes();
 
 
 
-Route::get('/home', 'HomeController@index');
-
-
+// Route::get('/home', 'HomeController@index');
 
 // Route::get('/pim/employees', array('uses' => 'PersonnelController@personnel', 'as'=>'personnel'));
 Route::get('/pim/employees/{id?}', ['uses'=>'PersonnelController@personnel', 'as'=>'personnel', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management|center-cordinator|report-only']);
@@ -61,13 +59,13 @@ Route::get('/pim/employees/register/{id?}', ['uses'=>'PersonnelController@regist
 
 Route::post('/pim/employees/register/new', array('uses'=>'PersonnelController@doRegister', 'as'=>'dregister' ));
 
-Route::get('/pim/employees/leaves', ['uses'=>'PersonnelController@leaves', 'as'=>'pLeaves', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
-Route::get('/pim/employees/leaves/{id}', ['uses'=>'PersonnelController@oneLeave', 'as'=>'oLeaves', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
+Route::get('/pim/employees/leaves/{id?}', ['uses'=>'PersonnelController@leaves', 'as'=>'pLeaves', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
+Route::get('/pim/employees/leaves/data/{id}', ['uses'=>'PersonnelController@oneLeave', 'as'=>'oLeaves', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 Route::post('/pim/employees/data/editLGA', array('uses'=>'PersonnelController@editLGA', 'as'=>'eLGA' ));
 Route::post('/pim/employees/data/editBranch', array('uses'=>'PersonnelController@editSCenter', 'as'=>'eBranch' ));
 Route::post('/pim/employees/data/deactivate/{id?}', array('uses'=>'PersonnelController@deactivate', 'as'=>'dPerson' ));
 
-Route::get('/pim/employees/appraisals', ['uses'=>'PersonnelController@appraisalIndex', 'as'=>'aIndex', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
+Route::get('/pim/employees/appraisals/{id?}', ['uses'=>'PersonnelController@appraisalIndex', 'as'=>'aIndex', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 
 Route::post('/pim/employees/data/documents/upload', array('uses'=>'PersonnelController@uploadDocument', 'as'=>'uploadDoc' ));
 
@@ -124,7 +122,7 @@ Route::post('/system/salary-structures/categories', array('uses'=>'SystemControl
 Route::post('/system/salary-structures/NewScales', array('uses'=>'SystemController@NewScale', 'as'=>'nScale' ));
 
 // System Reports
-Route::get('/system/reports/pim', array('uses'=>'PersonnelController@reportIndex', 'as'=>'rIndex' ));
+Route::get('/system/reports/pim/{id?}', array('uses'=>'PersonnelController@reportIndex', 'as'=>'rIndex' ));
 // Route::get('/system/organization/chart', array('uses'=>'PersonnelController@reportIndex', 'as'=>'rIndex' ));
 
 // System Preference - Settings.

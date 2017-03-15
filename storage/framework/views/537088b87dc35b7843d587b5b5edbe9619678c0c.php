@@ -1,7 +1,4 @@
-
-@extends('layouts.masterpage')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <section class="vbox">
     <section class="scrollable padder">
@@ -16,7 +13,7 @@
         <section class="panel panel-default">
             <header class="panel-heading"> Employee Leaves <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> 
             	<div class="pull-right">
-		            <!-- <a href="{{url('/pim/employees/register')}}" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Employee Registration</a>  -->
+		            <!-- <a href="<?php echo e(url('/pim/employees/register')); ?>" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Employee Registration</a>  -->
 		            <!-- <a href="" class="btn btn-warning btn-xs"><i class="fa fa-share-square"></i> Export Report</a> -->
 		            <div class="btn-group">
                         <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-share"></i> Export Report <span class="caret"></span> </button>
@@ -42,30 +39,30 @@
 	                    </thead>
 	                    <tbody>
 	                    <?php $sn = 1;?>
-	                    @foreach($leaves as $leave)
+	                    <?php $__currentLoopData = $leaves; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $leave): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 	                    	<tr>
-	                    		<td>{{$sn}}</td>
-	                    		<td><a href="{{url('/pim/employees/leaves/data/'.\Crypt::encrypt($leave->id))}}">	{{$leave->unique_code}} </a></td>
-	                    		<td>NOUN/{{$leave->getPersonnel->unique_id}}</td>
-	                    		<td><a href="{{url('/pim/employees/data/'.$leave->getPersonnel->id)}}" class="link"> {{$leave->getPersonnel->title .' '.$leave->getPersonnel->surname.' '.$leave->getPersonnel->first_name .' '.$leave->getPersonnel->middle_name}}</a></td>
-	                    		<td align="center">{{$leave->getPersonnel->getLeaves->count()}}</td>
+	                    		<td><?php echo e($sn); ?></td>
+	                    		<td><a href="<?php echo e(url('/pim/employees/leaves/data/'.\Crypt::encrypt($leave->id))); ?>">	<?php echo e($leave->unique_code); ?> </a></td>
+	                    		<td>NOUN/<?php echo e($leave->getPersonnel->unique_id); ?></td>
+	                    		<td><a href="<?php echo e(url('/pim/employees/data/'.$leave->getPersonnel->id)); ?>" class="link"> <?php echo e($leave->getPersonnel->title .' '.$leave->getPersonnel->surname.' '.$leave->getPersonnel->first_name .' '.$leave->getPersonnel->middle_name); ?></a></td>
+	                    		<td align="center"><?php echo e($leave->getPersonnel->getLeaves->count()); ?></td>
 	                    		<td>
 
-	                    		@foreach($leave->getPersonnel->getLeaves as $pleaves)
-	                    		@endforeach
-	                    		@if($pleaves->status == 1)
+	                    		<?php $__currentLoopData = $leave->getPersonnel->getLeaves; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pleaves): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+	                    		<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+	                    		<?php if($pleaves->status == 1): ?>
 						            <span class="label bg-primary">Some New Leave(s)</span>
-	                    		@elseif($pleaves->status == 2)
+	                    		<?php elseif($pleaves->status == 2): ?>
 						            <span class="label bg-info">Awaiting approval</span>
-						        @else
+						        <?php else: ?>
 						            <span class="label bg-danger">Cancelled</span>
-	                    		@endif
+	                    		<?php endif; ?>
 	                    		</td>
 	                    		
 
 	                    	</tr>
 	                    <?php $sn++;?>
-	                    @endforeach
+	                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 	                    </tbody>
 	                </table>
 	            </div>
@@ -74,4 +71,5 @@
     </section>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

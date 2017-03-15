@@ -11,7 +11,7 @@
                         <li>
                             <a href="{{url('/home')}}"> <i class="fa fa-angle-right"></i> <span>Integrated</span> </a>
                         </li>
-                        <li>
+                       <!--  <li>
                             <a href="{{url('/home/employees/'.\Crypt::encrypt($xcode))}}"> <i class="fa fa-angle-right"></i> <span>Employees</span> </a>
                         </li>
 
@@ -25,7 +25,7 @@
 
                         <li>
                             <a href="{{url('/home/users')}}"> <i class="fa fa-angle-right"></i> <span>Users</span> </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
                 @endrole

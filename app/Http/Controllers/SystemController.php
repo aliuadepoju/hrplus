@@ -302,7 +302,7 @@ class SystemController extends Controller
         $param['ticket'] = \App\Ticket::find($id);
         $param['status'] = \App\TicketStatus::where('id', '>=', '1')->where('id', '<=', '5')->get();
         $param['user'] = \App\User::where('type', 2)->get();
-        $param['stakeholders'] = \App\Stakeholder::all();
+        $param['stakeholders'] = \App\StakeHolder::all();
         $param['pageName'] = $param['ticket']->title. "'s Profile";
         return view('system.tickets.oneTicket', $param);
     }
