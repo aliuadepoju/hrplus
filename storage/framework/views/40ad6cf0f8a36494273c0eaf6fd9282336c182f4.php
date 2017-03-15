@@ -1,9 +1,7 @@
-@extends('layouts.masterpage')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="vbox">
     <header class="header bg-white b-b b-light">
-        <p>{{$doc->title}}'s profile</p>
+        <p><?php echo e($doc->title); ?>'s profile</p>
     </header>
     <section class="scrollable">
         <section class="hbox stretch">
@@ -20,26 +18,26 @@
                                         <div class="inline">
                                             <div class="thumb-lg"> 
                                             <?php $fpath = public_path().'/incs/images/personnel/'.$doc->getPersonnel->id.'.jpg' ;?>
-		                                    @if (file_exists($fpath))
-		                                        <img src="{{asset('incs/images/personnel/'.$doc->getPersonnel->id.'.jpg')}}" class="img-circle"> 
-		                                    @else
-		                                        <img src="{{asset('incs/images/personnel/no-pic.jpg')}}" class="img-circle"> 
-		                                    @endif
-                                            	<!-- <img src="{{asset('incs/images/hr_logobig.png')}}" class="">  -->
+		                                    <?php if(file_exists($fpath)): ?>
+		                                        <img src="<?php echo e(asset('incs/images/personnel/'.$doc->getPersonnel->id.'.jpg')); ?>" class="img-circle"> 
+		                                    <?php else: ?>
+		                                        <img src="<?php echo e(asset('incs/images/personnel/no-pic.jpg')); ?>" class="img-circle"> 
+		                                    <?php endif; ?>
+                                            	<!-- <img src="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" class="">  -->
                                             </div>
 											<hr>
-                                            <div class="h4 m-t m-b-xs">{{$doc->getPersonnel->surname .' '.$doc->getPersonnel->first_name.' '.$doc->getPersonnel->middle_name}}</div> 
+                                            <div class="h4 m-t m-b-xs"><?php echo e($doc->getPersonnel->surname .' '.$doc->getPersonnel->first_name.' '.$doc->getPersonnel->middle_name); ?></div> 
                                             <hr>
                                         </div>
-                                            <div class="h4 m-t m-b-xs">Title: {{$doc->title}}</div> 
-                                            <div class="h4 m-t m-b-xs">ISS Auth: {{$doc->issuing_authority}}</div> 
-                                            <div class="h4 m-t m-b-xs">Exp.: {{$doc->expiration}}</div> 
+                                            <div class="h4 m-t m-b-xs">Title: <?php echo e($doc->title); ?></div> 
+                                            <div class="h4 m-t m-b-xs">ISS Auth: <?php echo e($doc->issuing_authority); ?></div> 
+                                            <div class="h4 m-t m-b-xs">Exp.: <?php echo e($doc->expiration); ?></div> 
                                             <div class="h5 m-t m-b-xs">Status: 
-                                            	@if($doc->status ==1)
+                                            	<?php if($doc->status ==1): ?>
                                             	<span class="label bg-primary label-xs">Active</span>
-                                            	@else
+                                            	<?php else: ?>
                                             	<span class="label bg-danger label-xs">Expired</span>
-                                            	@endif
+                                            	<?php endif; ?>
                                             </div> 
                                     </div>
                                 </div>
@@ -54,12 +52,12 @@
 	                                			</tr>
 	                                		</thead>
 	                                		<tbody>
-	                                			@foreach($doc->getPersonnel->getDocuments as $pDocs)
+	                                			<?php $__currentLoopData = $doc->getPersonnel->getDocuments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pDocs): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 	                                			<tr>
-	                                				<td><a href="{{url('pim/employees/document/one/'.\Crypt::encrypt($pDocs->id))}}">{{$pDocs->title}}</a></td>
-	                                				<td>{{$pDocs->expiration}}</td>
+	                                				<td><a href="<?php echo e(url('pim/employees/document/one/'.\Crypt::encrypt($pDocs->id))); ?>"><?php echo e($pDocs->title); ?></a></td>
+	                                				<td><?php echo e($pDocs->expiration); ?></td>
 	                                			</tr>
-	                                			@endforeach
+	                                			<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 	                                		</tbody>
 	                                	</table>
 	                                </div>
@@ -82,7 +80,7 @@
 		            </div>
 		            <br>
                         <div class="col-md-12">
-                        <img src="{{asset('/documents/personnel/'. $doc->getPersonnel->surname .'_'.$doc->getPersonnel->first_name.'_'.$doc->getPersonnel->middle_name.'/'.$doc->getParent->id.'/'.$doc->id.'.png')}}" alt="No physical file assocaited with the selected title" style="width: 100%; height: 100%;">
+                        <img src="<?php echo e(asset('/documents/personnel/'. $doc->getPersonnel->surname .'_'.$doc->getPersonnel->first_name.'_'.$doc->getPersonnel->middle_name.'/'.$doc->getParent->id.'/'.$doc->id.'.png')); ?>" alt="No physical file assocaited with the selected title" style="width: 100%; height: 100%;">
                     	</div>	
                     </section>
                 </section>
@@ -90,4 +88,5 @@
         </section>
     </section>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

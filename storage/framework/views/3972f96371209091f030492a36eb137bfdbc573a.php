@@ -196,7 +196,7 @@
                                         </header>
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <?php if(count($person->getDocuments) >0): ?>
+                                                <?php if(count($person->getPromotions) >0): ?>
                                                 <table class="table table-striped m-b-none" data-ride="datatables">
                                                     <thead>
                                                         <tr>
@@ -211,16 +211,16 @@
                                                     </thead>
                                                     <tbody>
                                                     <?php $sn = 1;?>
-                                                    <?php $__currentLoopData = $person->getDocuments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $docs): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                    <?php $__currentLoopData = $person->getPromotions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $promo): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                         <tr>
                                                             <td><?php echo e($sn); ?></td>
-                                                            <td><a href="<?php echo e(url('/pim/employees/leave/data/'.$docs->id)); ?>" class="link"> <?php echo e($docs->unique_code); ?></a></td>
-                                                            <td><?php echo e($docs->getParent->classification_name); ?></td>
-                                                            <td><?php echo e($docs->title); ?></td>
-                                                            <td><?php echo e($docs->issuing_authority); ?></td>
-                                                            <td><?php echo e($docs->expiration); ?></td>
+                                                            <td><a href="<?php echo e(url('/pim/employees/document/one/'.\Crypt::encrypt($promo->id))); ?>" class="link"> <?php echo e($promo->unique_code); ?></a></td>
+                                                            <td><?php echo e($promo->id); ?></td>
+                                                            <td><?php echo e($promo->title); ?></td>
+                                                            <td><?php echo e($promo->issuing_authority); ?></td>
+                                                            <td><?php echo e($promo->expiration); ?></td>
                                                             <td>
-                                                                <?php if($docs->status == 1): ?>
+                                                                <?php if($promo->status == 1): ?>
                                                                 <span class="label bg-primary">  Valid</span>
                                                                 <?php else: ?>
                                                                 <span class="label bg-danger">  Expired</span>
@@ -267,7 +267,7 @@
                                                     <?php $__currentLoopData = $person->getDocuments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $docs): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                         <tr>
                                                             <td><?php echo e($sn); ?></td>
-                                                            <td><a href="<?php echo e(url('/pim/employees/leave/data/'.$docs->id)); ?>" class="link"> <?php echo e($docs->unique_code); ?></a></td>
+                                                            <td><a href="<?php echo e(url('/pim/employees/document/one/'.\Crypt::encrypt($docs->id))); ?>" class="link"> <?php echo e($docs->unique_code); ?></a></td>
                                                             <td><?php echo e($docs->getParent->classification_name); ?></td>
                                                             <td><?php echo e($docs->title); ?></td>
                                                             <td><?php echo e($docs->issuing_authority); ?></td>

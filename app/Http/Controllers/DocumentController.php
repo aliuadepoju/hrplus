@@ -34,6 +34,7 @@ class DocumentController extends Controller
 
     public function oneDoc($id)
     {
+        $id = \Crypt::decrypt($id);
         $param['doc'] = \App\Document::find($id);
         $param['pagseName'] = $param['doc'] . "'s Profile";
         return view('pim.documentCenter.oneDocument', $param);

@@ -197,7 +197,7 @@
                                         </header>
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                @if(count($person->getDocuments) >0)
+                                                @if(count($person->getPromotions) >0)
                                                 <table class="table table-striped m-b-none" data-ride="datatables">
                                                     <thead>
                                                         <tr>
@@ -212,16 +212,16 @@
                                                     </thead>
                                                     <tbody>
                                                     <?php $sn = 1;?>
-                                                    @foreach($person->getDocuments as $docs)
+                                                    @foreach($person->getPromotions as $promo)
                                                         <tr>
                                                             <td>{{$sn}}</td>
-                                                            <td><a href="{{url('/pim/employees/leave/data/'.$docs->id)}}" class="link"> {{$docs->unique_code}}</a></td>
-                                                            <td>{{$docs->getParent->classification_name}}</td>
-                                                            <td>{{$docs->title}}</td>
-                                                            <td>{{$docs->issuing_authority}}</td>
-                                                            <td>{{$docs->expiration}}</td>
+                                                            <td><a href="{{url('/pim/employees/document/one/'.\Crypt::encrypt($promo->id))}}" class="link"> {{$promo->unique_code}}</a></td>
+                                                            <td>{{$promo->id}}</td>
+                                                            <td>{{$promo->title}}</td>
+                                                            <td>{{$promo->issuing_authority}}</td>
+                                                            <td>{{$promo->expiration}}</td>
                                                             <td>
-                                                                @if($docs->status == 1)
+                                                                @if($promo->status == 1)
                                                                 <span class="label bg-primary">  Valid</span>
                                                                 @else
                                                                 <span class="label bg-danger">  Expired</span>
@@ -268,7 +268,7 @@
                                                     @foreach($person->getDocuments as $docs)
                                                         <tr>
                                                             <td>{{$sn}}</td>
-                                                            <td><a href="{{url('/pim/employees/leave/data/'.$docs->id)}}" class="link"> {{$docs->unique_code}}</a></td>
+                                                            <td><a href="{{url('/pim/employees/document/one/'.\Crypt::encrypt($docs->id))}}" class="link"> {{$docs->unique_code}}</a></td>
                                                             <td>{{$docs->getParent->classification_name}}</td>
                                                             <td>{{$docs->title}}</td>
                                                             <td>{{$docs->issuing_authority}}</td>
