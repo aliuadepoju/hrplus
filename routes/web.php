@@ -65,6 +65,8 @@ Route::post('/pim/employees/data/editLGA', array('uses'=>'PersonnelController@ed
 Route::post('/pim/employees/data/editBranch', array('uses'=>'PersonnelController@editSCenter', 'as'=>'eBranch' ));
 Route::post('/pim/employees/data/deactivate/{id?}', array('uses'=>'PersonnelController@deactivate', 'as'=>'dPerson' ));
 
+Route::post('/pim/employees/data/nok_update/{id?}', array('uses'=>'PersonnelController@upadteNOK', 'as'=>'upadteNOK' ));
+
 Route::get('/pim/employees/appraisals/{id?}', ['uses'=>'PersonnelController@appraisalIndex', 'as'=>'aIndex', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 
 Route::post('/pim/employees/data/documents/upload', array('uses'=>'PersonnelController@uploadDocument', 'as'=>'uploadDoc' ));

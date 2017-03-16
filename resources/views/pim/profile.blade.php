@@ -21,6 +21,7 @@
                         <li><a class="" data-toggle="collapse" data-target="#cCenter" aria-expanded="false" aria-controls="collapseExample">Change Study Center</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#lga" aria-expanded="false" aria-controls="collapseExample">Change LGA</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#suspend" aria-expanded="false" aria-controls="collapseExample">Suspend Personnel</a></li>
+                        <li><a class="" data-toggle="collapse" data-target="#nok" aria-expanded="false" aria-controls="collapseExample">Update NOK</a></li>
                         <li class="divider"></li>
                         <li><a class="" data-toggle="collapse" data-target="#upload" aria-expanded="false" aria-controls="collapseExample">Upload Document</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#report" aria-expanded="false" aria-controls="collapseExample">Export Report</a></li>
@@ -74,8 +75,20 @@
                 </section>
             </aside>
             <aside class="bg-white">
+            <!-- Notification -->
+            @if (session()->has('flash_notification.message'))
+                <div class="alert alert-{{ session('flash_notification.level') }}">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {!! session('flash_notification.message') !!}
+                </div>
+            @endif
+            <!-- /Notification -->
+
                 <div class="row collapse" id="leavesform">
                     @include('pim.options.leaveForm')
+                </div>
+                <div class="row collapse" id="nok">
+                    @include('pim.options.nok')
                 </div>
                 <div class="row collapse" id="lga">
                     @include('pim.options.editLGA')
@@ -185,8 +198,12 @@
                                     <div class="line line-dashed"></div>
                             </div>
                             <div class="tab-pane" id="jobhistory">
-                                <div class="text-center wrapper"> </div>
-                                    No Job history. This personnel is still at his first call branch/study center
+                                <!-- <div class="text-center wrapper"> </div> -->
+                                @if($person->gender == 1)
+                                <h4 align="center"> No Job history found. This personnel is still at his first call branch/study center.</h4>
+                                 @else   
+                                <h4 align="center"> No Job history found. This personnel is still at her first call branch/study center.</h4>
+                                @endif    
                                 <div class="line line-dashed"></div>
                             </div>
 
@@ -304,46 +321,9 @@
                                         </header>
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                @if(count($person->getLeaves) >0)
-                                                <table class="table table-striped m-b-none" data-ride="datatables">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>S/N</th>
-                                                            <th>Unique Code</th>
-                                                            <th>Leave Type</th>
-                                                            <th>Start Date</th>
-                                                            <th>End Date</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php $sn = 1;?>
-                                                    @foreach($person->getLeaves as $leaves)
-                                                        <tr>
-                                                            <td>{{$sn}}</td>
-                                                            <td><a href="{{url('/pim/employees/leaves/'.$leaves->id)}}" class="link"> {{$leaves->unique_code}}</a></td>
-                                                            <td>{{$leaves->getParent->type_name}}</td>
-                                                            <td>{{$leaves->start_date}}</td>
-                                                            <td>{{$leaves->end_date}}</td>
-                                                            <td>
-                                                                @if($leaves->status == 1)
-                                                                 <span class="label bg-primary">  New</span>
-                                                                @elseif($leaves->status == 2)
-                                                                 <span class="label bg-info">Seen & Attended to avaiting approval</span>
-                                                                @elseif($leaves->status == 3)
-                                                                 <span class="label bg-warning">Cancelled</span>
-                                                                @else
-                                                                 <span class="label bg-success">Approved</span>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    <?php $sn++;?>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
-                                                @else
+                                               
                                                 <h4 align="center"> No disciplinary action taken by the management against this personnel yet.</h4>
-                                                @endif
+                                               
                                             </div>
                                         </div>
                                     </section>

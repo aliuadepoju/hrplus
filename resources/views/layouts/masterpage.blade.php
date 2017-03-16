@@ -109,6 +109,7 @@
                 </aside>
                 <!-- /.aside -->
                 <section id="content">
+
                    @yield('content')
                 </section>
             </section>
@@ -192,6 +193,7 @@
       <script type="text/javascript">
        $("#school_other").hide();
         $("#course_other").hide();
+        $("#religion_others").hide();
         $("#mStat").hide();
         $("#nok_other").hide();
         $("#dateRange").hide();
@@ -219,6 +221,8 @@
                $("select[name=lga]").replaceWith(select);
         });
 
+
+         // Residence State & LGA
          $("select[name=r_state]").on('change',function(){
             var select = '<select class="form-control" name="r_lga" id="r_lga" style="width: 100%;" required="">';
                 var options = '<option value="">Select LGA</option>';
@@ -229,6 +233,20 @@
                }
                select+=options+'</select>';
                $("select[name=r_lga]").replaceWith(select);
+        });
+
+         // NOK Residence State & LGA
+
+         $("select[name=nok_r_state]").on('change',function(){
+            var select = '<select class="form-control" name="nok_r_lga" id="r_lga" style="width: 100%;" required="">';
+                var options = '<option value="">Select LGA</option>';
+                for(var i in lgas){
+                    if($(this).val() == lgas[i].state_id){
+                        options+='<option value="'+lgas[i].id+'">'+lgas[i].lga_name+'</option>';
+                    }
+               }
+               select+=options+'</select>';
+               $("select[name=nok_r_lga]").replaceWith(select);
         });
 
       // Fields & Sub fields of studies //
@@ -311,6 +329,16 @@
             }
         });
 
+         $("select[name=religion]").on("change", function() {
+            var religion_others = this.value;
+            if (religion_others == 3){
+                $("#religion_others").show();
+            }
+            else{
+               $("#religion_others").hide();
+            }
+        });
+
       </script>
 
       <!-- // Department & Units // -->
@@ -328,6 +356,11 @@
                $("select[name=unit]").replaceWith(select);
         });
       </script> -->
+
+      <!-- Page Alerts -->
+        <script>
+            $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+        </script>
 
       <script type="text/javascript">
         tday=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");

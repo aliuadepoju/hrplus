@@ -19,6 +19,7 @@
                         <li><a class="" data-toggle="collapse" data-target="#cCenter" aria-expanded="false" aria-controls="collapseExample">Change Study Center</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#lga" aria-expanded="false" aria-controls="collapseExample">Change LGA</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#suspend" aria-expanded="false" aria-controls="collapseExample">Suspend Personnel</a></li>
+                        <li><a class="" data-toggle="collapse" data-target="#nok" aria-expanded="false" aria-controls="collapseExample">Update NOK</a></li>
                         <li class="divider"></li>
                         <li><a class="" data-toggle="collapse" data-target="#upload" aria-expanded="false" aria-controls="collapseExample">Upload Document</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#report" aria-expanded="false" aria-controls="collapseExample">Export Report</a></li>
@@ -72,8 +73,21 @@
                 </section>
             </aside>
             <aside class="bg-white">
+            <!-- Notification -->
+            <?php if(session()->has('flash_notification.message')): ?>
+                <div class="alert alert-<?php echo e(session('flash_notification.level')); ?>">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?php echo session('flash_notification.message'); ?>
+
+                </div>
+            <?php endif; ?>
+            <!-- /Notification -->
+
                 <div class="row collapse" id="leavesform">
                     <?php echo $__env->make('pim.options.leaveForm', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                </div>
+                <div class="row collapse" id="nok">
+                    <?php echo $__env->make('pim.options.nok', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 </div>
                 <div class="row collapse" id="lga">
                     <?php echo $__env->make('pim.options.editLGA', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -184,8 +198,12 @@
                                     <div class="line line-dashed"></div>
                             </div>
                             <div class="tab-pane" id="jobhistory">
-                                <div class="text-center wrapper"> </div>
-                                    No Job history. This personnel is still at his first call branch/study center
+                                <!-- <div class="text-center wrapper"> </div> -->
+                                <?php if($person->gender == 1): ?>
+                                <h4 align="center"> No Job history found. This personnel is still at his first call branch/study center.</h4>
+                                 <?php else: ?>   
+                                <h4 align="center"> No Job history found. This personnel is still at her first call branch/study center.</h4>
+                                <?php endif; ?>    
                                 <div class="line line-dashed"></div>
                             </div>
 
@@ -303,46 +321,9 @@
                                         </header>
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <?php if(count($person->getLeaves) >0): ?>
-                                                <table class="table table-striped m-b-none" data-ride="datatables">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>S/N</th>
-                                                            <th>Unique Code</th>
-                                                            <th>Leave Type</th>
-                                                            <th>Start Date</th>
-                                                            <th>End Date</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php $sn = 1;?>
-                                                    <?php $__currentLoopData = $person->getLeaves; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $leaves): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                                                        <tr>
-                                                            <td><?php echo e($sn); ?></td>
-                                                            <td><a href="<?php echo e(url('/pim/employees/leaves/'.$leaves->id)); ?>" class="link"> <?php echo e($leaves->unique_code); ?></a></td>
-                                                            <td><?php echo e($leaves->getParent->type_name); ?></td>
-                                                            <td><?php echo e($leaves->start_date); ?></td>
-                                                            <td><?php echo e($leaves->end_date); ?></td>
-                                                            <td>
-                                                                <?php if($leaves->status == 1): ?>
-                                                                 <span class="label bg-primary">  New</span>
-                                                                <?php elseif($leaves->status == 2): ?>
-                                                                 <span class="label bg-info">Seen & Attended to avaiting approval</span>
-                                                                <?php elseif($leaves->status == 3): ?>
-                                                                 <span class="label bg-warning">Cancelled</span>
-                                                                <?php else: ?>
-                                                                 <span class="label bg-success">Approved</span>
-                                                                <?php endif; ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php $sn++;?>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-                                                    </tbody>
-                                                </table>
-                                                <?php else: ?>
+                                               
                                                 <h4 align="center"> No disciplinary action taken by the management against this personnel yet.</h4>
-                                                <?php endif; ?>
+                                               
                                             </div>
                                         </div>
                                     </section>

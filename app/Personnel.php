@@ -73,4 +73,9 @@ class Personnel extends Model
       return $this->hasMany('\App\PersonnelPromotionInfo', 'personnel_id', 'id');
     }
 
+    public function getNOK()
+    {
+      return $this->hasOne('\App\NextOfKin', 'personnel_id', 'id');
+    }
+
 }

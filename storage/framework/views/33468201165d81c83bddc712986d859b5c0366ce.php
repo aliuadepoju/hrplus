@@ -7,7 +7,15 @@
             <li class="active">Employees</li>
         </ul>
         <div class="m-b-md">
-            <!-- <h3 class="m-b-none">Datagrid</h3>  -->
+            <!-- Notification -->
+            <?php if(session()->has('flash_notification.message')): ?>
+                <div class="alert alert-<?php echo e(session('flash_notification.level')); ?>">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?php echo session('flash_notification.message'); ?>
+
+                </div>
+            <?php endif; ?>
+            <!-- /Notification -->
         </div>
         <section class="panel panel-default">
             <header class="panel-heading"> Employees <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> 

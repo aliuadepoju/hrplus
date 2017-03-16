@@ -82,7 +82,7 @@
 
                                 <div class="form-group col-md-2">
                                     <label for="">Gender</label>
-                                    <select name="gender" id="" class="form-control">
+                                    <select name="gender" id="" class="form-control" required="">
                                         <option value="">Select Gender</option>
                                         <option value="1">Male</option>
                                         <option value="2">Female</option>
@@ -91,12 +91,12 @@
 
                                 <div class="form-group col-md-3">
                                     <label for="">Date of Birth</label>
-                                    <input name="dob" class="input-s datepicker-input form-control" size="16" type="text" value="12-02-1985" data-date-format="dd-mm-yyyy" style="width:100%;">    
+                                    <input name="dob" class="input-s datepicker-input form-control" size="16" type="text" value="12-02-1985" data-date-format="dd-mm-yyyy" style="width:100%;" required="">    
                                 </div>
 
                                 <div class="form-group col-md-4">
                                     <label for="">State of Origin </label>
-                                    <select id="state" style="width:100%;" name="state" data-required="true" class="form-control">
+                                    <select id="state" style="width:100%;" name="state" required="" class="form-control">
                                         <option value="">Select State</option>
                                         @foreach($states as $st)
                                         <option value="{{$st->id}}">{{$st->state}}</option>
@@ -107,7 +107,7 @@
 
                                 <div class="form-group col-md-4">
                                     <label for="">LGA of Origin</label>
-                                    <select name="lga" id="lga" class="form-control"></select>
+                                    <select name="lga" id="lga" class="form-control" required=""></select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="">Home Town </label>
@@ -122,6 +122,10 @@
                                         <option value="2"> Islam</option>
                                         <option value="3"> Others</option>
                                     </select>
+                                    <div class="" id="religion_others">
+                                        <label for="ReligionOthers">Religion</label>
+                                        <input type="text" name="religion_others" class="form-control" placeholder="African Traditional Religion">
+                                    </div>
                                 </div>
 
                                 <!-- Marital Status -->
@@ -142,11 +146,11 @@
                                     
                                     <div class="form-group col-md-2">
                                         <label for="">No of Children </label>
-                                        <input type="text" name="no_of_children" class="form-control" placeholder="2">    
+                                        <input type="text" name="no_of_children" class="form-control" placeholder="2" style="text-align: center;">    
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label for="">Name of Spouse/Wife </label>
+                                        <label for="">Name of Spouse/Husband </label>
                                         <input type="text" name="spouse" class="form-control" placeholder="Gimbia Lami">    
                                     </div>
                                     <div class="form-group col-md-4">
@@ -158,7 +162,7 @@
                             <div class="row">
                                 <div class="form-group col-md-2">
                                     <label for="">Next of Kin (Full Names)</label>
-                                    <input type="text" name="nok_name" class="form-control" placeholder="Salama Adama">    
+                                    <input type="text" name="nok_name" class="form-control" placeholder="Salama Adama" required="">    
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -166,7 +170,8 @@
                                     <input type="text" name="nok_phone" class="form-control" placeholder="0808457877">    
                                 </div>
 
-                                <div class="form-group col-md-4">
+
+                                <div class="form-group col-md-2">
                                     <label for="">Next of Kin Relationship </label>
                                     <select name="nokRel" id="select2-option" class="" required="" style="width: 100%;">
                                        <option value="">Select Relationship</option>  
@@ -182,10 +187,43 @@
                                         <input type="text" name="nok_other_name" class="form-control" placeholder="Cousine">    
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <label for="">Next of Kin's Residential Address</label>
-                                    <textarea name="nok_res_address" id="" rows="2" class="form-control"></textarea>
+                                <div class="form-group col-md-2">
+                                    <label for="">Gender </label>
+                                    <select name="nokGender" id="" class="form-control" required="" style="width: 100%;" required="">
+                                       <option value="">Select Gender</option>  
+                                          <option value="1">Male</option>  
+                                          <option value="2">Female</option>  
+                                    </select>
                                 </div>
+                                <div class="form-group col-md-3">
+                                    <label for="">NOK Date of Birth </label>
+                                    <input name="nok_dob" class="input-s datepicker-input form-control" size="16" type="text" value="12-02-1985" data-date-format="dd-mm-yyyy" style="width:100%;" required="">   
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">NOK Street No & Name</label>
+                                    <input type="text" class="form-control" name="nok_street_name_no" required="">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="">NOK Residence State </label>
+                                    <select id="nok_r_state" style="width:100%;" name="nok_r_state" required="" class="form-control">
+                                        <option value="">Select State</option>
+                                        @foreach($states as $st)
+                                        <option value="{{$st->id}}">{{$st->state}}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="">NOK Residence LGA</label>
+                                    <select name="nok_r_lga" id="nok_r_lga" class="form-control"></select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="">Town/Locality </label>
+                                    <input type="text" name="nok_locality" class="form-control" placeholder="Maitama" required="">    
+                                </div>
+
                             </div>
                             <div class="row">
                             <div class="form-group col-md-12">
@@ -196,11 +234,11 @@
                             <div class="row">
                                 <div class="form-group col-md-4">
                                     <label for="">Street No & Name</label>
-                                    <input type="text" class="form-control" name="street_name_no">
+                                    <input type="text" class="form-control" name="street_name_no" required="">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="">Residence State </label>
-                                    <select id="r_state" style="width:100%;" name="r_state" data-required="true" class="form-control">
+                                    <select id="r_state" style="width:100%;" name="r_state" required="" class="form-control">
                                         <option value="">Select State</option>
                                         @foreach($states as $st)
                                         <option value="{{$st->id}}">{{$st->state}}</option>
@@ -228,7 +266,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-3">
                                         <label for="">Qualification </label>
-                                        <select class="form-control" id="" style="width:100%;" name="qualification" data-required="true">
+                                        <select class="form-control" id="" style="width:100%;" name="qualification" required="">
                                             <option value="">Select One</option>
                                             @foreach($quals as $qual)
                                             <option value="{{$qual->id}}">{{$qual->qualification_name}}</option>
@@ -237,7 +275,7 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="">Field of Study</label>
-                                        <select class="form-control" id="field_of_study" style="width:100%;" name="field_of_study" data-required="true">
+                                        <select class="form-control" id="field_of_study" style="width:100%;" name="field_of_study" required="">
                                             <option value="">Select One</option>
                                             @foreach($fos as $fos)
                                             <option value="{{$fos->id}}">{{$fos->fos_name}}</option>
@@ -247,7 +285,7 @@
 
                                     <div class="form-group col-md-5">
                                         <label for="">Course Studied</label>
-                                        <select class="form-control" id="sub_field_of_study" style="width:100%;" name="sub_field_of_study" data-required="true">
+                                        <select class="form-control" id="sub_field_of_study" style="width:100%;" name="sub_field_of_study" required="">
                                         
                                         <option value="1000">Other Course Specify</option>
                                         </select>  
@@ -263,7 +301,7 @@
 
                                     <div class="form-group col-md-4">
                                         <label for="">Institution</label>
-                                        <select class="form-control" name="school" data-required="true">
+                                        <select class="form-control" name="school" data-required="true" required="">
                                             <option value="">Select One</option>
                                             @foreach($schools as $schl)
                                             <option value="{{$schl->id}}">{{$schl->school_name}}</option>
@@ -297,12 +335,12 @@
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="">CGPA </label>
-                                        <input type="text" name="cgpa" class="form-control" placeholder="4.51">    
+                                        <input type="text" name="cgpa" class="form-control" placeholder="4.51" required="">    
                                     </div>
 
                                     <div class="form-group col-md-2">
                                         <label for="">Graduation Year</label>
-                                        <select name="year" id="select2-option" class="form-control">
+                                        <select name="year" id="select2-option" class="form-control" required="">
                                             <option value="">Year</option>
                                             @foreach($years as $yr)
                                             <option value="{{$yr}}">{{$yr}}</option>
@@ -310,10 +348,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="">Start Date </label>
+                                        <label for="">Start Date  Month</label>
                                         <div class="row">
                                             <div class="col-md-6">
-                                            <select name="sdtate_month" id="" class="form-control" required="" >
+                                            <select name="sdate_month" id="" class="form-control" required="" >
                                                 <option value="">Selecct Month</option>
                                                 <option value="1">January</option>
                                                 <option value="2">February</option>
@@ -330,7 +368,7 @@
                                             </select>
                                             </div>
                                             <div class="col-md-6">
-                                            <select name="sdtate_year" id="" class="form-control" required="" >
+                                            <select name="sdate_year" id="" class="form-control" required="" >
                                                 <option value="">Selecct Year</option>
                                                 @foreach($years as $yr)
                                                 <option value="{{$yr}}">{{$yr}}</option>
@@ -343,7 +381,7 @@
                                         <label for="">End Date </label>
                                         <div class="row">
                                             <div class="col-md-6">
-                                            <select name="edtate_month" id="" class="form-control" required="">
+                                            <select name="edate_month" id="" class="form-control" required="">
                                                 <option value="">Selecct Month</option>
                                                 <option value="1">January</option>
                                                 <option value="2">February</option>
@@ -360,7 +398,7 @@
                                             </select>
                                             </div>
                                             <div class="col-md-6">
-                                            <select name="edtate_year" id="" class="form-control" required="">
+                                            <select name="edate_year" id="" class="form-control" required="">
                                                 <option value="">Selecct Year</option>
                                                 @foreach($years as $yr)
                                                 <option value="{{$yr}}">{{$yr}}</option>
@@ -392,12 +430,12 @@
                                 <div class="row">
                                     <div class="form-group col-md-2">
                                         <label for="">Staff No.</label>
-                                        <input type="text" name="nounNo" id="nounNo" class="form-control" placeholder="NOUN/000001" value="NOUN/{{$uniqueID}}">    
+                                        <input type="text" name="nounNo" id="nounNo" class="form-control" placeholder="NOUN/000001" value="{{$uniqueID}}" required="">    
                                     </div>
 
                                     <div class="form-group col-md-4">
                                         <label for="">Branch/Study Center</label>
-                                        <select name="branch" id="branch" class="form-control">
+                                        <select name="branch" id="branch" class="form-control" required="">
                                             <option value="">Select Sudy Center</option>
                                             @foreach($branches as $branch)
                                             <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
@@ -406,14 +444,14 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="">Department</label>
-                                        <select name="dept" id="dept" class="form-control">
+                                        <select name="dept" id="dept" class="form-control" required="">
                                             
                                         </select>     
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label for="">Unit</label>
-                                        <select name="unit" id="unit" class="form-control">
+                                        <select name="unit" id="unit" class="form-control" required="">
                                             <option value="">Select Unit</option>
                                             @foreach($units as $unit)
                                             <option value="{{$unit->id}}">{{$unit->unit_name}}</option>
@@ -422,13 +460,19 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="">Designation</label>
-                                        <input type="text" name="rank" class="form-control" placeholder="Vice Chancellor" data-required="true">    
+                                        <select name="designation" id="" class="form-control" required="">
+                                            <option value="">Select Designation</option>
+                                            @foreach($designations as $desig)
+                                            <option value="{{$desig->id}}">{{$desig->title}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!-- <input type="text" name="rank" class="form-control" placeholder="Vice Chancellor" data-required="true">     -->
                                     </div>
 
 
                                     <div class="form-group col-md-3">
                                         <label for="">Salary Level</label>
-                                        <select name="salaryscale" id="" class="form-control">
+                                        <select name="salaryscale" id="" class="form-control" required="">
                                             <option value="">Select Scale</option>
                                             @foreach($salscale as $scale)
                                             <option value="{{$scale->id}}">{{$scale->scale}}</option>
@@ -443,7 +487,7 @@
 
                                     <div class="form-group col-md-3">
                                         <label for="">Nature of Appointment</label>
-                                        <select name="appointment" id="select2-option" class="form-control">
+                                        <select name="appointment" id="select2-option" class="form-control" required="">
                                             <option value="">Select Appointment Type</option>
                                             @foreach($status as $sts)
                                             <option value="{{$sts->id}}">{{$sts->name}}</option>

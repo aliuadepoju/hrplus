@@ -35,6 +35,7 @@ class PersonnelController extends Controller
         $param['myTeam'] = \App\NounInfo::where('department_id', '=', $param['person']->getNounInfos->department_id)->get();
         // dd($param['myTeam'], count($param['myTeam']));
         ActivityLog('Personnel Data', 'Personnel Data', \Auth::user()->surname. ' viewed '.$param['person']->surname.' the personal record' ,$_SERVER['REMOTE_ADDR']);
+        flash()->success('Welcome to '.$param['person']->surname. '\'s profile');
         return view('pim.profile', $param);
     }
 
@@ -53,7 +54,8 @@ class PersonnelController extends Controller
         $IP->save();  
 
         ActivityLog('Personnel Data', 'Deativate Personnel', \Auth::user()->surname. ' Deactivated '.$person->surname.'\'s data hence making them floating data & records' ,$_SERVER['REMOTE_ADDR']);
-        return redirect('/pim/employees');
+        flash()->success('You have successfully deactivates '.$person->surname. ' from the personnel record on the system');
+        return redirect()->back();
     }
 
 
@@ -81,24 +83,25 @@ class PersonnelController extends Controller
 
     public function register()
     {
-    	$param['states'] = \App\State::all();
-    	$param['lgas'] = \App\Lga::all();
+        $param['states'] = \App\State::all();
+        $param['lgas'] = \App\Lga::all();
         $param['status'] = \App\Status::all();
-    	$param['schools'] = \App\School::all();
-    	$param['quals'] = \App\Qualification::all();
-    	$param['salscale'] = \App\SalaryScale::all();
+        $param['schools'] = \App\School::all();
+        $param['quals'] = \App\Qualification::all();
+        $param['salscale'] = \App\SalaryScale::all();
         $param['depts'] = \App\Department::all();
-    	$param['branches'] = \App\Branch::all();
+        $param['branches'] = \App\Branch::all();
         $param['units'] = \App\Unit::all();
         $param['fos'] = \App\FieldOfStudy::all();
-    	$param['subfos'] = \App\SubFieldOfStudy::all();
+        $param['subfos'] = \App\SubFieldOfStudy::all();
+        $param['designations'] = \App\Designation::all();
 
-        $param['uniqueID'] = mt_rand(5, 43210);
+        $param['uniqueID'] = mt_rand(4, 9999);
 
-    	$sdate = 1981; //Start Year = defined year (1981)
-		$edate = date("Y"); //End Year = Current Year
-		$years = range ($sdate,$edate);
-		$param['years'] = $years;
+        $sdate = 1981; //Start Year = defined year (1981)
+        $edate = date("Y"); //End Year = Current Year
+        $years = range ($sdate,$edate);
+        $param['years'] = $years;
 
         $param['pageName'] = "Personnel Registration";
         return view('pim.reg2', $param);
@@ -108,24 +111,56 @@ class PersonnelController extends Controller
     public function doRegister()
     {
         $fD = Input::all();
+        // $uCode = mt_rand(4, 9999);
+        // dd($fD, $uCode);
+        $prsn = new \App\Personnel; //New Personnel Instance
+        $prsn->unique_id = $fD['nounNo'];
+        $prsn->title = $fD['title'];
+        $prsn->surname = $fD['surname'];
+        $prsn->first_name = $fD['first_name'];
+        $prsn->middle_name = $fD['middle_name'];
+        $prsn->phone_no = $fD['phone']; 
+        $prsn->alternate_phone_no = $fD['altPhone'];
+        $prsn->email = $fD['email'];
+        $prsn->gender = $fD['gender'];
+        $prsn->dob = \Carbon\Carbon::parse($fD['dob']);
+        $prsn->state_id = $fD['state'];
+        $prsn->lga_id = $fD['lga'];
+        $prsn->home_town = $fD['homeTown'];
+        $prsn->religion = $fD['religion'];
+        if ($fD['religion'] == 3) {
+            $prsn->religion_others = $fD['religion_others'];
+        } else {
+            $prsn->religion_others = null;
+        }
+        $prsn->status = 1;
+        $prsn->save(); // Save and end personnel's instance;
 
-        dd($fD);
-        
-        $prsn = new \App\Personnel;
+        $prsCnt = new \App\PersonnelContact;
+        $prsCnt->personnel_id = $prsn->id;
+        $prsCnt->street_name = $fD['nok_street_name_no'];
+        $prsCnt->state_id = $fD['r_state'];
+        $prsCnt->lga_id = $fD['r_lga'];
+        $prsCnt->locality = $fD['locality'];
+        $prsCnt->status = 1;
+        $prsCnt->save();
 
-        $prsnNOK = new \App\NextOfKin;
-
+        $prsnNOK = new \App\NextOfKin; //New Next of Kin Instance
         $prsnNOK->personnel_id = $prsn->id;
         $prsnNOK->relationship_id = $fD['nokRel'];
         $prsnNOK->full_names = $fD['nok_name'];
-        if ($dD['nokRel'] == 500) {
+        if ($fD['nokRel'] == 500) {
             $prsnNOK->relation_other_name = $fD['nok_other_name'];
         } else {
             $prsnNOK->relation_other_name = null;
         }
         $prsnNOK->phone_no = $fD['nok_phone'];
         $prsnNOK->gender = $fD['nokGender'];
-        $prsnNOK->residential_address = $fD['nok_res_address'];
+        $prsnNOK->dob = \Carbon\Carbon::parse($fD['nok_dob']);
+        $prsnNOK->street_name = $fD['nok_street_name_no'];
+        $prsnNOK->res_state_id = $fD['nok_r_state'];
+        $prsnNOK->res_lga_id = $fD['nok_r_lga'];
+        $prsnNOK->town = $fD['nok_locality'];
         $prsnNOK->status = 1;
         $prsnNOK->save(); //Save the Next of Kin's Data for this personnel
 
@@ -142,12 +177,68 @@ class PersonnelController extends Controller
                 $prsnFmD->spouse_phone_no = null;
             }
             $prsnFmD->status = 1;
-            $prsnFmD->save();
+            $prsnFmD->update();
 
         $prsnNounInfo = new \App\NounInfo;
-        
-        $prsnQualInfo = new \App\PersonnelQualificationInfo;
+        $prsnNounInfo->personnel_id = $prsn->id;
+        $prsnNounInfo->branch_id = $fD['branch'];
+        $prsnNounInfo->department_id = $fD['branch'];
+        $prsnNounInfo->unit_id = $fD['unit'];
+        $prsnNounInfo->rank = $fD['designation'];
+        $prsnNounInfo->salary_scale_id = $fD['salaryscale'];
+        $prsnNounInfo->date_of_entry = \Carbon\Carbon::parse($fD['doe']);
+        $prsnNounInfo->status_id = $fD['appointment'];
+        $prsnNounInfo->status = 1;
+        $prsnNounInfo->save();
 
+        $prsnQualInfo = new \App\PersonnelQualificationInfo;
+        $prsnQualInfo->personnel_id = $prsn->id;
+        $prsnQualInfo->qualification_id = $fD['qualification'];
+        $prsnQualInfo->field_of_study_id = $fD['field_of_study'];
+        $prsnQualInfo->sub_field_of_study_id = $fD['sub_field_of_study'];
+        $prsnQualInfo->course_other = $fD['course_other'];
+        $prsnQualInfo->school_id = $fD['school'];
+        if ($fD['school'] == 500) {
+            $prsnQualInfo->school_other_name = $fD['school_other'];
+        } else {
+            $prsnQualInfo->school_other_name = null;
+        }
+        $prsnQualInfo->class_of_degree = $fD['class_of_degree'];
+        $prsnQualInfo->scale_of_degree = $fD['scale_of_grade'];
+        $prsnQualInfo->cgpa = $fD['cgpa'];
+        $prsnQualInfo->year = $fD['year'];
+        $prsnQualInfo->start_date_m = $fD['sdate_month'];
+        $prsnQualInfo->start_date_y = $fD['sdate_year'];
+        $prsnQualInfo->end_date_m = $fD['edate_month'];
+        $prsnQualInfo->end_date_y = $fD['edate_year'];
+        $prsnQualInfo->status = 1;
+        $prsnQualInfo->save();
+
+    ActivityLog('Personnel Data', 'Added Personnel', \Auth::user()->surname. ' Added '.$fD['surname'].' '.$fD['first_name'].' '.$fD['middle_name'].'\'s data to the personnel records on the system' ,$_SERVER['REMOTE_ADDR']);
+    flash()->success('You have successfully added '.$fD['surname'].' '.$fD['first_name'].' '.$fD['middle_name']. ' to the personnel record on the system');
+    return redirect('/pim/employees/'.\Crypt::encrypt(5));
+
+    }
+
+    public function upadteNOK($id)
+    {
+        $prsnNOK = \App\NextOfKin::find($id);
+        $prsnNOK->personnel_id = $fD['personnel_id'];
+        $prsnNOK->relationship_id = $fD['nokRel'];
+        $prsnNOK->full_names = $fD['nok_name'];
+        if ($dD['nokRel'] == 500) {
+            $prsnNOK->relation_other_name = $fD['nok_other_name'];
+        } else {
+            $prsnNOK->relation_other_name = null;
+        }
+        $prsnNOK->phone_no = $fD['nok_phone'];
+        $prsnNOK->gender = $fD['nokGender'];
+        $prsnNOK->residential_address = $fD['nok_res_address'];
+        $prsnNOK->status = 1;
+        $prsnNOK->save(); //Save the Next of Kin's Data for this personnel
+        ActivityLog('Personnel Data', 'Changed Data', \Auth::user()->surname. ' changed '.$param['person']->surname.'\'s Study Center on at the personal record level' ,$_SERVER['REMOTE_ADDR']);
+
+        return redirect()->back();
     }
 
     public function uploadDocument()
@@ -188,7 +279,7 @@ class PersonnelController extends Controller
                 $fN = $doc->id.".png"; // New png File
               $file->move($destPath, $fN); //Move file to destination path 
         }
-    return redirect('pim/employees/document/one/'. $doc->id);
+    return redirect('pim/employees/document/one/'. \Crypt::encrypt($doc->id));
 
 
     }
@@ -234,7 +325,7 @@ class PersonnelController extends Controller
             $leave->status = 1;
             $leave->save();
 
-            return redirect('/pim/employees/data/1');
+            return redirect()->back();
     }
 
 
