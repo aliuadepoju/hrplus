@@ -44,7 +44,7 @@ class HomeController extends Controller
         $param['state'] = \App\Personnel::where('state_id', \App\State::find('id'));
         $param['states'] = \App\State::all();
         $param['MaxStateCount'] = \App\Personnel::join('states', 'personnels.state_id', '=', 'states.id')->groupBy('states.id')->get(['states.id', \DB::raw('count(personnels.id) as persons')]);//\App\Personnel::where('state_id', '$id')->get();
-        dd(count($param['MaxStateCount']));
+        // dd(count($param['MaxStateCount']));
         // foreach ($param['MaxStateCount'] as $key) {
         //      dd(count($key));
         //  } 
