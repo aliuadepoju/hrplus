@@ -5,10 +5,11 @@
         </div>
         <div class="panel-body">
         
-           <form action="<?php echo e(url('/pim/employees/data/nok_update')); ?>" method="post" role="form">
+           <form action="<?php echo e(url('/pim/employees/data/nok_update/'.\Crypt::encrypt(5))); ?>" method="post" role="form">
            <?php echo e(csrf_field()); ?>
 
            <input type="hidden" name="personnel_id" value="<?php echo e($person->id); ?>">
+           <input type="hidden" name="nok_id" value="<?php echo e(isset($person->getNOK) ? $person->getNOK->id : 'NA'); ?>">
           <div class="col-md-12">
             <div class="row">
               <div class="form-group col-md-4">
@@ -39,7 +40,7 @@
               </div>
               <div class="form-group col-md-2">
                   <label for="">Gender </label>
-                  <select name="nokRel" id="" class="form-control" required="" style="width: 100%;">
+                  <select name="nokGender" id="" class="form-control" required="" style="width: 100%;">
                      <option value="">Select Gender</option>  
                       <option value="1">Male</option>  
                       <option value="2">Female</option>  

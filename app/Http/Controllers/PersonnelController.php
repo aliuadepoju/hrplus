@@ -222,22 +222,27 @@ class PersonnelController extends Controller
 
     public function upadteNOK($id)
     {
-        $prsnNOK = \App\NextOfKin::find($id);
-        $prsnNOK->personnel_id = $fD['personnel_id'];
+        $fD = Input::all();
+        // $id = $fD['nok_id'];
+        $prsnNOK = \App\NextOfKin::find($fD['nok_id']);
         $prsnNOK->relationship_id = $fD['nokRel'];
         $prsnNOK->full_names = $fD['nok_name'];
-        if ($dD['nokRel'] == 500) {
+        if ($fD['nokRel'] == 500) {
             $prsnNOK->relation_other_name = $fD['nok_other_name'];
         } else {
             $prsnNOK->relation_other_name = null;
         }
         $prsnNOK->phone_no = $fD['nok_phone'];
         $prsnNOK->gender = $fD['nokGender'];
-        $prsnNOK->residential_address = $fD['nok_res_address'];
+        $prsnNOK->dob = \Carbon\Carbon::parse($fD['nok_dob']);
+        $prsnNOK->street_name = $fD['nok_street_name_no'];
+        $prsnNOK->res_state_id = $fD['nok_r_state'];
+        $prsnNOK->res_lga_id = $fD['nok_r_lga'];
+        $prsnNOK->town = $fD['nok_locality'];
         $prsnNOK->status = 1;
         $prsnNOK->save(); //Save the Next of Kin's Data for this personnel
-        ActivityLog('Personnel Data', 'Changed Data', \Auth::user()->surname. ' changed '.$param['person']->surname.'\'s Study Center on at the personal record level' ,$_SERVER['REMOTE_ADDR']);
-
+    ActivityLog('Personnel Data', 'Changed Data', \Auth::user()->surname. ' changed '.$prsnNOK->full_names.'\'s Next of Kin\'s data on the system' ,$_SERVER['REMOTE_ADDR']);
+    flash()->success('You have successfully updated Next of Kin\'s dtata on the system on the system');
         return redirect()->back();
     }
 
