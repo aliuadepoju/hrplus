@@ -44,7 +44,7 @@
                         <?php $__currentLoopData = $branches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $branch): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                             <tr>
                                 <td><?php echo e($sn); ?></td>
-                                <td width="42%"><a href="<?php echo e(url('/branches/data/'.$branch->id)); ?>" class="link"> <?php echo e($branch->branch_name); ?></a></td>
+                                <td width="42%"><a href="<?php echo e(url('/branches/data/'.\Crypt::encrypt($branch->id))); ?>" class="link"> <?php echo e($branch->branch_name); ?></a></td>
                                 <td width="28%"><?php echo e($branch->getState->state); ?></td>
                                 <td align="center"><?php echo e(number_format($branch->NounInfos->count(), 0)); ?></td>
                                 <td align="center"><?php echo e(number_format(count($branch)/$branch->NounInfos->count() *100, 2)); ?> %</td>

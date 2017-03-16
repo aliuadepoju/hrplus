@@ -43,9 +43,9 @@
                             <hr>
                             <div class="text-uc text-sm text-muted" align="center">
 	                        	@if($user->status == 1)
-	                            <span class="label bg-primary">  Active</span>
+	                            <span class="label bg-primary dker">  Active</span>
 	                            @else
-	                            <span class="label bg-danger"></i> Inactive</span>
+	                            <span class="label bg-danger dker"></i> Inactive</span>
 	                            @endif
                             <hr>
                             </div>

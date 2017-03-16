@@ -47,7 +47,7 @@
                         @foreach($branches as $branch)
                             <tr>
                                 <td>{{$sn}}</td>
-                                <td width="42%"><a href="{{url('/branches/data/'.$branch->id)}}" class="link"> {{$branch->branch_name}}</a></td>
+                                <td width="42%"><a href="{{url('/branches/data/'.\Crypt::encrypt($branch->id))}}" class="link"> {{$branch->branch_name}}</a></td>
                                 <td width="28%">{{$branch->getState->state}}</td>
                                 <td align="center">{{number_format($branch->NounInfos->count(), 0)}}</td>
                                 <td align="center">{{number_format(count($branch)/$branch->NounInfos->count() *100, 2)}} %</td>
