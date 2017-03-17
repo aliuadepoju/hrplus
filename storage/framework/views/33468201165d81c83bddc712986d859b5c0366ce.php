@@ -33,7 +33,7 @@
 	        </header>
 	        <div class="panel-body">
 	            <div class="table-responsive">
-	                <table class="table m-b-none" data-ride="datatables" >
+	                <table class="table m-b-none" data-ride="myTable" id="myTable" >
 	                    <thead>
 	                        <tr>
 	                            <th>S/N</th>
@@ -61,7 +61,7 @@
 	                    		<td><?php echo e($prsn->email); ?></td>
 	                    		<td><?php echo e($prsn->getState->state); ?></td>
 	                    		<td><?php echo e(isset($prsn->getLga) ? $prsn->getLga->lga_name : "Not set"); ?></td>
-	                    		<td><?php echo e($prsn->scale); ?></td>
+	                    		<td><?php echo e(isset($prsn->getNounInfos->getScale) ? $prsn->getNounInfos->getScale->scale: "Not Set"); ?></td>
 	                    	</tr>
 	                    <?php $sn++;?>
 	                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>

@@ -120,14 +120,15 @@
 
             <?php
                 $totalStaff = \App\Personnel::all(); 
-                $male = \App\Personnel::where('gender', '=', 1)->get(); $female = \App\Personnel::where('gender', '=', 2)->get();
+                $male = \App\Personnel::where('gender', '=', 1)->get(); 
+                $female = \App\Personnel::where('gender', '=', 2)->get();
                 $seniorStaff = \App\NounInfo::where('salary_scale_id', '<=', 20)->get();
                 $juniorStaff = \App\NounInfo::where('salary_scale_id', '>=', 20)->get();
                 $fullTimeStaff = \App\NounInfo::where('status_id', '=', 1);
                 $partTimeStaff = \App\NounInfo::where('status_id', '=', 6)->get();
-                $acadStaff = \App\NounInfo::where('status_id', '!=', 6)->get();
-                $nonAcadStaff = \App\NounInfo::where('status_id', '=', 6)->get();
-                $transientStaff = \App\NounInfo::where('status_id', '=', 3)->orWhere('status_id', '=', 4)->orWhere('status_id', '=', 5)->orWhere('status_id', '=', 6)->orWhere('status_id', '=', 7)->orWhere('status_id', '=', 8)->orWhere('status_id', '=', 9)->get();
+                $acadStaff = \App\NounInfo::where('status_id', '=', 2)->orwhere('status_id', '=', 64)->get();
+                $nonAcadStaff = \App\NounInfo::where('status_id', '!=', 6)->get();
+                $transientStaff = \App\NounInfo::where('status_id', '!=', 1);//->orWhere('status_id', '=', 4)->orWhere('status_id', '=', 5)->orWhere('status_id', '=', 6)->orWhere('status_id', '=', 7)->orWhere('status_id', '=', 8)->orWhere('status_id', '=', 9)->get();
                 ?>
             <!-- <div class="panel panel-success">
                 <div class="panel-heading">
@@ -148,7 +149,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Total</td>
+                            <td>Total Employee</td>
                             <td><?php echo e(number_format($totalStaff->count(), 0)); ?></td>
                             <td><?php echo e(number_format(count($totalStaff)/count($totalStaff) * 100, 0)); ?>%</td>
                         </tr>
@@ -158,20 +159,20 @@
                                 <td><?php echo e(number_format(count($acadStaff)/count($totalStaff) * 100, 2)); ?>%</td>
                             </tr>
                             <tr>
-                                <td>Non Acad. </td>
-                                <td><?php echo e(number_format($nonAcadStaff->count(), 0)); ?></td>
-                                <td><?php echo e(number_format(count($nonAcadStaff)/count($totalStaff) * 100, 2)); ?>%</td>
-                            </tr>
-                            <!-- <tr>
-                                <td>Senior </td>
+                                <td>Senior Non Acad. </td>
                                 <td><?php echo e(number_format($seniorStaff->count(), 0)); ?></td>
                                 <td><?php echo e(number_format(count($seniorStaff)/count($totalStaff) * 100, 2)); ?>%</td>
                             </tr>
                             <tr>
-                                <td>Junior </td>
+                                <td>Junior Non Acad.</td>
                                 <td><?php echo e(number_format($juniorStaff->count(), 0)); ?></td>
                                 <td><?php echo e(number_format(count($juniorStaff)/count($totalStaff) * 100, 2)); ?>%</td>
-                            </tr> -->
+                            </tr>
+                            <tr>
+                                <td>Total </td>
+                                <td><?php echo e(number_format($nonAcadStaff->count(), 0)); ?></td>
+                                <td><?php echo e(number_format(count($nonAcadStaff)/count($totalStaff) * 100, 2)); ?>%</td>
+                            </tr>
                             <tr>
                                 <td>Retiring <br><small> This year</small></td>
                                 <td>3</td>

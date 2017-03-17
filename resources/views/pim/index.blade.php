@@ -35,7 +35,7 @@
 	        </header>
 	        <div class="panel-body">
 	            <div class="table-responsive">
-	                <table class="table m-b-none" data-ride="datatables" >
+	                <table class="table table m-b-none" data-ride="datatables">
 	                    <thead>
 	                        <tr>
 	                            <th>S/N</th>
@@ -63,7 +63,7 @@
 	                    		<td>{{$prsn->email}}</td>
 	                    		<td>{{$prsn->getState->state}}</td>
 	                    		<td>{{isset($prsn->getLga) ? $prsn->getLga->lga_name : "Not set"}}</td>
-	                    		<td>{{$prsn->scale}}</td>
+	                    		<td>{{isset($prsn->getNounInfos->getScale) ? $prsn->getNounInfos->getScale->scale: "Not Set"}}</td>
 	                    	</tr>
 	                    <?php $sn++;?>
 	                    @endforeach

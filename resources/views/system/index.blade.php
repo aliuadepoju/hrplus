@@ -48,7 +48,7 @@
 								<!-- <p align="justify">Your licence(s) data are detailed below: </p> -->
 								<div class="table-responsive">
 								@if(count($license)> 0)
-									<table class="table">
+				                    <table class="table table m-b-none" data-ride="datatables" id="datatables">
 										<thead>
 											<tr>
 												<th>#</th>
@@ -120,7 +120,7 @@
 								<br>
 								<div class="table-responsive">
 								@if(count($tickets) > 0)
-									<table class="table">
+									<table class="table" id="myTable">
 										<thead>
 				                            <tr>
 				                                <th>#</th>

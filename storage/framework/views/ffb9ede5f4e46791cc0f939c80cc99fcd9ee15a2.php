@@ -33,7 +33,7 @@
                         <option value="5">Parent</option>  
                         <option value="500">Others (Specify)</option> 
                   </select>
-                  <div class="" id="nok_other">
+                  <div class="" id="nok_rel_other">
                       <label for="">Other Relationship</label>
                       <input type="text" name="nok_other_name" class="form-control" value="<?php echo e(isset($person->getNOK) ? $person->getNOK->relation_other_name : 'NA'); ?>" >    
                   </div>

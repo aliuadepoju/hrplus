@@ -58,9 +58,9 @@ class HomeController extends Controller
         $param['juniorStaff'] = \App\NounInfo::where('salary_scale_id', '>=', 20)->get();
         $param['fullTimeStaff'] = \App\NounInfo::where('status_id', '=', 1);
         $param['partTimeStaff'] = \App\NounInfo::where('status_id', '=', 6)->get();
-        $param['acadStaff'] = \App\NounInfo::where('status_id', '=', 6)->get();
-        $param['nonAcadStaff'] = \App\NounInfo::where('status_id', '=', 6)->get();
-        $param['transientStaff'] = \App\NounInfo::where('status_id', '=', 3)->orWhere('status_id', '=', 4)->orWhere('status_id', '=', 5)->orWhere('status_id', '=', 6)->orWhere('status_id', '=', 7)->orWhere('status_id', '=', 8)->orWhere('status_id', '=', 9)->get();
+        $param['acadStaff'] = \App\NounInfo::whereBetween('salary_scale_id', [1, 64])->get();
+        $param['nonAcadStaff'] = \App\NounInfo::whereBetween('salary_scale_id', [65, 259])->get();
+        $param['transientStaff'] = \App\NounInfo::where('status_id', '>', 1)->get();
 
 
         $param['pageName'] = "Integrated Dashboard";

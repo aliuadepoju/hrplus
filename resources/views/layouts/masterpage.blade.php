@@ -150,10 +150,8 @@
     <script src="{{asset('incs/js/datepicker/bootstrap-datepicker.js')}}"></script>
      <!-- datatables -->
     <script src="{{asset('incs/js/datatables/jquery.dataTables.min.js')}}"></script>
-    <!-- <script src="{{asset('incs/js/datatables/demo.js')}}"></script> -->
-    <script type="text/javascript" src="{{asset('incs/js/jquery.datatables/bootstrap-adapter/js/datatables.js')}}"></script>
-    <script type="text/javascript" src="{{asset('incs/js/jquery.datatables/jquery.datatables.min.js')}}"></script>
-
+    <!-- <script src="{{asset('incs/js/datatables/datatable.js')}}"></script> -->
+    
     <!-- Flot chart from Main HRPlus -->
     <!-- <script src="{{asset('incs/js/flot-chart/jquery.flot.js')}}"></script>
     <script src="{{asset('incs/js/flot-chart/jquery.flot.categories.js')}}"></script>
@@ -164,7 +162,19 @@
     <script src="{{asset('incs/js/flot-chart/jquery.flot.stack.js')}}"></script>
     <script src="{{asset('incs/js/flot-chart/jquery.flot.spline.js')}}"></script> -->
     
-
+    <script type="text/javascript">
+        $(document).ready(function(){
+        $('#datatables').DataTable();
+        $('#myTable').DataTable();
+        $('#myTable1').DataTable();
+        $('#myTable2').DataTable();
+        $('#myTable3').DataTable();
+        $('#myTable4').DataTable();
+        $('#myTable5').DataTable();
+        $('#myTable6').DataTable();
+        $('#myTable7').DataTable();
+        });
+    </script>
     <!-- Page Script  -->
          <?php
             $states = \App\State::all(); 

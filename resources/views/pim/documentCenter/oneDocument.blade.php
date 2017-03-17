@@ -19,13 +19,12 @@
                                     <div class="clearfix  m-t">
                                         <div class="inline">
                                             <div class="thumb-lg"> 
-                                            <?php $fpath = public_path().'/incs/images/personnel/'.$doc->getPersonnel->id.'.jpg' ;?>
+                                            <?php $fpath = public_path().'/incs/images/personnel/'.$doc->getPersonnel->id.'.png' ;?>
 		                                    @if (file_exists($fpath))
-		                                        <img src="{{asset('incs/images/personnel/'.$doc->getPersonnel->id.'.jpg')}}" class="img-circle"> 
+		                                        <img src="{{asset('incs/images/personnel/'.$doc->getPersonnel->id.'.png')}}" class="img-circle"> 
 		                                    @else
 		                                        <img src="{{asset('incs/images/personnel/no-pic.jpg')}}" class="img-circle"> 
 		                                    @endif
-                                            	<!-- <img src="{{asset('incs/images/hr_logobig.png')}}" class="">  -->
                                             </div>
 											<hr>
                                             <div class="h4 m-t m-b-xs">{{$doc->getPersonnel->surname .' '.$doc->getPersonnel->first_name.' '.$doc->getPersonnel->middle_name}}</div> 

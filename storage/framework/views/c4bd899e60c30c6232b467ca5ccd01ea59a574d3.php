@@ -23,12 +23,12 @@
                                        <div class="row">
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-graduation fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>700</strong></span> <small class="text-muted text-uc">Academic Staff</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($acadStaff->count(),0)); ?></strong></span> <small class="text-muted text-uc">Academic Staff</small> </a>
                                                 </div>
                                            </div>
                                            <div class="col-md-6 text-center">
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>2,083</strong></span> <small class="text-muted text-uc">Non Academic Staff</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($nonAcadStaff->count(),0)); ?></strong></span> <small class="text-muted text-uc">Non Academic Staff</small> </a>
                                                 </div>
                                            </div>
                                        </div> 
@@ -38,14 +38,14 @@
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
                                                     <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
-                                                    <?php echo e(number_format($seniorStaff->count())); ?>
+                                                    <?php echo e(number_format($seniorStaff->count(),0)); ?>
 
                                                     </strong></span> <small class="text-muted text-uc">Senior Staff</small> </a>
                                                 </div>
                                            </div>
                                            <div class="col-md-6 text-center">
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($juniorStaff->count())); ?></strong></span> <small class="text-muted text-uc">Junior Staff</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($juniorStaff->count(),0)); ?></strong></span> <small class="text-muted text-uc">Junior Staff</small> </a>
                                                 </div>
                                            </div>
                                        </div>
@@ -54,12 +54,12 @@
                                         <div class="row">
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($fullTimeStaff->count())); ?></strong></span> <small class="text-muted text-uc">Full Time Employment</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($fullTimeStaff->count(),0)); ?></strong></span> <small class="text-muted text-uc">Full Time Employment</small> </a>
                                                 </div>
                                            </div>
                                            <div class="col-md-6 text-center">
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($transientStaff->count())); ?></strong></span> <small class="text-muted text-uc">Transient Staff</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($transientStaff->count(),0)); ?></strong></span> <small class="text-muted text-uc">Transient Staff</small> </a>
                                                 </div>
                                            </div>
                                        </div>
@@ -129,7 +129,7 @@
                             </section>
 
                             <section class="panel panel-warning">
-                            <header class="panel-heading"> <h4> State Employment Distribution </h4><small>Drill Down of Employee Distribution from each State</small></header>
+                            <header class="panel-heading"> <h4> State of Origin Distribution </h4><small>Drill Down of Employee Distribution from each State</small></header>
                                 <div class="table-responsive">
                                 <h3></h3>
                                     <table class="table">

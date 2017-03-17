@@ -30,7 +30,7 @@
 	        <div class="panel-body">
 	            <div class="table-responsive">
 	            @if(count($tickets) > 0)
-	                <table class="table m-b-none" data-ride="datatables" >
+	                <table class="table m-b-none" data-ride="datatables" id="datatables" >
 	                    <thead>
 	                        <tr>
 	                           <th>#</th>

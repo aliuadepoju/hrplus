@@ -35,7 +35,7 @@
                     <!-- footer -->
                     <footer id="footer" class="col-md-offset-0">
                         <div class="text-center padder">
-                            <p> <small>National Open University of Nigerian <br>&copy; {{date('Y')}}</small> All rights reserved. </p>
+                            <p> <small>National Open University of Nigeria <br>&copy; {{date('Y')}}</small> All rights reserved. </p>
                         </div>
                     </footer>
                 </form>

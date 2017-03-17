@@ -17,13 +17,12 @@
                                     <div class="clearfix  m-t">
                                         <div class="inline">
                                             <div class="thumb-lg"> 
-                                            <?php $fpath = public_path().'/incs/images/personnel/'.$doc->getPersonnel->id.'.jpg' ;?>
+                                            <?php $fpath = public_path().'/incs/images/personnel/'.$doc->getPersonnel->id.'.png' ;?>
 		                                    <?php if(file_exists($fpath)): ?>
-		                                        <img src="<?php echo e(asset('incs/images/personnel/'.$doc->getPersonnel->id.'.jpg')); ?>" class="img-circle"> 
+		                                        <img src="<?php echo e(asset('incs/images/personnel/'.$doc->getPersonnel->id.'.png')); ?>" class="img-circle"> 
 		                                    <?php else: ?>
 		                                        <img src="<?php echo e(asset('incs/images/personnel/no-pic.jpg')); ?>" class="img-circle"> 
 		                                    <?php endif; ?>
-                                            	<!-- <img src="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" class="">  -->
                                             </div>
 											<hr>
                                             <div class="h4 m-t m-b-xs"><?php echo e($doc->getPersonnel->surname .' '.$doc->getPersonnel->first_name.' '.$doc->getPersonnel->middle_name); ?></div> 

@@ -30,7 +30,7 @@
             </header>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table" data-ride="datatables">
+                    <table class="table table" data-ride="myTable1" id="myTable1">
                         <thead>
                             <tr>
                                 <th>S/N</th>
@@ -51,7 +51,7 @@
                                 <td width="">{{$state->code}}</td>
                                 <td width=""><a href="{{url('/state/data/'.\Crypt::encrypt($state->id))}}" class="link"> {{$state->state}}</a></td>
                                 <td align="">{{$state->getZone->zone_name}}</td>
-                                <td align="center">{{$state->getPersonnel->count()}}</td>
+                                <td align="center">{{$state->getPersonnel->count()}} out of ... </td>
                                 <td align="center">{{number_format(($state->getPersonnel->count()/$state->count())*100/100, 2)}}%</td>
                                 <td align="center">{{number_format($state->getBranches->count(), 0)}}</td>
                                 <td align="center">{{number_format($state->getBranches->count()/$branch->count()*100, 2)}}%</td>
