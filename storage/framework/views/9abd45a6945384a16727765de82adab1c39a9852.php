@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="">First Name</label>
-                                    <input type="text" name="first_name" class="form-control" placeholder="First Name" required="">    
+                                    <input type="text" name="first_name" class="form-control" placeholder="First Name" data-required="true">    
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -68,7 +68,7 @@
                             <div class="row">
                                 <div class="form-group col-md-2">
                                     <label for="">Phone Number</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="08012345678" required="" pattern="(0)([7,8,9])([0,1])(\d{8})">    
+                                    <input type="text" name="phone" class="form-control" placeholder="08012345678" data-required="true" pattern="(0)([7,8,9])([0,1])(\d{8})">    
                                 </div>
 
                                 <div class="form-group col-md-2">
@@ -78,7 +78,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label for="">e-Mail</label>
-                                    <input type="email" name="email" class="form-control" placeholder="you@noun.edu.ng" required="">    
+                                    <input type="email" name="email" class="form-control" placeholder="you@noun.edu.ng" data-required="true">    
                                 </div>
 
                                 <div class="form-group col-md-2">

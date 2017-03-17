@@ -13,7 +13,9 @@ class DocumentController extends Controller
 
     public function docCenter()
     {
-        $param['personnel'] = \App\Personnel::all();
+        // $param['personnel'] = \App\Personnel::all();
+        $param['personnel'] = \App\Personnel::all()->take(27);
+        $param['docs'] = \App\Document::all();
         $param['docClass'] = \App\DocumentClassification::all();
         $param['pageName'] = "Personnel Document Center";
         return view('pim.documentCenter.index', $param);

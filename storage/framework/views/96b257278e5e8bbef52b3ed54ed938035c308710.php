@@ -6,7 +6,6 @@
     <header class="header bg-white b-b b-light">
         <p>Document Centers <small>(Personnel)</small> 
             <p class="pull-right"> Total Personnel: <?php echo e(number_format(count(\App\Personnel::all()),0)); ?> &emsp; Total Documents: <?php echo e(number_format(count(\App\Document::all()),0)); ?> </p>
-            }
         </p>
     </header>
     <section class="scrollable wrapper">
@@ -18,18 +17,25 @@
                         <section class="panel panel-default">
                            <a href=""> 
                            <?php if($person->getNOUNInfos->status_id ==1): ?>
-                           <header class="panel-heading bg-success lt no-border">
+                           <header class="panel-heading bg-primary dker no-border">
                             <?php elseif($person->getNOUNInfos->status_id ==2): ?>
-                           <header class="panel-heading bg-primary lt no-border">
+                           <header class="panel-heading bg-primary dker no-border">
                             <?php elseif($person->getNOUNInfos->status_id ==3): ?>
                            <header class="panel-heading bg-warning lt no-border">
                             <?php else: ?>
                            <header class="panel-heading bg-danger lt no-border">
                            <?php endif; ?>
                                 <div class="clearfix">
-                                    <a href="#" class="pull-left thumb avatar b-3x m-r"> <img src="<?php echo e(asset('incs/images/personnel/'.$person->id.'.jpg')); ?>" class="img-circle"> </a>
+                                    <a href="#" class="pull-left thumb avatar b-3x m-r"> 
+                                        <?php $fpath = public_path().'/incs/images/personnel/'.$person->id.'.png' ;?>
+                                    <?php if(file_exists($fpath)): ?>
+                                        <img src="<?php echo e(asset('incs/images/personnel/'.$person->id.'.png')); ?>" class="img-circle" style="height: 70px; width: 90px;"> 
+                                    <?php else: ?>
+                                        <img src="<?php echo e(asset('incs/images/personnel/no-pic.jpg')); ?>" class="img-circle"> 
+                                    <?php endif; ?>
+                                    </a>
                                     <div class="clear">
-                                        <div class="h4 m-t-xs m-b-xs text-white"><a href="<?php echo e(url('/pim/employees/data/'.$person->id)); ?>"><?php echo e($person->title .' '.$person->surname.' '. $person->middle_name .' '.$person->first_name); ?> <i class="fa fa-eye text-white pull-right text-xs m-t-sm"> </i></a>  </div> <small class="text-muted"><?php echo e($person->getNOUNInfos->rank); ?></small> </div>
+                                        <div class="h4 m-t-xs m-b-xs text-white"><a href="<?php echo e(url('/pim/employees/data/'.\Crypt::encrypt($person->id))); ?>"><?php echo e($person->title .' '.$person->surname.' '. $person->middle_name .' '.$person->first_name); ?> <i class="fa fa-eye text-white pull-right text-xs m-t-sm"> </i></a>  </div> <small class="text-muted"><?php echo e($person->getNOUNInfos->rank); ?></small> </div>
                                 </div>
                             </header></a>
                             <div class="list-group no-radius alt">

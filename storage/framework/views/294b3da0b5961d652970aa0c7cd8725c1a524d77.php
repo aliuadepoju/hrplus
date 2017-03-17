@@ -41,7 +41,9 @@
                 <label for="" class="text-xs">Person responsible for duties during absence <small>(If Applicable)</small></label>
                 <select name="personInAbsence" id="select2-option" style="width: 100%;">
                     <?php $__currentLoopData = $myTeam; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $team): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-                    <option value=""><?php echo e($team->personnels); ?></option>
+                        <?php $__currentLoopData = $team->personnels; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tP): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                        <option value="<?php echo e($tP->id); ?>"><?php echo e($tP->surname .' '.$tP->first_name. ' '.$tP->middle_name); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                 </select>
                 <!-- <input name="tLeaves" class="form-control text-center" readonly="" type="text" value="<?php echo e($person->getLeaves->count()); ?>" align="center"> -->

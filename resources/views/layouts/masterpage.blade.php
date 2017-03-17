@@ -127,13 +127,13 @@
     <!-- Easy Pie Chart --> 
     <script src="{{asset('incs/js/charts/easypiechart/jquery.easy-pie-chart.js')}}"></script> 
     <!-- Flot --> 
-    <script src="{{asset('incs/js/charts/flot/jquery.flot.min.js')}}"></script> 
+   <!--  <script src="{{asset('incs/js/charts/flot/jquery.flot.min.js')}}"></script> 
     <script src="{{asset('incs/js/charts/flot/jquery.flot.tooltip.min.js')}}"></script> 
     <script src="{{asset('incs/js/charts/flot/jquery.flot.resize.js')}}"></script> 
     <script src="{{asset('incs/js/charts/flot/jquery.flot.orderBars.js')}}"></script> 
     <script src="{{asset('incs/js/charts/flot/jquery.flot.pie.min.js')}}"></script> 
     <script src="{{asset('incs/js/charts/flot/jquery.flot.grow.js')}}"></script> 
-    <script src="{{asset('incs/js/charts/flot/demo.js')}}"></script>
+    <script src="{{asset('incs/js/charts/flot/demo.js')}}"></script> -->
 
     <!-- fuelux -->
     <script src="{{asset('incs/js/fuelux/fuelux.js')}}"></script>
@@ -155,14 +155,14 @@
     <script type="text/javascript" src="{{asset('incs/js/jquery.datatables/jquery.datatables.min.js')}}"></script>
 
     <!-- Flot chart from Main HRPlus -->
-    <script src="{{asset('incs/js/flot-chart/jquery.flot.js')}}"></script>
+    <!-- <script src="{{asset('incs/js/flot-chart/jquery.flot.js')}}"></script>
     <script src="{{asset('incs/js/flot-chart/jquery.flot.categories.js')}}"></script>
     <script src="{{asset('incs/js/flot-chart/jquery.flot.pie.js')}}"></script>
     <script src="{{asset('incs/js/flot-chart/jquery.flot.tooltip.js')}}"></script>
     <script src="{{asset('incs/js/flot-chart/jquery.flot.resize.js')}}"></script>
     <script src="{{asset('incs/js/flot-chart/jquery.flot.fillbetween.js')}}"></script>
     <script src="{{asset('incs/js/flot-chart/jquery.flot.stack.js')}}"></script>
-    <script src="{{asset('incs/js/flot-chart/jquery.flot.spline.js')}}"></script>
+    <script src="{{asset('incs/js/flot-chart/jquery.flot.spline.js')}}"></script> -->
     
 
     <!-- Page Script  -->
@@ -195,7 +195,7 @@
         $("#course_other").hide();
         $("#religion_others").hide();
         $("#mStat").hide();
-        $("#nok_other").hide();
+        $("#nok_rel_other").hide();
         $("#dateRange").hide();
 
         function doAutoNumber(argument) {
@@ -312,10 +312,10 @@
          $("select[name=nokRel]").on("change", function() {
             var nokRel = this.value;
             if (nokRel == 500){
-                $("#nok_other").show();
+                $("#nok_rel_other").show();
             }
             else{
-               $("#nok_other").hide();
+               $("#nok_rel_other").hide();
             }
         });
 
@@ -394,76 +394,76 @@
 <!--BEGIN JAVASCRIPT-->
 
 <script>
-    var d7_1 = [0];
-    var d7_2 = [0];
-    $.plot('#pie-chart', [{
-        data: d7_1,
-        label: "Male",
-        color: "#3DB9D3"
-    },
-        {
-            data: d7_2,
-            label: "Female",
-            color: "#ffce54"
-        }], {
-        series: {
-            pie: {
-                show: true,
-                radius: 1,
-                label: {
-                    show: true,
-                    radius: 3/4,
-                    background: {
-                        opacity: 0.5,
-                        color: '#000'
-                    }
-                }
-            }
-        }
-    });
+    // var d7_1 = [0];
+    // var d7_2 = [0];
+    // $.plot('#pie-chart', [{
+    //     data: d7_1,
+    //     label: "Male",
+    //     color: "#3DB9D3"
+    // },
+    //     {
+    //         data: d7_2,
+    //         label: "Female",
+    //         color: "#ffce54"
+    //     }], {
+    //     series: {
+    //         pie: {
+    //             show: true,
+    //             radius: 1,
+    //             label: {
+    //                 show: true,
+    //                 radius: 3/4,
+    //                 background: {
+    //                     opacity: 0.5,
+    //                     color: '#000'
+    //                 }
+    //             }
+    //         }
+    //     }
+    // });
 </script>
 
 <script>
-    var d4_1 = [["Fulltime", 0],["Temporary", 0],["Contract", 0],["Visit Prof", 0],["Sabbatical", 0],["Part-Time", 0],["Visit Lec", 0]];
-    var d4_2 = [["Fulltime", 0],["Temporary", 0],["Contract", 0],["Visit Prof", 0],["Sabbatical", 0],["Part-Time", 0],["Visit Lec", 0]];
-    $.plot("#bar-chart-stack", [{
-        data: d4_1,
-        label: "Male",
-        color: "#07bf29"
-    },{
-        data: d4_2,
-        label: "Female",
-        color: "#ffc107"
-    }], {
-        series: {
-            stack: !0,
-            bars: {
-                align: "center",
-                lineWidth: 0,
-                show: !0,
-                barWidth: .6,
-                fill: .9
-            }
-        },
-        grid: {
-            borderColor: "#fafafa",
-            borderWidth: 1,
-            hoverable: !0
-        },
-        tooltip: !0,
-        tooltipOpts: {
-            content: "%x : %y",
-            defaultTheme: false
-        },
-        xaxis: {
-            tickColor: "#fafafa",
-            mode: "categories"
-        },
-        yaxis: {
-            tickColor: "#fafafa"
-        },
-        shadowSize: 0
-    });
+    // var d4_1 = [["Fulltime", 0],["Temporary", 0],["Contract", 0],["Visit Prof", 0],["Sabbatical", 0],["Part-Time", 0],["Visit Lec", 0]];
+    // var d4_2 = [["Fulltime", 0],["Temporary", 0],["Contract", 0],["Visit Prof", 0],["Sabbatical", 0],["Part-Time", 0],["Visit Lec", 0]];
+    // $.plot("#bar-chart-stack", [{
+    //     data: d4_1,
+    //     label: "Male",
+    //     color: "#07bf29"
+    // },{
+    //     data: d4_2,
+    //     label: "Female",
+    //     color: "#ffc107"
+    // }], {
+    //     series: {
+    //         stack: !0,
+    //         bars: {
+    //             align: "center",
+    //             lineWidth: 0,
+    //             show: !0,
+    //             barWidth: .6,
+    //             fill: .9
+    //         }
+    //     },
+    //     grid: {
+    //         borderColor: "#fafafa",
+    //         borderWidth: 1,
+    //         hoverable: !0
+    //     },
+    //     tooltip: !0,
+    //     tooltipOpts: {
+    //         content: "%x : %y",
+    //         defaultTheme: false
+    //     },
+    //     xaxis: {
+    //         tickColor: "#fafafa",
+    //         mode: "categories"
+    //     },
+    //     yaxis: {
+    //         tickColor: "#fafafa"
+    //     },
+    //     shadowSize: 0
+    // });
 
 </script>
 </body>

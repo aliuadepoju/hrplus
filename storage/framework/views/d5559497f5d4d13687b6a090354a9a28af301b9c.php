@@ -21,11 +21,11 @@
 
                         <li>
                             <a href="<?php echo e(url('/home/noun')); ?>"> <i class="fa fa-angle-right"></i> <span>Organizational</span> </a>
-                        </li>
+                        </li>-->
 
                         <li>
-                            <a href="<?php echo e(url('/home/users')); ?>"> <i class="fa fa-angle-right"></i> <span>Users</span> </a>
-                        </li> -->
+                            <a href="<?php echo e(url('/pim/distribution/states/'.\Crypt::encrypt($xcode))); ?>"> <i class="fa fa-angle-right"></i> <span>States</span> </a>
+                        </li> 
                     </ul>
                 </li>
                 <?php endif; ?>

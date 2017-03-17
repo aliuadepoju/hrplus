@@ -11,6 +11,12 @@ class State extends Model
     	return $this->hasMany('\App\Personnel', 'state_id', 'id');
     }
 
+    public function staffInState()
+    {
+        return $this->getPersonnel()->where('state_id', '!=', $this->id);
+        // $stInSt = \App\NounInfo::where('state_id', $this->id);
+    }
+
     public function maxEmployee()
     {
         $mEmp = \App\Personnel::where('state_id', $this->id)->groupBy('state_id')->orderBy('state_id', 'DESC')->get();
@@ -37,7 +43,7 @@ class State extends Model
 
     public function getBranches()
     {
-    	return $this->hasMany('\App\Branch', 'state_id', 'id');
+        return $this->hasMany('\App\Branch', 'state_id', 'id');
     }
 
     public function getLgas()
@@ -47,7 +53,7 @@ class State extends Model
 
     public function getProfs()
     {
-        # code...
+        return $this->getPersonnel()->where('title', '=', 1)->get();
     }
 
     public function getProfsInState()
@@ -93,6 +99,11 @@ class State extends Model
     public function getSSCEInState()
     {
         # code...
+    }
+
+    public function getZone()
+    {
+        return $this->belongsTo('\App\GeoPolZone', 'zone_id', 'id');
     }
 
 

@@ -87,14 +87,14 @@
                         <section class="panel">
                             <header class="panel-heading font-bold">Gender Distribution</header>
                             <div class="panel-body">
-                                <div id="pie-chart" style="width: 100%; height:300px"></div>
+                                <div id="" style="width: 100%; height:300px"></div>
                             </div>
                         </section>
 
                         <section class="panel ">
                             <header class="panel-heading font-bold">Status Distribution</header>
                             <div class="panel-body">
-                                <div id="bar-chart-stack" style="width: 100%; height:300px"></div>
+                                <div id="" style="width: 100%; height:300px"></div>
                             </div>
                         </section>
                         <section class="panel panel-info">
@@ -147,10 +147,10 @@
                                             <?php $__currentLoopData = $states; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                 <tr>
                                                     <td><?php echo e($n); ?></td>
-                                                    <td width="35%"><a href=""><?php echo e($state->state); ?></a></td>
+                                                    <td width="35%"><a href="<?php echo e(url('/state/data/'.\Crypt::encrypt($state->id))); ?>"><?php echo e($state->state); ?></a></td>
                                                     <td align="center"><?php echo e($state->getPersonnel->count()); ?></td>
                                                     <td align="center"><?php echo e($state->getBranches->count()); ?></td>
-                                                    <td align="center"><?php echo e(number_format(($state->getPersonnel->count()/$state->count())*100/100, 2)); ?>%</td>
+                                                    <td align="center"><?php echo e(@number_format(($state->getPersonnel->count()/$state->count())*100/100, 2)); ?>%</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>
@@ -187,7 +187,7 @@
                                                 <?php echo e(count($st->getPersonnel)); ?>
 
                                                 </td>
-                                                <td align="center"><?php echo e(number_format(($st->getPersonnel->count()/count($st) * 100)/100, 2)); ?> %</td>
+                                                <td align="center"><?php echo e(@number_format(($st->getPersonnel->count()/count($st) * 100)/100, 2)); ?> %</td>
                                                 <td><a href="" class="btn btn-success btn-xs ">View More</a></td>
                                             </tr>
                                             
@@ -211,7 +211,7 @@
                                                 <td><?php echo e($n); ?></td>
                                                 <td><?php echo e($st->state); ?></td>
                                                 <td align="center"><?php echo e($st->getPersonnel->count()); ?></td>
-                                                <td align="center"><?php echo e(number_format(count($st)/$st->getPersonnel->count() * 100,2)); ?> %</td>
+                                                <td align="center"><?php echo e(@number_format(count($st)/$st->getPersonnel->count() * 100,2)); ?> %</td>
                                                 <td><a href="" class="btn btn-success btn-xs ">View More</a></td>
                                             </tr>
                                             
@@ -243,7 +243,7 @@
                                                     <td><?php echo e($n); ?></td>
                                                     <td><a href="<?php echo e(url('/branches/data/'.$branch->id)); ?>"><?php echo e($branch->branch_name); ?></a></td>
                                                     <td align="center"><?php echo e($branch->getStaff->count()); ?></td>
-                                                    <td align="center"><?php echo e(number_format(count($branch)/$branch->getStaff->count()*100, 2)); ?> %</td>
+                                                    <td align="center"><?php echo e(@number_format(count($branch)/$branch->getStaff->count()*100, 2)); ?> %</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>

@@ -88,14 +88,14 @@
                         <section class="panel">
                             <header class="panel-heading font-bold">Gender Distribution</header>
                             <div class="panel-body">
-                                <div id="pie-chart" style="width: 100%; height:300px"></div>
+                                <div id="" style="width: 100%; height:300px"></div>
                             </div>
                         </section>
 
                         <section class="panel ">
                             <header class="panel-heading font-bold">Status Distribution</header>
                             <div class="panel-body">
-                                <div id="bar-chart-stack" style="width: 100%; height:300px"></div>
+                                <div id="" style="width: 100%; height:300px"></div>
                             </div>
                         </section>
                         <section class="panel panel-info">
@@ -148,10 +148,10 @@
                                             @foreach($states as $state)
                                                 <tr>
                                                     <td>{{$n}}</td>
-                                                    <td width="35%"><a href="">{{$state->state}}</a></td>
+                                                    <td width="35%"><a href="{{url('/state/data/'.\Crypt::encrypt($state->id))}}">{{$state->state}}</a></td>
                                                     <td align="center">{{$state->getPersonnel->count()}}</td>
                                                     <td align="center">{{$state->getBranches->count()}}</td>
-                                                    <td align="center">{{number_format(($state->getPersonnel->count()/$state->count())*100/100, 2)}}%</td>
+                                                    <td align="center">{{@number_format(($state->getPersonnel->count()/$state->count())*100/100, 2)}}%</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>
@@ -187,7 +187,7 @@
                                                 <td align="center">
                                                 {{count($st->getPersonnel)}}
                                                 </td>
-                                                <td align="center">{{number_format(($st->getPersonnel->count()/count($st) * 100)/100, 2)}} %</td>
+                                                <td align="center">{{@number_format(($st->getPersonnel->count()/count($st) * 100)/100, 2)}} %</td>
                                                 <td><a href="" class="btn btn-success btn-xs ">View More</a></td>
                                             </tr>
                                             
@@ -211,7 +211,7 @@
                                                 <td>{{$n}}</td>
                                                 <td>{{$st->state}}</td>
                                                 <td align="center">{{$st->getPersonnel->count()}}</td>
-                                                <td align="center">{{number_format(count($st)/$st->getPersonnel->count() * 100,2)}} %</td>
+                                                <td align="center">{{@number_format(count($st)/$st->getPersonnel->count() * 100,2)}} %</td>
                                                 <td><a href="" class="btn btn-success btn-xs ">View More</a></td>
                                             </tr>
                                             
@@ -243,7 +243,7 @@
                                                     <td>{{$n}}</td>
                                                     <td><a href="{{url('/branches/data/'.$branch->id)}}">{{$branch->branch_name}}</a></td>
                                                     <td align="center">{{$branch->getStaff->count()}}</td>
-                                                    <td align="center">{{number_format(count($branch)/$branch->getStaff->count()*100, 2)}} %</td>
+                                                    <td align="center">{{@number_format(count($branch)/$branch->getStaff->count()*100, 2)}} %</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>

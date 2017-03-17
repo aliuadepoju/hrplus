@@ -8,14 +8,14 @@
 <section class="vbox">
     
     <header class="header bg-white b-b b-light">
-        <p><?php echo e($person->surname); ?>'s profile 
+        <p><?php echo e($person->surname.' '.$person->first_name .' '.$person->middle_name); ?>'s profile 
             <div class="pull-right">
             <br>
                 <div class="btn-group">
                     <button class="btn btn-warning btn-xs btn-flat ">Personnel Actions</button>
                     <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a class="" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="collapseExample">Edit Records</a></li>
+                        <li><a class="" data-toggle="collapse" data-target="#edit" aria-expanded="false" aria-controls="collapseExample">Edit Records</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#cCenter" aria-expanded="false" aria-controls="collapseExample">Change Study Center</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#lga" aria-expanded="false" aria-controls="collapseExample">Change LGA</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#suspend" aria-expanded="false" aria-controls="collapseExample">Suspend Personnel</a></li>
@@ -29,7 +29,13 @@
                 <button class="btn btn-xs btn-dark" type="button" data-toggle="collapse" data-target="#sms" aria-expanded="false" aria-controls="collapseExample"> <i class="fa fa-envelope-o"> </i> Send SMS</button>
 
                 <a href="#" class="btn btn-info btn-xs"> <i class="fa fa-user"></i> My Appraisal </a> 
-                <button class="btn btn-info btn-xs" data-toggle="collapse" data-target="#leavesform" aria-expanded="false" aria-controls="collapseExample">Leave Form</button> <br>
+                
+                <button class="btn btn-info btn-xs" data-toggle="collapse" data-target="#leavesform" aria-expanded="false" aria-controls="collapseExample">Leave Form</button>
+                 <?php $fpath = public_path().'/incs/images/personnel/'.$person->id.'.png' ;?>
+                <?php if(!file_exists($fpath)): ?>
+                    <button class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#uploadImage" aria-expanded="false" aria-controls="collapseExample">Change Image</button>
+                <?php endif; ?>
+                 <br>
 
             </div>
         </p>
@@ -39,12 +45,20 @@
             <aside class="aside-lg bg-light lter b-r">
                 <section class="vbox">
                     <section class="panel panel-default">
-                        <header class="panel-heading bg-primary lt no-border">
+                    <?php if($person->status == 1): ?>
+                        <header class="panel-heading bg-primary dker no-border">
+                    <?php elseif($person->status == 2): ?>
+                        <header class="panel-heading bg-info dk no-border">
+                    <?php elseif($person->status == 3): ?>
+                        <header class="panel-heading bg-warning dk no-border">
+                    <?php else: ?>
+                        <header class="panel-heading bg-danger dk no-border">
+                    <?php endif; ?>
                             <div class="clearfix">
                                 <a href="#" class="pull-left thumb avatar b-3x m-r"> 
-                                <?php $fpath = public_path().'/incs/images/personnel/'.$person->id.'.jpg' ;?>
+                                
                                     <?php if(file_exists($fpath)): ?>
-                                        <img src="<?php echo e(asset('incs/images/personnel/'.$person->id.'.jpg')); ?>" class="img-circle"> 
+                                        <img src="<?php echo e(asset('incs/images/personnel/'.$person->id.'.png')); ?>" class="img-circle"> 
                                     <?php else: ?>
                                         <img src="<?php echo e(asset('incs/images/personnel/no-pic.jpg')); ?>" class="img-circle"> 
                                     <?php endif; ?>
@@ -110,13 +124,19 @@
                 <div class="row collapse" id="suspend">
                     <?php echo $__env->make('pim.options.disablePerson', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 </div>
+                <div class="row collapse" id="edit">
+                    <?php echo $__env->make('pim.options.edit', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                </div>
+                <div class="row collapse" id="uploadImage">
+                    <?php echo $__env->make('pim.options.uploadImage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                </div>
              <!-- Page Options  -->
              <!-- /Page Options -->
              <section class="panel col-md-12">
                 <div class="col-md-10">
                     <section class="panel ">
                         <div class="panel-body" style="height: ; width: ">
-                        <p class="h5 "><b>Rank:</b> <br> <?php echo e($person->getNounInfos->rank); ?> </p> <br>
+                        <p class="h5 "><b>Rank:</b> <br> <?php echo e($person->getNounInfos->rank); ?>  &emsp;&emsp;&emsp;&emsp;&emsp; <b>Salary Scale: &emsp;&emsp; <?php echo e(isset($person->getNounInfos->getScale)? $person->getNounInfos->getScale->scale : "Not set"); ?></b></p> <br>
                         <p class="h5 "> <b>Study Center: </b><br><?php echo e($person->getNounInfos->getBranch->branch_name); ?></p>
                         </div>
                     </section>

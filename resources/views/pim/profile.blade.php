@@ -10,14 +10,14 @@
 <section class="vbox">
     
     <header class="header bg-white b-b b-light">
-        <p>{{$person->surname}}'s profile 
+        <p>{{$person->surname.' '.$person->first_name .' '.$person->middle_name}}'s profile 
             <div class="pull-right">
             <br>
                 <div class="btn-group">
                     <button class="btn btn-warning btn-xs btn-flat ">Personnel Actions</button>
                     <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a class="" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="collapseExample">Edit Records</a></li>
+                        <li><a class="" data-toggle="collapse" data-target="#edit" aria-expanded="false" aria-controls="collapseExample">Edit Records</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#cCenter" aria-expanded="false" aria-controls="collapseExample">Change Study Center</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#lga" aria-expanded="false" aria-controls="collapseExample">Change LGA</a></li>
                         <li><a class="" data-toggle="collapse" data-target="#suspend" aria-expanded="false" aria-controls="collapseExample">Suspend Personnel</a></li>
@@ -31,7 +31,13 @@
                 <button class="btn btn-xs btn-dark" type="button" data-toggle="collapse" data-target="#sms" aria-expanded="false" aria-controls="collapseExample"> <i class="fa fa-envelope-o"> </i> Send SMS</button>
 
                 <a href="#" class="btn btn-info btn-xs"> <i class="fa fa-user"></i> My Appraisal </a> 
-                <button class="btn btn-info btn-xs" data-toggle="collapse" data-target="#leavesform" aria-expanded="false" aria-controls="collapseExample">Leave Form</button> <br>
+                
+                <button class="btn btn-info btn-xs" data-toggle="collapse" data-target="#leavesform" aria-expanded="false" aria-controls="collapseExample">Leave Form</button>
+                 <?php $fpath = public_path().'/incs/images/personnel/'.$person->id.'.png' ;?>
+                @if(!file_exists($fpath))
+                    <button class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#uploadImage" aria-expanded="false" aria-controls="collapseExample">Change Image</button>
+                @endif
+                 <br>
 
             </div>
         </p>
@@ -41,12 +47,20 @@
             <aside class="aside-lg bg-light lter b-r">
                 <section class="vbox">
                     <section class="panel panel-default">
-                        <header class="panel-heading bg-primary lt no-border">
+                    @if($person->status == 1)
+                        <header class="panel-heading bg-primary dker no-border">
+                    @elseif($person->status == 2)
+                        <header class="panel-heading bg-info dk no-border">
+                    @elseif($person->status == 3)
+                        <header class="panel-heading bg-warning dk no-border">
+                    @else
+                        <header class="panel-heading bg-danger dk no-border">
+                    @endif
                             <div class="clearfix">
                                 <a href="#" class="pull-left thumb avatar b-3x m-r"> 
-                                <?php $fpath = public_path().'/incs/images/personnel/'.$person->id.'.jpg' ;?>
+                                
                                     @if (file_exists($fpath))
-                                        <img src="{{asset('incs/images/personnel/'.$person->id.'.jpg')}}" class="img-circle"> 
+                                        <img src="{{asset('incs/images/personnel/'.$person->id.'.png')}}" class="img-circle"> 
                                     @else
                                         <img src="{{asset('incs/images/personnel/no-pic.jpg')}}" class="img-circle"> 
                                     @endif
@@ -111,13 +125,19 @@
                 <div class="row collapse" id="suspend">
                     @include('pim.options.disablePerson')
                 </div>
+                <div class="row collapse" id="edit">
+                    @include('pim.options.edit')
+                </div>
+                <div class="row collapse" id="uploadImage">
+                    @include('pim.options.uploadImage')
+                </div>
              <!-- Page Options  -->
              <!-- /Page Options -->
              <section class="panel col-md-12">
                 <div class="col-md-10">
                     <section class="panel ">
                         <div class="panel-body" style="height: ; width: ">
-                        <p class="h5 "><b>Rank:</b> <br> {{$person->getNounInfos->rank}} </p> <br>
+                        <p class="h5 "><b>Rank:</b> <br> {{$person->getNounInfos->rank}}  &emsp;&emsp;&emsp;&emsp;&emsp; <b>Salary Scale: &emsp;&emsp; {{isset($person->getNounInfos->getScale)? $person->getNounInfos->getScale->scale : "Not set"}}</b></p> <br>
                         <p class="h5 "> <b>Study Center: </b><br>{{$person->getNounInfos->getBranch->branch_name}}</p>
                         </div>
                     </section>

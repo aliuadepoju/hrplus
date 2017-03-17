@@ -112,4 +112,7 @@ return [
 
     'sendmail' => '/usr/sbin/sendmail -bs',
 
+    'pretend' => env('MAIL_PRETEND', false),
+
+
 ];

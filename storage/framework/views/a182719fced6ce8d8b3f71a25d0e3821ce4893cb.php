@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>National Open University of Nigeria -  Welcome</title>
-    <link rel="stylesheet" href="{{asset('incs/css/emailtemplate.css')}}" type="text/css" />
+    <link rel="stylesheet" href="<?php echo e(asset('incs/css/emailtemplate.css')); ?>" type="text/css" />
 </head>
 
 <body bgcolor="#f7f9fa">
@@ -20,7 +20,7 @@
                 <table>
                     <tr>
                         <div class="" align="right">
-                            <img src="{{asset('incs/images/hr_logobig.png')}}" alt="" style="height: 50px; width: 50px; " align="center">
+                            <img src="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" alt="" style="height: 50px; width: 50px; " align="center">
                             <p class="" align="right">NATIONAL OPEN UNIVERISY OF NIGERIA <br> Learn & Work</p> 
                            <!-- ? <h5 align="center">PERSONNEL RECORDS</h5> -->
                         </div>
@@ -38,7 +38,7 @@
                                 </tr>
                             </table> -->
                             <p>If you get this email by error please ignore it at once. </p>
-                            <!-- <p><a href="#">Follow @email_template on Twitter</a></p> -->
+                            <!-- <p><a href="#">Follow @email_template  on Twitter</a></p> -->
                         </td>
 
                     </tr>
@@ -49,7 +49,7 @@
                         <br>Aliu Alima, F (Mrs.)
                         <br> HR Manager</td>
                         <td>
-                            <img src="{{asset('incs/images/hr_logobig.png')}}" alt="" style="height: 30px; width: 30px; opacity: .1;" align="center">
+                            <img src="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" alt="" style="height: 30px; width: 30px; opacity: .1;" align="center">
                         </td>
                     </tr>
                 </table>

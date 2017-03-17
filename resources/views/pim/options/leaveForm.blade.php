@@ -40,7 +40,9 @@
                 <label for="" class="text-xs">Person responsible for duties during absence <small>(If Applicable)</small></label>
                 <select name="personInAbsence" id="select2-option" style="width: 100%;">
                     @foreach($myTeam as $team)
-                    <option value="">{{$team->personnels}}</option>
+                        @foreach($team->personnels as $tP)
+                        <option value="{{$tP->id}}">{{$tP->surname .' '.$tP->first_name. ' '.$tP->middle_name}}</option>
+                        @endforeach
                     @endforeach
                 </select>
                 <!-- <input name="tLeaves" class="form-control text-center" readonly="" type="text" value="{{$person->getLeaves->count()}}" align="center"> -->

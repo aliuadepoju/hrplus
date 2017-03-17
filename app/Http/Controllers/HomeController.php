@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\State;
 use Illuminate\Database\Eloquent\Model;
+use App\Mail\Welcome;
+use Illuminate\Support\Facades\Mail;
 
 
 class HomeController extends Controller
@@ -40,7 +42,7 @@ class HomeController extends Controller
 
         $param['personnel'] = \App\Personnel::all();
         $param['depts'] = \App\Department::all();
-        $param['branches'] = \App\Branch::where('status', '1')->orderBy('branch_name', 'ASC')->get();
+        $param['branches'] = \App\Branch::where('status', '!=', '')->orderBy('branch_name', 'ASC')->get();
         $param['state'] = \App\Personnel::where('state_id', \App\State::find('id'));
         $param['states'] = \App\State::all();
         $param['MaxStateCount'] = \App\Personnel::join('states', 'personnels.state_id', '=', 'states.id')->groupBy('states.id')->get(['states.id', \DB::raw('count(personnels.id) as persons')]);//\App\Personnel::where('state_id', '$id')->get();
@@ -92,5 +94,29 @@ class HomeController extends Controller
     //     'text' => 'Test message from the Nexmo PHP Client'
     // ]);
     }
+
+    public function states()
+    {
+        $param['states'] = \App\State::all();
+        $param['branch'] = \App\Branch::all();
+        $param['pageName'] = "States Dashboard";
+
+        ActivityLog('States', 'Viewed States Dashboard', \Auth::user()->surname.' viewed states dashboard',$_SERVER['REMOTE_ADDR']);
+        return view('states.index', $param);
+    }
+
+    public function oneState($id)
+    {
+        $id = \Crypt::decrypt($id);
+        $param['state'] = \App\State::find($id);
+        ActivityLog('State Data', 'State Data', \Auth::user()->surname. ' viewed '.$param['state']->state.' state and all its related record' ,$_SERVER['REMOTE_ADDR']);
+        flash()->success('Welcome to '.$param['state']->state. ' state\'s profile');
+        return view('states.oneState', $param);
+    }
+
+    // public function domail($event)
+    // {
+    //     Mail::to('gesumayor@gmail.com')->send(new Welcome());
+    // }
 
 }

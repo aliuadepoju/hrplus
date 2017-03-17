@@ -48,7 +48,9 @@ Auth::routes();
 
 
 // Route::get('/home', 'HomeController@index');
-
+// State Distributions
+Route::get('/pim/distribution/states/{id?}', ['uses'=>'HomeController@states', 'as'=>'states', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management']);
+Route::get('/state/data/{id?}', ['uses'=>'HomeController@oneState', 'as'=>'o_states', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management']);
 // Route::get('/pim/employees', array('uses' => 'PersonnelController@personnel', 'as'=>'personnel'));
 Route::get('/pim/employees/{id?}', ['uses'=>'PersonnelController@personnel', 'as'=>'personnel', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management|center-cordinator|report-only']);
 
@@ -142,3 +144,7 @@ Route::post('/system/tickets/{id?}/close', array('uses'=>'SystemController@close
 // Route::post('/system/tickets/edit/{id?}', array('uses'=>'SystemController@editTicket', 'as'=>'editticket' ));
 Route::get('/system/ticket/new', array('uses'=>'SystemController@newticket', 'as'=>'nticket' ));
 Route::post('/system/tickets/new', array('uses'=>'SystemController@createticket', 'as'=>'createticket' ));
+
+
+
+// Route::get('/sendmail', array('uses'=>'HomeController@domail', 'as'=>'mail' ));

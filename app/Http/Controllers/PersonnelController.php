@@ -35,7 +35,7 @@ class PersonnelController extends Controller
         $param['myTeam'] = \App\NounInfo::where('department_id', '=', $param['person']->getNounInfos->department_id)->get();
         // dd($param['myTeam'], count($param['myTeam']));
         ActivityLog('Personnel Data', 'Personnel Data', \Auth::user()->surname. ' viewed '.$param['person']->surname.' the personal record' ,$_SERVER['REMOTE_ADDR']);
-        flash()->success('Welcome to '.$param['person']->surname. '\'s profile');
+        flash()->success('Welcome to '.$param['person']->surname. ' '.$param['person']->first_name. ' '.$param['person']->middle_name. '\'s profile');
         return view('pim.profile', $param);
     }
 
@@ -224,26 +224,52 @@ class PersonnelController extends Controller
     {
         $fD = Input::all();
         // $id = $fD['nok_id'];
-        $prsnNOK = \App\NextOfKin::find($fD['nok_id']);
-        $prsnNOK->relationship_id = $fD['nokRel'];
-        $prsnNOK->full_names = $fD['nok_name'];
-        if ($fD['nokRel'] == 500) {
-            $prsnNOK->relation_other_name = $fD['nok_other_name'];
-        } else {
-            $prsnNOK->relation_other_name = null;
-        }
-        $prsnNOK->phone_no = $fD['nok_phone'];
-        $prsnNOK->gender = $fD['nokGender'];
-        $prsnNOK->dob = \Carbon\Carbon::parse($fD['nok_dob']);
-        $prsnNOK->street_name = $fD['nok_street_name_no'];
-        $prsnNOK->res_state_id = $fD['nok_r_state'];
-        $prsnNOK->res_lga_id = $fD['nok_r_lga'];
-        $prsnNOK->town = $fD['nok_locality'];
-        $prsnNOK->status = 1;
-        $prsnNOK->save(); //Save the Next of Kin's Data for this personnel
-    ActivityLog('Personnel Data', 'Changed Data', \Auth::user()->surname. ' changed '.$prsnNOK->full_names.'\'s Next of Kin\'s data on the system' ,$_SERVER['REMOTE_ADDR']);
-    flash()->success('You have successfully updated Next of Kin\'s dtata on the system on the system');
-        return redirect()->back();
+        // if(isset($fD['personnel_id']->getNOK)) {
+            // dd($fD['personnel_id']);
+            $prsnNOK = \App\NextOfKin::find($fD['nok_id']);
+            $prsnNOK->personnel_id = $fD['personnel_id'];
+            $prsnNOK->relationship_id = $fD['nokRel'];
+            $prsnNOK->full_names = $fD['nok_name'];
+            if ($fD['nokRel'] == 500) {
+                $prsnNOK->relation_other_name = $fD['nok_other_name'];
+            } else {
+                $prsnNOK->relation_other_name = null;
+            }
+            $prsnNOK->phone_no = $fD['nok_phone'];
+            $prsnNOK->gender = $fD['nokGender'];
+            $prsnNOK->dob = \Carbon\Carbon::parse($fD['nok_dob']);
+            $prsnNOK->street_name = $fD['nok_street_name_no'];
+            $prsnNOK->res_state_id = $fD['nok_r_state'];
+            $prsnNOK->res_lga_id = $fD['nok_r_lga'];
+            $prsnNOK->town = $fD['nok_locality'];
+            $prsnNOK->status = 1;
+            $prsnNOK->update(); //Save the Next of Kin's Data for this personnel
+        ActivityLog('Personnel Data', 'Changed Data', \Auth::user()->surname. ' changed '.$prsnNOK->full_names.'\'s Next of Kin\'s data on the system' ,$_SERVER['REMOTE_ADDR']);
+        flash()->success('You have successfully updated Next of Kin\'s dtata on the system on the system');
+            return redirect()->back();    
+        // } else {
+        //     $prsnNOK = new \App\NextOfKin;
+        //     $prsnNOK->personnel_id = $fD['personnel_id'];
+        //     $prsnNOK->relationship_id = $fD['nokRel'];
+        //     $prsnNOK->full_names = $fD['nok_name'];
+        //     if ($fD['nokRel'] == 500) {
+        //         $prsnNOK->relation_other_name = $fD['nok_other_name'];
+        //     } else {
+        //         $prsnNOK->relation_other_name = null;
+        //     }
+        //     $prsnNOK->phone_no = $fD['nok_phone'];
+        //     $prsnNOK->gender = $fD['nokGender'];
+        //     $prsnNOK->dob = \Carbon\Carbon::parse($fD['nok_dob']);
+        //     $prsnNOK->street_name = $fD['nok_street_name_no'];
+        //     $prsnNOK->res_state_id = $fD['nok_r_state'];
+        //     $prsnNOK->res_lga_id = $fD['nok_r_lga'];
+        //     $prsnNOK->town = $fD['nok_locality'];
+        //     $prsnNOK->status = 1;
+        //     $prsnNOK->save(); //Save the Next of Kin's Data for this personnel
+        //     ActivityLog('Personnel Data', 'Changed Data', \Auth::user()->surname. ' changed '.$prsnNOK->full_names.'\'s Next of Kin\'s data on the system' ,$_SERVER['REMOTE_ADDR']);
+        //     flash()->success('You have successfully updated Next of Kin\'s dtata on the system on the system');
+        //         return redirect()->back();
+        // }
     }
 
     public function uploadDocument()
@@ -322,12 +348,13 @@ class PersonnelController extends Controller
             $leave->unique_code = implode($uCode);
             $leave->personnel_id = 1;
             $leave->leave_type_id = $ldata['lType'];
-            dd($leave);
             $leave->start_date = $ldata['drdfpl'];
             $leave->end_date = $ldata['drdfpl'];
             $leave->description = $ldata['description'];
 
             $leave->status = 1;
+     
+            dd($leave);
             $leave->save();
 
             return redirect()->back();
