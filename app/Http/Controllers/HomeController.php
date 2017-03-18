@@ -61,8 +61,7 @@ class HomeController extends Controller
         $param['Hstates'] = DB::select("SELECT state_id, state, count(distinct personnels.unique_id) as Nos from Personnels, states s where s.id = personnels.state_id group by state_id order by Nos  desc LIMIT 5");
         $param['Lstates'] = DB::select("SELECT state_id, state, count(distinct personnels.unique_id) as Nos from Personnels, states s where s.id = personnels.state_id group by state_id order by Nos asc LIMIT 5");
 
-        $param['jS'] = 
-        // \DB::select('unique_id as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2')->distinct()->get(['salary_scale_id']);
+        // $param['jS'] = \DB::select('unique_id as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2')->distinct()->get(['salary_scale_id']);
         // dd($param['jS']);
         //SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2
         // dd($param['juniorStaff']);
