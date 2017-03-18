@@ -66,10 +66,9 @@ class HomeController extends Controller
         //SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2
         // dd($param['juniorStaff']);
         $param['fullTimeStaff'] = \App\NounInfo::where('status_id', '=', 1);
-        $param['partTimeStaff'] = \App\NounInfo::where('status_id', '=', 6)->get();
+        $param['partTimeStaff'] = \App\NounInfo::where('status_id', '!=', 1)->get();
         $param['acadStaff'] = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 1  LIMIT 1");
         $param['nonAcadStaff'] = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 2  LIMIT 1");
-        // dd($param['nonAcadStaff']);
 
         $param['transientStaff'] = \App\NounInfo::where('status_id', '>', 1)->get();
 
