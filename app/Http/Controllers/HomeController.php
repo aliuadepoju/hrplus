@@ -1,5 +1,16 @@
 <?php
 
+/*
+Project: Humna Resources Management Software - NOUN HR-Plus
+File Name: Home Controller 
+Description: Dashboard and Report functionalities.
+Author: Umoru Godfrey, E. 
+Address: Natview Technology, Abuja Nigeria
+godfrey.umoru@natviewtechnology.com
+Date Created: 29th January, 2017.
+*/
+
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,6 +18,7 @@ use \App\State;
 use Illuminate\Database\Eloquent\Model;
 use App\Mail\Welcome;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 
 class HomeController extends Controller
@@ -38,28 +50,28 @@ class HomeController extends Controller
     
     public function index()
     {
-        $sId = array(1, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 37);
-
         $param['personnel'] = \App\Personnel::all();
         $param['depts'] = \App\Department::all();
         $param['branches'] = \App\Branch::where('status', '!=', '')->orderBy('branch_name', 'ASC')->get();
-        $param['state'] = \App\Personnel::where('state_id', \App\State::find('id'));
         $param['states'] = \App\State::all();
-        $param['MaxStateCount'] = \App\Personnel::join('states', 'personnels.state_id', '=', 'states.id')->groupBy('states.id')->get(['states.id', \DB::raw('count(personnels.id) as persons')]);//\App\Personnel::where('state_id', '$id')->get();
-        // dd(count($param['MaxStateCount']));
-        // foreach ($param['MaxStateCount'] as $key) {
-        //      dd(count($key));
-        //  } 
-        $param['Lstates'] = \App\State::all()->take(5);
-        $param['Hstates'] =  State::all()->take(5);
         $param['male'] = \App\Personnel::where('gender', '=', 1)->get();
         $param['female'] = \App\Personnel::where('gender', '=', 2)->get();
         $param['seniorStaff'] = \App\NounInfo::where('salary_scale_id', '<=', 20)->get();
-        $param['juniorStaff'] = \App\NounInfo::where('salary_scale_id', '>=', 20)->get();
+        $param['juniorStaff'] = \App\NounInfo::whereBetween('salary_scale_id', [185, 259])->get(); 
+        $param['Hstates'] = DB::select("SELECT state_id, state, count(distinct personnels.unique_id) as Nos from Personnels, states s where s.id = personnels.state_id group by state_id order by Nos  desc LIMIT 5");
+        $param['Lstates'] = DB::select("SELECT state_id, state, count(distinct personnels.unique_id) as Nos from Personnels, states s where s.id = personnels.state_id group by state_id order by Nos asc LIMIT 5");
+
+        $param['jS'] = 
+        // \DB::select('unique_id as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2')->distinct()->get(['salary_scale_id']);
+        // dd($param['jS']);
+        //SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2
+        // dd($param['juniorStaff']);
         $param['fullTimeStaff'] = \App\NounInfo::where('status_id', '=', 1);
         $param['partTimeStaff'] = \App\NounInfo::where('status_id', '=', 6)->get();
-        $param['acadStaff'] = \App\NounInfo::whereBetween('salary_scale_id', [1, 64])->get();
-        $param['nonAcadStaff'] = \App\NounInfo::whereBetween('salary_scale_id', [65, 259])->get();
+        $param['acadStaff'] = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 1  LIMIT 1");
+        $param['nonAcadStaff'] = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 2  LIMIT 1");
+        // dd($param['nonAcadStaff']);
+
         $param['transientStaff'] = \App\NounInfo::where('status_id', '>', 1)->get();
 
 

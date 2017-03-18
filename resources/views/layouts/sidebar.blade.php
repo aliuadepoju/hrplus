@@ -126,8 +126,8 @@
                 $juniorStaff = \App\NounInfo::where('salary_scale_id', '>=', 20)->get();
                 $fullTimeStaff = \App\NounInfo::where('status_id', '=', 1);
                 $partTimeStaff = \App\NounInfo::where('status_id', '=', 6)->get();
-                $acadStaff = \App\NounInfo::whereBetween('salary_scale_id', [1, 64])->get();
-                $nonAcadStaff = \App\NounInfo::whereBetween('salary_scale_id', [65, 259])->get();
+                $acadStaff = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 1  LIMIT 1");
+                $nonAcadStaff = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 2  LIMIT 1");
                 $transientStaff = \App\NounInfo::where('status_id', '!=', 1);//->orWhere('status_id', '=', 4)->orWhere('status_id', '=', 5)->orWhere('status_id', '=', 6)->orWhere('status_id', '=', 7)->orWhere('status_id', '=', 8)->orWhere('status_id', '=', 9)->get();
                 ?>
             <!-- <div class="panel panel-success">
@@ -155,8 +155,10 @@
                         </tr>
                             <tr>
                                 <td>Academics</td>
-                                <td>{{number_format($acadStaff->count(), 0)}}</td>
-                                <td>{{number_format(count($acadStaff)/count($totalStaff) * 100, 2)}}%</td>
+                                @foreach($acadStaff as $ACST)
+                                <td>{{number_format($ACST->Nos, 0)}}</td>
+                                <td>{{number_format(count($ACST)/count($totalStaff) * 100, 2)}}%</td>
+                                @endforeach
                             </tr>
                             <tr>
                                 <td>Senior Non Acad. </td>
@@ -170,8 +172,10 @@
                             </tr>
                             <tr>
                                 <td>Total </td>
-                                <td>{{number_format($nonAcadStaff->count(), 0)}}</td>
+                               
+                                <td>{{number_format($juniorStaff->count() + $seniorStaff->count(), 0)}}</td>
                                 <td>{{number_format(count($nonAcadStaff)/count($totalStaff) * 100, 2)}}%</td>
+                               
                             </tr>
                             <tr>
                                 <td>Retiring <br><small> This year</small></td>

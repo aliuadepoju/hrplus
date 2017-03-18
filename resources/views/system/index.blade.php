@@ -56,7 +56,7 @@
 												<th>License Key</th>
 												<th>Start Date</th>
 												<th>End Date</th>
-												<th>Validity</th>
+												<th>Used</th>
 												<th>Status</th>
 												<th>Action</th>
 											</tr>
@@ -69,7 +69,7 @@
 												<td>{{$lic->getType->type_name}}</td>
 												<td>{{$lic->license_key}}</td>
 												<td>{{$lic->start_date}}</td>
-												<td>{{$lic->start_date}}</td>
+												<td>{{$lic->end_date}}</td>
 												<td>
 													<?php 
 													    $from = new DateTime($lic->start_date);

@@ -1,5 +1,15 @@
 <?php
 
+/*
+Project: Humna Resources Management Software - NOUN HR-Plus
+File Name: System Controller 
+Description: Core System functionalities and settings controller.
+Author: Umoru Godfrey, E. 
+Address: Natview Technology, Abuja Nigeria
+godfrey.umoru@natviewtechnology.com
+Date Created: 29th January, 2017.
+*/
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

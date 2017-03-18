@@ -25,12 +25,22 @@
                                        <div class="row">
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-graduation fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($acadStaff->count(),0)}}</strong></span> <small class="text-muted text-uc">Academic Staff</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
+                                                    @foreach($acadStaff as $AcadSt)
+                                                        {{number_format($AcadSt->Nos, 0)}}
+                                                    @endforeach
+
+                                                    </strong></span> <small class="text-muted text-uc">Academic Staff</small> </a>
                                                 </div>
                                            </div>
                                            <div class="col-md-6 text-center">
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($nonAcadStaff->count(),0)}}</strong></span> <small class="text-muted text-uc">Non Academic Staff</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs">
+                                                    <strong>
+                                                @foreach($nonAcadStaff as $noAcadSt)
+                                                    {{number_format($noAcadSt->Nos, 0)}}
+                                                @endforeach
+                                                    </strong></span> <small class="text-muted text-uc">Non Academic Staff</small> </a>
                                                 </div>
                                            </div>
                                        </div> 
@@ -47,6 +57,38 @@
                                            <div class="col-md-6 text-center">
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
                                                     <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($juniorStaff->count(),0)}}</strong></span> <small class="text-muted text-uc">Junior Staff</small> </a>
+                                                </div>
+                                           </div>
+                                       </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="row">
+                                           <div class="col-md-6 text-center" >
+                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
+                                                    {{number_format($seniorStaff->count(),0)}}
+                                                    </strong></span> <small class="text-muted text-uc">Senior Non Acad</small> </a>
+                                                </div>
+                                           </div>
+                                           <div class="col-md-6 text-center">
+                                               <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($juniorStaff->count(),0)}}</strong></span> <small class="text-muted text-uc">Junior Non Acaad</small> </a>
+                                                </div>
+                                           </div>
+                                       </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="row">
+                                           <div class="col-md-6 text-center" >
+                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
+                                                    {{number_format($seniorStaff->count(),0)}}
+                                                    </strong></span> <small class="text-muted text-uc">Senior Non Acad</small> </a>
+                                                </div>
+                                           </div>
+                                           <div class="col-md-6 text-center">
+                                               <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($juniorStaff->count(),0)}}</strong></span> <small class="text-muted text-uc">Junior Non Acaad</small> </a>
                                                 </div>
                                            </div>
                                        </div>
@@ -179,20 +221,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $n = 1;?>
-                                        @foreach($Hstates as $st)
+                                           <?php $n = 1;?>
+                                           @foreach($Hstates as $hst)
                                             <tr>
                                                 <td>{{$n}}</td>
-                                                <td>{{$st->state}}</td>
-                                                <td align="center">
-                                                {{count($st->getPersonnel)}}
-                                                </td>
-                                                <td align="center">{{@number_format(($st->getPersonnel->count()/count($st) * 100)/100, 2)}} %</td>
-                                                <td><a href="" class="btn btn-success btn-xs ">View More</a></td>
+                                                <td><a href="{{url('/state/data/'.\Crypt::encrypt($hst->state_id))}}">{{$hst->state}}</a></td>
+                                                <td align="center">{{number_format($hst->Nos, 0)}}</td>
+                                                <td align="center">{{$hst->Nos*count($hst->state)/100}} %</td>
+                                                <td><a href="{{url('/state/data/'.\Crypt::encrypt($hst->state_id))}}" class="btn btn-success btn-xs ">View More</a></td>
                                             </tr>
-                                            
-                                        <?php $n++;?>
-                                        @endforeach
+                                            <?php $n++;?>
+                                           @endforeach 
                                         </tbody>
                                         <tfoot>
                                         <tr>
@@ -206,18 +245,16 @@
                                             <th></th>
                                         </tr>
                                            <?php $n = 1;?>
-                                        @foreach($Lstates as $st)
+                                           @foreach($Lstates as $lst)
                                             <tr>
                                                 <td>{{$n}}</td>
-                                                <td>{{$st->state}}</td>
-                                                <td align="center">{{$st->getPersonnel->count()}}</td>
-                                                <td align="center">{{@number_format(count($st)/$st->getPersonnel->count() * 100,2)}} %</td>
-                                                <td><a href="" class="btn btn-success btn-xs ">View More</a></td>
+                                                <td><a href="{{url('/state/data/'.\Crypt::encrypt($lst->state_id))}}">{{$lst->state}}</a></td>
+                                                <td align="center">{{number_format($lst->Nos, 0)}}</td>
+                                                <td align="center">{{$lst->Nos*count($lst->state)/100}} %</td>
+                                                <td><a href="{{url('/state/data/'.\Crypt::encrypt($lst->state_id))}}" class="btn btn-success btn-xs ">View More</a></td>
                                             </tr>
-                                            
-                                        <?php $n++;?>
-                                        @endforeach
-                                            
+                                            <?php $n++;?>
+                                           @endforeach 
                                         </tfoot>
                                     </table>
                                 </div>
