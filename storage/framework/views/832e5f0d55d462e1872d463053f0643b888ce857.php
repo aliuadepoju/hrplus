@@ -4,10 +4,11 @@
             <h5 class="panel-title">Upload <?php echo e($person->surname); ?>'s Image</h5>
         </div>
         <div class="panel-body">
-          <form action="<?php echo e(url('/pim/employees/data/editLGA')); ?>" method="post" role="form">
+          <form action="<?php echo e(url('/pim/employees/data/uploadImage')); ?>" method="post" enctype="multipart/form-data" >
             <?php echo e(csrf_field()); ?>
 
             <input type="hidden" name="personnel_id" value="<?php echo e($person->id); ?>">
+            <input type="hidden" name="names" value="<?php echo e($person->surname.' '.$person->first_name); ?>">
             <div class="col-md-6">
               <div class="row">
                 

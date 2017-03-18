@@ -73,6 +73,7 @@ Route::get('/pim/employees/appraisals/{id?}', ['uses'=>'PersonnelController@appr
 
 Route::post('/pim/employees/data/documents/upload', array('uses'=>'PersonnelController@uploadDocument', 'as'=>'uploadDoc' ));
 
+Route::post('/pim/employees/data/uploadImage', array('uses'=>'PersonnelController@uploadImage', 'as'=>'uploadImg' ));
 
 Route::get('/pim/employees/documentCenter/{id?}', ['uses'=>'DocumentController@docCenter', 'as'=>'docCenter', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 Route::get('/pim/employees/document/upload', array('uses'=>'DocumentController@docUpload', 'as'=>'docUpload' ));

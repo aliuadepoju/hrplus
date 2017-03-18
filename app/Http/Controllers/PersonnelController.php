@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\UploadedFile;
 // use \App\NountInfo;
 class PersonnelController extends Controller
 {
@@ -313,6 +314,24 @@ class PersonnelController extends Controller
     return redirect('pim/employees/document/one/'. \Crypt::encrypt($doc->id));
 
 
+    }
+
+    public function uploadImage()
+    {
+       $prsn = Input::all();
+      
+       $file = Input::file('avatar');
+
+        if ($file !== "") { //Chekcing if file is not selected.
+                $destPath = base_path().'\public\incs/images/personnel/'; // Destination Path
+                $nfile = $file; // Requiured file
+                $extension = $nfile->getClientOriginalExtension(); //File Original Extension
+                $fN = $prsn['personnel_id'].".png"; // New png File
+              $file->move($destPath, $fN); //Move file to destination path 
+        }
+        ActivityLog('Personnel Data', 'Changed Data', \Auth::user()->surname. ' changed '.$prsn['names'].'\'s Image on the system' ,$_SERVER['REMOTE_ADDR']);
+        flash()->success('You have successfully updated personnel identity Image on the system');
+    return redirect()->back();
     }
 
     public function leaves()

@@ -4,9 +4,10 @@
             <h5 class="panel-title">Upload {{$person->surname}}'s Image</h5>
         </div>
         <div class="panel-body">
-          <form action="{{url('/pim/employees/data/editLGA')}}" method="post" role="form">
+          <form action="{{url('/pim/employees/data/uploadImage')}}" method="post" enctype="multipart/form-data" >
             {{csrf_field()}}
             <input type="hidden" name="personnel_id" value="{{$person->id}}">
+            <input type="hidden" name="names" value="{{$person->surname.' '.$person->first_name}}">
             <div class="col-md-6">
               <div class="row">
                 
