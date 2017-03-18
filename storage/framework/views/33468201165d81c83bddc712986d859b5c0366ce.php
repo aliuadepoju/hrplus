@@ -33,7 +33,7 @@
 	        </header>
 	        <div class="panel-body">
 	            <div class="table-responsive">
-	                <table class="table m-b-none" data-ride="myTable" id="myTable" >
+	                <table class="table table m-b-none" data-ride="datatables" id="datatables">
 	                    <thead>
 	                        <tr>
 	                            <th>S/N</th>
