@@ -42,6 +42,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/sms', 'HomeController@SMS');
+Route::get('/exampleChart', 'ReportController@index');
 
 Auth::routes();
 
@@ -51,6 +52,9 @@ Auth::routes();
 // State Distributions
 Route::get('/pim/distribution/states/{id?}', ['uses'=>'HomeController@states', 'as'=>'states', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management']);
 Route::get('/state/data/{id?}', ['uses'=>'HomeController@oneState', 'as'=>'o_states', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management']);
+
+Route::get('/pim/distribution/geo_pol_zones/{id?}', ['uses'=>'HomeController@geopolzones', 'as'=>'geozones', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management']);
+Route::get('/pim/distribution/geo_pol_zones/data/{id?}', ['uses'=>'HomeController@oneZone', 'as'=>'onezone', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management']);
 // Route::get('/pim/employees', array('uses' => 'PersonnelController@personnel', 'as'=>'personnel'));
 Route::get('/pim/employees/{id?}', ['uses'=>'PersonnelController@personnel', 'as'=>'personnel', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|hr-admin|senior-management|center-cordinator|report-only']);
 
@@ -74,6 +78,7 @@ Route::get('/pim/employees/appraisals/{id?}', ['uses'=>'PersonnelController@appr
 Route::post('/pim/employees/data/documents/upload', array('uses'=>'PersonnelController@uploadDocument', 'as'=>'uploadDoc' ));
 
 Route::post('/pim/employees/data/uploadImage', array('uses'=>'PersonnelController@uploadImage', 'as'=>'uploadImg' ));
+Route::post('/pim/employees/data/editSalaryScale', array('uses'=>'PersonnelController@editSalaryScale', 'as'=>'editSalaryScale' ));
 
 Route::get('/pim/employees/documentCenter/{id?}', ['uses'=>'DocumentController@docCenter', 'as'=>'docCenter', 'middleware' => ['auth', 'acl'], 'is' => 'administrator|center-cordinator|front-end-user|hr-admin|report-only|senior-management']);
 Route::get('/pim/employees/document/upload', array('uses'=>'DocumentController@docUpload', 'as'=>'docUpload' ));

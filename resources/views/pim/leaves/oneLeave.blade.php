@@ -18,7 +18,14 @@
                                 <div class="panel-body">
                                     <div class="clearfix text-center m-t">
                                         <div class="inline">
-                                            <div class="thumb-lg"> <img src="{{asset('incs/images/personnel/'.$leave->getPersonnel->id.'.jpg')}}" class=""> </div>
+                                            <div class="thumb-lg"> 
+                                                <?php $fpath = public_path().'/incs/images/personnel/'.$leave->getPersonnel->id.'.png' ;?>
+                                                @if (file_exists($fpath))
+                                                    <img src="{{asset('incs/images/personnel/'.$leave->getPersonnel->id.'.png')}}" class="img-circle"> 
+                                                @else
+                                                    <img src="{{asset('incs/images/personnel/no-pic.jpg')}}" class="img-circle"> 
+                                                @endif 
+                                            </div>
 											<hr>
                                             <div class="h4 m-t m-b-xs">{{$leave->getPersonnel->surname.' '.$leave->getPersonnel->firstname.' '.$leave->getPersonnel->middle_name}}'s</div> <small class="text-muted m-b"> {{$leave->getPersonnel->rank}}</small>  </div>
                                     </div>

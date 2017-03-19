@@ -42,12 +42,22 @@ class PersonnelController extends Controller
         // $param['leaves'] = \App\Leave::all();
         $param['branches'] = \App\Branch::all();
         $param['states'] = \App\State::all();
+        $param['sScale'] = \App\SalaryScale::all();
         $param['pageName'] = $param['person']->surname ."'s Profile";
         $param['myTeam'] = \App\NounInfo::where('department_id', '=', $param['person']->getNounInfos->department_id)->get();
         // dd($param['myTeam'], count($param['myTeam']));
         ActivityLog('Personnel Data', 'Personnel Data', \Auth::user()->surname. ' viewed '.$param['person']->surname.' the personal record' ,$_SERVER['REMOTE_ADDR']);
         flash()->success('Welcome to '.$param['person']->surname. ' '.$param['person']->first_name. ' '.$param['person']->middle_name. '\'s profile');
-        return view('pim.profile', $param);
+        return view('pim.profile_x', $param);
+    }
+
+    public function editSalaryScale()
+    {
+        $f = Input::all();
+        $nInfo = \App\NounInfo::find($f['pID']);
+        $nInfo->salary_scale_id = $f['salary_scale'];
+        $nInfo->update();
+        return redirect()->back();
     }
 
      public function deactivate($id)

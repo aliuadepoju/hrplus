@@ -11,11 +11,11 @@
                         <li>
                             <a href="{{url('/home')}}"> <i class="fa fa-angle-right"></i> <span>Integrated</span> </a>
                         </li>
-                       <!--  <li>
-                            <a href="{{url('/home/employees/'.\Crypt::encrypt($xcode))}}"> <i class="fa fa-angle-right"></i> <span>Employees</span> </a>
+                       <li>
+                            <a href="{{url('/pim/distribution/geo_pol_zones/'.\Crypt::encrypt($xcode))}}"> <i class="fa fa-angle-right"></i> <span>Geo Political Zones </span> </a>
                         </li>
 
-                        <li>
+                        <!--  <li>
                             <a href="{{url('/home/StudyCenters')}}"> <i class="fa fa-angle-right"></i> <span>Study Centers</span> </a>
                         </li>
 

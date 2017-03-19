@@ -16,7 +16,7 @@
         "maatwebsite/excel": "~2.1.0",
         "kodeine/laravel-acl": "~1.0@dev",
         "barryvdh/laravel-dompdf": "^0.8.0",
-        "witty/laravel-db-backup": "dev-master"
+        "fx3costa/laravelchartjs": "master"
 
     },
     "require-dev": {

@@ -50,6 +50,7 @@ class HomeController extends Controller
     
     public function index()
     {
+
         $param['personnel'] = \App\Personnel::all();
         $param['depts'] = \App\Department::all();
         $param['branches'] = \App\Branch::where('status', '!=', '')->orderBy('branch_name', 'ASC')->get();
@@ -123,6 +124,24 @@ class HomeController extends Controller
         flash()->success('Welcome to '.$param['state']->state. ' state\'s profile');
         return view('states.oneState', $param);
     }
+
+    public function geopolzones()
+    {
+        $param['zones'] = \App\GeoPolZone::all();
+        flash()->success('Welcome to Geo Political Zones Index');
+        ActivityLog('Geo Political Zones Data', 'Geo Political Zones Data', \Auth::user()->surname. ' viewed Geo Political Zones and all their related record' ,$_SERVER['REMOTE_ADDR']);
+        return view('geopolzones.index', $param);
+    }
+
+    public function oneZone($id)
+    {
+        $id = \Crypt::decrypt($id);
+        $param['zone'] = \App\GeoPolZone::find($id);
+        ActivityLog('Geo Political Zones Data', 'Geo Political Zones Data', \Auth::user()->surname. ' viewed '.$param['zone']->zone_name.' zone and its related record' ,$_SERVER['REMOTE_ADDR']);
+        flash()->success('Welcome to '.$param['zone']->zone_name. ' zone\'s profile');
+        return view('geopolzones.onezone', $param);
+    }
+
 
     // public function domail($event)
     // {

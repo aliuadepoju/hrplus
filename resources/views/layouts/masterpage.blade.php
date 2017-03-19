@@ -126,6 +126,7 @@
     <script src="{{asset('incs/js/charts/sparkline/jquery.sparkline.min.js')}}"></script>
     <!-- Easy Pie Chart --> 
     <script src="{{asset('incs/js/charts/easypiechart/jquery.easy-pie-chart.js')}}"></script> 
+    <script src="{{asset('incs/js/charts/chartJs/jsChart.js')}}"></script> 
     <!-- Flot --> 
    <!--  <script src="{{asset('incs/js/charts/flot/jquery.flot.min.js')}}"></script> 
     <script src="{{asset('incs/js/charts/flot/jquery.flot.tooltip.min.js')}}"></script> 
@@ -173,7 +174,124 @@
         $('#myTable5').DataTable();
         $('#myTable6').DataTable();
         $('#myTable7').DataTable();
+
+        // Chart JS
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["NE", "NC", "NW", "SE", "SS", "SW"],
+                datasets: [{
+                    label: 'Study Center Distribution,  ',
+                    data: [12, 19, 8, 5, 6, 7],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        // 'rgba(255,99,132,1)',
+                        // 'rgba(54, 162, 235, 1)',
+                        // 'rgba(255, 206, 86, 1)',
+                        // 'rgba(75, 192, 192, 1)',
+                        // 'rgba(153, 102, 255, 1)',
+                        // 'rgba(255, 159, 64, 1)'
+                        "rgba(75,192,192,1)"
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Personnel Distribution,  ',
+                    data: [10, 15, 4, 6, 8, 17],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.9)'
+                    ],
+                    borderColor: [
+                       'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.9)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
         });
+
+        //Pie Chart
+        var ctx = document.getElementById("genderDistribution").getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ["Male", "Female"],
+            datasets: [{
+              backgroundColor: [
+                "#2ecc71",
+                "#3498db"
+                // "#95a5a6",
+                // "#9b59b6",
+                // "#f1c40f"
+                // "#e74c3c",
+                // "#34495e"
+              ],
+              data: [1745, 1014]
+            }]
+          }
+        });
+
+        //End Chart JS
+
+        });
+    </script>
+    <script>
+        
+        var ctx = document.getElementById("genderDistribution");
+        var myPieChart = new Chart(ctx,{
+            type: 'pie',
+            data: data,
+            options: options
+
+        });
+
+        var data = {
+                labels: [
+                    "Red",
+                    "Blue",
+                    "Yellow"
+                ],
+                datasets: [
+                    {
+                        data: [300, 50, 100],
+                        backgroundColor: [
+                            "#FF6384",
+                            "#36A2EB",
+                            "#FFCE56"
+                        ],
+                        hoverBackgroundColor: [
+                            "#FF6384",
+                            "#36A2EB",
+                            "#FFCE56"
+                        ]
+                    }]
+            };
     </script>
     <!-- Page Script  -->
          <?php
@@ -209,7 +327,6 @@
         $("#dateRange").hide();
 
         function doAutoNumber(argument) {
-            // body...
         var option = document.getElementById("noOption").value;
         if (option.val() == 1) {
             document.getElementById('nounNo').show();
@@ -476,6 +593,46 @@
     // });
 
 </script>
+
+<!-- Map Implementation for Geo Spatial distributions -->
+<script >
+
+    //   var map;
+    //   function initMap() {
+
+    //     var map = new google.maps.Map(document.getElementById('map'), {
+    //       center: {lat: 9.042302, lng:  7.529507},
+    //       zoom: 17
+    //     });
+
+    //     @foreach($branches as $brn)
+
+    //     // var image = base_path().'/incs/images/'.$icon;
+    //     var image = base_path().'/public/incs/images/marker1.png';
+    //     var marker_{{$brn->id}} = new google.maps.Marker({
+    //       position: {lat: {{$brn->lat_cord}}, lng:  {{$brn->long_cord}}},
+    //       map: map,
+    //       background: "#ccc",
+    //       icon: image,
+    //       title: 'Click to view Study Center'
+    //     });
+
+    //     marker_{{$brn->id}}.addListener('click', function() {
+    //       location.href = "/branches/data/{$brn->id}}";
+    //     });
+    //     @endforeach
+    //   }
+    // </script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrsKzefSQA6WrokTTGHMa3Tl_wd4uaY_0&callback=initMap" async defer>
+    </script> -->
+<!-- /Map Implementation for Geo Spatial distributions -->
+
+<!-- ChartJs -->
+<script>
+
+</script>
+<!-- /ChartJs -->
+
 </body>
 
 </html>

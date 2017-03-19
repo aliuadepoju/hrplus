@@ -11,8 +11,9 @@
     
     <header class="header bg-white b-b b-light">
         <p>{{$person->surname.' '.$person->first_name .' '.$person->middle_name}}'s profile 
-            <div class="pull-right">
-            <br>
+            <!-- <div class="pull-right"> -->
+            <!-- <br> -->
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  
                 <div class="btn-group">
                     <button class="btn btn-warning btn-xs btn-flat ">Personnel Actions</button>
                     <button class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -39,7 +40,7 @@
                 @endif
                  <br>
 
-            </div>
+            <!-- </div> -->
         </p>
     </header>
     <section class="scrollable">
@@ -98,6 +99,7 @@
             @endif
             <!-- /Notification -->
 
+             <!-- Page Options  -->
                 <div class="row collapse" id="leavesform">
                     @include('pim.options.leaveForm')
                 </div>
@@ -131,18 +133,26 @@
                 <div class="row collapse" id="uploadImage">
                     @include('pim.options.uploadImage')
                 </div>
-             <!-- Page Options  -->
+                <div class="row collapse" id="sScale">
+                    @include('pim.options.editSalaryScale')
+                </div>
              <!-- /Page Options -->
              <section class="panel col-md-12">
                 <div class="col-md-10">
                     <section class="panel ">
                         <div class="panel-body" style="height: ; width: ">
-                        <p class="h5 "><b>Rank:</b> <br> {{$person->getNounInfos->rank}}  &emsp;&emsp;&emsp;&emsp;&emsp; <b>Salary Scale: &emsp;&emsp; {{isset($person->getNounInfos->getScale)? $person->getNounInfos->getScale->scale : "Not set"}}</b></p> <br>
+                        <p class="h5 "><b>Rank:</b> <br> {{$person->getNounInfos->rank}}  &emsp;&emsp;&emsp;&emsp;&emsp; <b>Salary Scale: &emsp;&emsp; {{isset($person->getNounInfos->getScale)? $person->getNounInfos->getScale->scale : "Not set"}} 
+
+                        @if(!$person->getNounInfos->getScale)
+                        <a class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#sScale" aria-expanded="false" aria-controls="collapseExample">Edit</a>
+                        @else
+                        @endif
+                        </b></p> <br>
                         <p class="h5 "> <b>Study Center: </b><br>{{$person->getNounInfos->getBranch->branch_name}}</p>
                         </div>
                     </section>
                 </div>
-                <div class="col-md-2    ">
+                <div class="col-md-2">
                     <section class="panel ">
                         <div class="panel-body" align="right" style="height: ; width: ">
                             {!!DNS2D::getBarcodeHTML($person->surname.' '.$person->first_name.' '.$person->middle_name, "QRCODE", 2,2);!!} NOUN/{{$person->unique_id}}

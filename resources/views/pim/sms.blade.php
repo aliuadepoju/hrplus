@@ -1,7 +1,7 @@
   <div class="col-lg-12">
     <div class="panel">
         <div class="panel-heading">
-            <h5 class="panel-title">{{$person->surname}}'s Document Upload</h5>
+            <h5 class="panel-title">Sent {{$person->surname}} SMS</h5>
         </div>
         <div class="panel-body">
            <form action="" method="" enctype="true">

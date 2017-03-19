@@ -127,17 +127,28 @@
                                 <a class="right carousel-control" href="#c-slide" data-slide="next"> <i class="fa fa-angle-right"></i> </a>
                             </div>
                         </section>
+
+                        <!-- /Geo Spatial Distributions of Centers -->
+                        <section class="panel">
+                            <header class="panel-heading font-bold">Geo Spatial Distribution of Study Centers</header>
+                            <div class="panel-body">
+                               <div id="map" style="height: 300px; width: 100px;"></div>
+                                <!-- <div id="" style="width: 100%; height:300px"></div> -->
+                            </div>
+                        </section>
+                        <!-- /Geo Spatial Distributions of Centers -->
                         <section class="panel">
                             <header class="panel-heading font-bold">Gender Distribution</header>
                             <div class="panel-body">
-                                <div id="" style="width: 100%; height:300px"></div>
+                              <canvas id="genderDistribution" width="300" height="300"></canvas>
                             </div>
                         </section>
 
                         <section class="panel ">
                             <header class="panel-heading font-bold">Status Distribution</header>
                             <div class="panel-body">
-                                <div id="" style="width: 100%; height:300px"></div>
+                            <canvas id="myChart" width="400" height="400"></canvas>
+                                <!-- <div id="myChart" style="width: 100%; height:300px"></div> -->
                             </div>
                         </section>
                         <section class="panel panel-info">
@@ -278,7 +289,7 @@
                                             @foreach($branches as $branch)
                                                 <tr>
                                                     <td>{{$n}}</td>
-                                                    <td><a href="{{url('/branches/data/'.$branch->id)}}">{{$branch->branch_name}}</a></td>
+                                                    <td><a href="{{url('/branches/data/'.\Crypt::encrypt($branch->id))}}">{{$branch->branch_name}}</a></td>
                                                     <td align="center">{{$branch->getStaff->count()}}</td>
                                                     <td align="center">{{@number_format(count($branch)/$branch->getStaff->count()*100, 2)}} %</td>
                                                 </tr>
@@ -302,4 +313,6 @@
         <p> @ {{date('Y')}} Powered by: Natview Technology <p class="pull-right">Nigerian Defence Academy</p></p>
     </footer> -->
 </section>
+
+
 @endsection

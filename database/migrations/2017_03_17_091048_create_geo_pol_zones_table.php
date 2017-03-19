@@ -15,6 +15,7 @@ class CreateGeoPolZonesTable extends Migration
     {
         Schema::create('geo_pol_zones', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code');
             $table->string('zone_name');
             $table->integer('status');
             $table->timestamps();

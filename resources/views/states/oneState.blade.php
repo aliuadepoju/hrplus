@@ -37,7 +37,7 @@
                                 <div class="clear">
                                     <div class="h4 m-t-xs m-b-xs text-white"> {{$state->state}} State<i class="fa fa-circle text-white pull-right text-xs m-t-sm"></i> </div> <small class="text-white">{{$state->getZone->zone_name}}</small> 
                                     <br> 
-                                     {!!DNS1D::getBarcodeHTML('5483988RF-NAF', "C128A",1);!!}
+                                     {!!DNS1D::getBarcodeHTML('45785452238-NOUN', "C128A",1);!!}
                                 </div>
                             </div>
                         </header>

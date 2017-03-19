@@ -49,8 +49,8 @@
 	                    	<tr>
 	                    		<td>{{$sn}}</td>
 	                    		<td>{{date_format($ticket->created_at, "jS F, Y" )}}</td>
-	                    		<td><a href="{{url('/system/tickets/view/'.\Crypt::encrypt($ticket->id))}}" class="link">NOUN-HRPLUS/TCKT/{{$ticket->serial}}</a></td>
-	                    		<td><a href="{{url('/system/tickets/view/'.$ticket->id)}}" class="link"> {{$ticket->title}}</a></td>
+	                    		<td><a href="{{url('/system/tickets/view/'.\Crypt::encrypt($ticket->id))}}" class="link">HRPLUS/TCKT/{{$ticket->serial}}</a></td>
+	                    		<td><a href="{{url('/system/tickets/view/'.\Crypt::encrypt($ticket->id))}}" class="link"> {{$ticket->title}}</a></td>
 	                    		<td>{{$ticket->getCat->name}}</td>
 	                    		<td>
 	                    			@if($ticket->priority == 1)
