@@ -1,9 +1,7 @@
-@extends('layouts.masterpage')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="vbox">
     <header class="header bg-white b-b b-light">
-        <p>Dashboard <p class="pull-right" ><strong>Total Employees: {{number_format($personnel->count(), 0)}}</strong></p>
+        <p>Dashboard <p class="pull-right" ><strong>Total Employees: <?php echo e(number_format($personnel->count(), 0)); ?></strong></p>
         </p>
     </header>
     <section>
@@ -26,9 +24,10 @@
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-graduation fa-stack-1x text-white"></i> </span>
                                                     <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
-                                                    @foreach($acadStaff as $AcadSt)
-                                                        {{number_format($AcadSt->Nos, 0)}}
-                                                    @endforeach
+                                                    <?php $__currentLoopData = $acadStaff; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $AcadSt): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                        <?php echo e(number_format($AcadSt->Nos, 0)); ?>
+
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 
                                                     </strong></span> <small class="text-muted text-uc">Academic Staff</small> </a>
                                                 </div>
@@ -37,9 +36,10 @@
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
                                                     <a class="clear" href="#"> <span class="h3 block m-t-xs">
                                                     <strong>
-                                                @foreach($nonAcadStaff as $noAcadSt)
-                                                    {{number_format($noAcadSt->Nos, 0)}}
-                                                @endforeach
+                                                <?php $__currentLoopData = $nonAcadStaff; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $noAcadSt): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                    <?php echo e(number_format($noAcadSt->Nos, 0)); ?>
+
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     </strong></span> <small class="text-muted text-uc">Non Academic Staff</small> </a>
                                                 </div>
                                            </div>
@@ -50,9 +50,10 @@
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
                                                     <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
-                                                    @foreach($seniorNonAcadStaff as $snoAcadSt)
-                                                      {{number_format($snoAcadSt->Nos + $AcadSt->Nos, 0)}}
-                                                    @endforeach
+                                                    <?php $__currentLoopData = $seniorNonAcadStaff; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $snoAcadSt): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                      <?php echo e(number_format($snoAcadSt->Nos + $AcadSt->Nos, 0)); ?>
+
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     </strong></span> <small class="text-muted text-uc">Senior Staff</small> </a>
                                                 </div>
                                            </div>
@@ -60,9 +61,10 @@
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
                                                     <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
 
-                                                    @foreach($juniorNonAcadStaff as $jnoAcadSt)
-                                                      {{number_format($jnoAcadSt->Nos, 0)}}
-                                                    @endforeach
+                                                    <?php $__currentLoopData = $juniorNonAcadStaff; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jnoAcadSt): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                      <?php echo e(number_format($jnoAcadSt->Nos, 0)); ?>
+
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 
                                                     </strong></span> <small class="text-muted text-uc">Junior Staff</small> </a>
                                                 </div>
@@ -74,18 +76,20 @@
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
                                                     <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
-                                                    @foreach($seniorNonAcadStaff as $snoAcadSt)
-                                                      {{number_format($snoAcadSt->Nos, 0)}}
-                                                    @endforeach
+                                                    <?php $__currentLoopData = $seniorNonAcadStaff; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $snoAcadSt): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                      <?php echo e(number_format($snoAcadSt->Nos, 0)); ?>
+
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     </strong></span> <small class="text-muted text-uc">Senior Non Acad</small> </a>
                                                 </div>
                                            </div>
                                            <div class="col-md-6 text-center">
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
                                                     <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>
-                                                    @foreach($juniorNonAcadStaff as $jnoAcadSt)
-                                                      {{number_format($jnoAcadSt->Nos, 0)}}
-                                                    @endforeach
+                                                    <?php $__currentLoopData = $juniorNonAcadStaff; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jnoAcadSt): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                      <?php echo e(number_format($jnoAcadSt->Nos, 0)); ?>
+
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                                     </strong></span> <small class="text-muted text-uc">Junior Non Acaad</small> </a>
                                                 </div>
                                            </div>
@@ -96,12 +100,12 @@
                                         <div class="row">
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($fullTimeStaff->count(),0)}}</strong></span> <small class="text-muted text-uc">Full Time Employment</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($fullTimeStaff->count(),0)); ?></strong></span> <small class="text-muted text-uc">Full Time Employment</small> </a>
                                                 </div>
                                            </div>
                                            <div class="col-md-6 text-center">
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($transientStaff->count(),0)}}</strong></span> <small class="text-muted text-uc">Transient Staff</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($transientStaff->count(),0)); ?></strong></span> <small class="text-muted text-uc">Transient Staff</small> </a>
                                                 </div>
                                            </div>
                                        </div>
@@ -111,12 +115,12 @@
                                         <div class="row">
                                            <div class="col-md-6 text-center" >
                                                 <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($male->count(), 0)}}</strong></span> <small class="text-muted text-uc">Male</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($male->count(), 0)); ?></strong></span> <small class="text-muted text-uc">Male</small> </a>
                                                 </div>
                                            </div>
                                            <div class="col-md-6 text-center">
                                                <div class="col-sm-12 col-md-12 padder-v b-r b-light"> <span class="fa-stack fa-2x pull-left m-r-sm"> <i class="fa fa-circle fa-stack-2x text-info"></i> <i class="fa fa-male fa-stack-1x text-white"></i> </span>
-                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong>{{number_format($female->count(), 0)}}</strong></span> <small class="text-muted text-uc">Female</small> </a>
+                                                    <a class="clear" href="#"> <span class="h3 block m-t-xs"><strong><?php echo e(number_format($female->count(), 0)); ?></strong></span> <small class="text-muted text-uc">Female</small> </a>
                                                 </div>
                                            </div>
                                        </div>
@@ -164,16 +168,16 @@
                                         </thead>
                                         <tbody>
                                            <?php $n = 1;?>
-                                            @foreach($depts as $dept)
+                                            <?php $__currentLoopData = $depts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                 <tr>
-                                                    <td>{{$n}}</td>
-                                                    <td><a href="">{{$dept->dept_name}}</a></td>
-                                                    <td align="center">{{$dept->getNOUNInfo->count()}}</td>
+                                                    <td><?php echo e($n); ?></td>
+                                                    <td><a href=""><?php echo e($dept->dept_name); ?></a></td>
+                                                    <td align="center"><?php echo e($dept->getNOUNInfo->count()); ?></td>
                                                     <td align="center">1%</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                             
                                         </tbody>
                                     </table>
@@ -196,17 +200,17 @@
                                         </thead>
                                         <tbody>
                                            <?php $n = 1;?>
-                                            @foreach($states as $state)
+                                            <?php $__currentLoopData = $states; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                 <tr>
-                                                    <td>{{$n}}</td>
-                                                    <td width="35%"><a href="{{url('/state/data/'.\Crypt::encrypt($state->id))}}">{{$state->state}}</a></td>
-                                                    <td align="center">{{$state->getPersonnel->count()}}</td>
-                                                    <td align="center">{{$state->getBranches->count()}}</td>
-                                                    <td align="center">{{@number_format(($state->getPersonnel->count()/$state->count())*100/100, 2)}}%</td>
+                                                    <td><?php echo e($n); ?></td>
+                                                    <td width="35%"><a href="<?php echo e(url('/state/data/'.\Crypt::encrypt($state->id))); ?>"><?php echo e($state->state); ?></a></td>
+                                                    <td align="center"><?php echo e($state->getPersonnel->count()); ?></td>
+                                                    <td align="center"><?php echo e($state->getBranches->count()); ?></td>
+                                                    <td align="center"><?php echo e(@number_format(($state->getPersonnel->count()/$state->count())*100/100, 2)); ?>%</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                             
                                         </tbody>
                                     </table>
@@ -217,7 +221,7 @@
 
                         <div class=" col-md-6">
                             <section class="panel panel-success">
-                            <header class="panel-heading"> Date: {{date('d-m-Y')}}<h4> <strong>Top 5 Highest State Employment Distribution</strong></h4> </header>
+                            <header class="panel-heading"> Date: <?php echo e(date('d-m-Y')); ?><h4> <strong>Top 5 Highest State Employment Distribution</strong></h4> </header>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -231,16 +235,16 @@
                                         </thead>
                                         <tbody>
                                            <?php $n = 1;?>
-                                           @foreach($Hstates as $hst)
+                                           <?php $__currentLoopData = $Hstates; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $hst): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                             <tr>
-                                                <td>{{$n}}</td>
-                                                <td><a href="{{url('/state/data/'.\Crypt::encrypt($hst->state_id))}}">{{$hst->state}}</a></td>
-                                                <td align="center">{{number_format($hst->Nos, 0)}}</td>
-                                                <td align="center">{{$hst->Nos*count($hst->state)/100}} %</td>
-                                                <td><a href="{{url('/state/data/'.\Crypt::encrypt($hst->state_id))}}" class="btn btn-success btn-xs ">View More</a></td>
+                                                <td><?php echo e($n); ?></td>
+                                                <td><a href="<?php echo e(url('/state/data/'.\Crypt::encrypt($hst->state_id))); ?>"><?php echo e($hst->state); ?></a></td>
+                                                <td align="center"><?php echo e(number_format($hst->Nos, 0)); ?></td>
+                                                <td align="center"><?php echo e($hst->Nos*count($hst->state)/100); ?> %</td>
+                                                <td><a href="<?php echo e(url('/state/data/'.\Crypt::encrypt($hst->state_id))); ?>" class="btn btn-success btn-xs ">View More</a></td>
                                             </tr>
                                             <?php $n++;?>
-                                           @endforeach 
+                                           <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?> 
                                         </tbody>
                                         <tfoot>
                                         <tr>
@@ -254,16 +258,16 @@
                                             <th></th>
                                         </tr>
                                            <?php $n = 1;?>
-                                           @foreach($Lstates as $lst)
+                                           <?php $__currentLoopData = $Lstates; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lst): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                             <tr>
-                                                <td>{{$n}}</td>
-                                                <td><a href="{{url('/state/data/'.\Crypt::encrypt($lst->state_id))}}">{{$lst->state}}</a></td>
-                                                <td align="center">{{number_format($lst->Nos, 0)}}</td>
-                                                <td align="center">{{$lst->Nos*count($lst->state)/100}} %</td>
-                                                <td><a href="{{url('/state/data/'.\Crypt::encrypt($lst->state_id))}}" class="btn btn-success btn-xs ">View More</a></td>
+                                                <td><?php echo e($n); ?></td>
+                                                <td><a href="<?php echo e(url('/state/data/'.\Crypt::encrypt($lst->state_id))); ?>"><?php echo e($lst->state); ?></a></td>
+                                                <td align="center"><?php echo e(number_format($lst->Nos, 0)); ?></td>
+                                                <td align="center"><?php echo e($lst->Nos*count($lst->state)/100); ?> %</td>
+                                                <td><a href="<?php echo e(url('/state/data/'.\Crypt::encrypt($lst->state_id))); ?>" class="btn btn-success btn-xs ">View More</a></td>
                                             </tr>
                                             <?php $n++;?>
-                                           @endforeach 
+                                           <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?> 
                                         </tfoot>
                                     </table>
                                 </div>
@@ -284,16 +288,16 @@
                                         </thead>
                                         <tbody>
                                            <?php $n = 1;?>
-                                            @foreach($branches as $branch)
+                                            <?php $__currentLoopData = $branches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $branch): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                                                 <tr>
-                                                    <td>{{$n}}</td>
-                                                    <td><a href="{{url('/branches/data/'.\Crypt::encrypt($branch->id))}}">{{$branch->branch_name}}</a></td>
-                                                    <td align="center">{{$branch->getStaff->count()}}</td>
-                                                    <td align="center">{{@number_format(count($branch)/$branch->getStaff->count()*100, 2)}} %</td>
+                                                    <td><?php echo e($n); ?></td>
+                                                    <td><a href="<?php echo e(url('/branches/data/'.\Crypt::encrypt($branch->id))); ?>"><?php echo e($branch->branch_name); ?></a></td>
+                                                    <td align="center"><?php echo e($branch->getStaff->count()); ?></td>
+                                                    <td align="center"><?php echo e(@number_format(count($branch)/$branch->getStaff->count()*100, 2)); ?> %</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                             
                                         </tbody>
                                     </table>
@@ -308,9 +312,11 @@
     </section>
     <br>
     <!-- <footer class="footer bg-white b-t b-light">
-        <p> @ {{date('Y')}} Powered by: Natview Technology <p class="pull-right">Nigerian Defence Academy</p></p>
+        <p> @ <?php echo e(date('Y')); ?> Powered by: Natview Technology <p class="pull-right">Nigerian Defence Academy</p></p>
     </footer> -->
 </section>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

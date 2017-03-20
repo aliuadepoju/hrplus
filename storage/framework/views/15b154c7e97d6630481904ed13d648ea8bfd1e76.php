@@ -1,4 +1,3 @@
-@extends('layouts.masterpage')
 <?php 
     $from = new DateTime($person->getNounInfos->date_of_entry);
     $dob = new DateTime($person->dob);
@@ -7,10 +6,10 @@
     $rd_by_birth = \Carbon\Carbon::instance($dob)->addYear(65);
     $rd_by_emp = \Carbon\Carbon::instance($from)->addYear(35);
 ?>
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="vbox">
     <header class="header bg-white b-b b-light">
-        <p>{{$person->surname.' '.$person->first_name .' '.$person->middle_name}}'s profile</p> 
+        <p><?php echo e($person->surname.' '.$person->first_name .' '.$person->middle_name); ?>'s profile</p> 
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	
         <div class="btn-group" >
             <button class="btn btn-warning btn-xs btn-flat ">Personnel Actions</button>
@@ -21,9 +20,9 @@
                 <li><a class="" data-toggle="collapse" data-target="#lga" aria-expanded="false" aria-controls="collapseExample">Change LGA</a></li>
                 <li><a class="" data-toggle="collapse" data-target="#suspend" aria-expanded="false" aria-controls="collapseExample">Suspend Personnel</a></li>
                 <li><a class="" data-toggle="collapse" data-target="#nok" aria-expanded="false" aria-controls="collapseExample">Update NOK</a></li>
-        		@if(!file_exists($fpath))
+        		<?php if(!file_exists($fpath)): ?>
                 <li><a class="" data-toggle="collapse" data-target="#uploadImage" aria-expanded="false" aria-controls="collapseExample">Change Image</a></li>
-        		@endif
+        		<?php endif; ?>
                 <li class="divider"></li>
                 <li><a class="" data-toggle="collapse" data-target="#upload" aria-expanded="false" aria-controls="collapseExample">Upload Document</a></li>
                 <li><a class="" data-toggle="collapse" data-target="#report" aria-expanded="false" aria-controls="collapseExample">Export Report</a></li>
@@ -41,26 +40,26 @@
             <aside class="aside-lg bg-light lter b-r">
                 <section class="vbox">
                     <section class="panel panel-default">
-                    @if($person->status == 1)
+                    <?php if($person->status == 1): ?>
                         <header class="panel-heading bg-primary dker no-border">
-                    @elseif($person->status == 2)
+                    <?php elseif($person->status == 2): ?>
                         <header class="panel-heading bg-info dk no-border">
-                    @elseif($person->status == 3)
+                    <?php elseif($person->status == 3): ?>
                         <header class="panel-heading bg-warning dk no-border">
-                    @else
+                    <?php else: ?>
                         <header class="panel-heading bg-danger dk no-border">
-                    @endif
+                    <?php endif; ?>
                             <div class="clearfix">
                                 <a href="#" class="pull-left thumb avatar b-3x m-r"> 
                                 
-                                    @if (file_exists($fpath))
-                                        <img src="{{asset('incs/images/personnel/'.$person->id.'.png')}}" class="img-circle"> 
-                                    @else
-                                        <img src="{{asset('incs/images/personnel/no-pic.jpg')}}" class="img-circle"> 
-                                    @endif
+                                    <?php if(file_exists($fpath)): ?>
+                                        <img src="<?php echo e(asset('incs/images/personnel/'.$person->id.'.png')); ?>" class="img-circle"> 
+                                    <?php else: ?>
+                                        <img src="<?php echo e(asset('incs/images/personnel/no-pic.jpg')); ?>" class="img-circle"> 
+                                    <?php endif; ?>
                                 </a>
                                 <div class="clear">
-                                    <div class="h4 m-t-xs m-b-xs text-white"> {{$person->surname.' '.$person->middle_name. ' '.$person->first_name}} <i class="fa fa-circle text-white pull-right text-xs m-t-sm"></i> </div> <small class="text-muted">{{$person->getNounInfos->rank}}</small> 
+                                    <div class="h4 m-t-xs m-b-xs text-white"> <?php echo e($person->surname.' '.$person->middle_name. ' '.$person->first_name); ?> <i class="fa fa-circle text-white pull-right text-xs m-t-sm"></i> </div> <small class="text-muted"><?php echo e($person->getNounInfos->rank); ?></small> 
 
                                     <br> 
                                 </div>
@@ -68,15 +67,15 @@
                         </header>
                         <div class="list-group no-radius alt">
                             <ul class="list-group no-radius">
-                                <li class="list-group-item"> <i class="fa fa-phone"></i> <b> Phone Numbers: </b><br> {{$person->phone_no.', '.$person->alternate_phone_no}}</li>
-                                <li class="list-group-item"> <i class="fa fa-envelope"></i> <b> e-Mail Address: </b><br> {{$person->email}}</li>
-                                <li class="list-group-item"> <i class="fa fa-user"></i> <b> State of Origin/LGA: </b><br> {{$person->getState->state}} &emsp;- &emsp; {{isset($person->getLga) ? $person->getLga->lga_name: "Not set"}}</li>
-                                <li class="list-group-item"> <i class="fa fa-sitemap"></i> <b> Department: </b><br> {{$person->getNounInfos->getDept->dept_name}}</li>
-                                <li class="list-group-item"> <i class="fa fa-sitemap"></i> <b> Unit: </b><br> {{$person->getNounInfos->getUnit->unit_name}}</li>
-                                <li class="list-group-item"> <i class="fa fa-clock-o"></i> <b> In Service Since: </b><br> {{$from->format('d M, Y')}} ({{$from->diff($to)->y}}Yrs, {{$from->diff($to)->m}} Months)</li>
-                                <li class="list-group-item"> <i class="fa fa-clock-o"></i> <b> Date of Birth: </b><br> {{$dob->format('d M, Y')}} ({{$dob->diff($to)->y}}Yrs, {{$dob->diff($to)->m}} Months)</li>
-                                <li class="list-group-item"> <i class="fa fa-clock"></i> <b> Retirement by Birth: 65Yrs Old</b><br> {{$rd_by_birth->format('l jS \\of F Y')}}</li>
-                                <li class="list-group-item"> <i class="fa fa-clock"></i> <b> Retirement by Employment: of 35Yrs SVC</b><br> {{$rd_by_emp->format('l jS \\of F Y')}}</li>
+                                <li class="list-group-item"> <i class="fa fa-phone"></i> <b> Phone Numbers: </b><br> <?php echo e($person->phone_no.', '.$person->alternate_phone_no); ?></li>
+                                <li class="list-group-item"> <i class="fa fa-envelope"></i> <b> e-Mail Address: </b><br> <?php echo e($person->email); ?></li>
+                                <li class="list-group-item"> <i class="fa fa-user"></i> <b> State of Origin/LGA: </b><br> <?php echo e($person->getState->state); ?> &emsp;- &emsp; <?php echo e(isset($person->getLga) ? $person->getLga->lga_name: "Not set"); ?></li>
+                                <li class="list-group-item"> <i class="fa fa-sitemap"></i> <b> Department: </b><br> <?php echo e($person->getNounInfos->getDept->dept_name); ?></li>
+                                <li class="list-group-item"> <i class="fa fa-sitemap"></i> <b> Unit: </b><br> <?php echo e($person->getNounInfos->getUnit->unit_name); ?></li>
+                                <li class="list-group-item"> <i class="fa fa-clock-o"></i> <b> In Service Since: </b><br> <?php echo e($from->format('d M, Y')); ?> (<?php echo e($from->diff($to)->y); ?>Yrs, <?php echo e($from->diff($to)->m); ?> Months)</li>
+                                <li class="list-group-item"> <i class="fa fa-clock-o"></i> <b> Date of Birth: </b><br> <?php echo e($dob->format('d M, Y')); ?> (<?php echo e($dob->diff($to)->y); ?>Yrs, <?php echo e($dob->diff($to)->m); ?> Months)</li>
+                                <li class="list-group-item"> <i class="fa fa-clock"></i> <b> Retirement by Birth: 65Yrs Old</b><br> <?php echo e($rd_by_birth->format('l jS \\of F Y')); ?></li>
+                                <li class="list-group-item"> <i class="fa fa-clock"></i> <b> Retirement by Employment: of 35Yrs SVC</b><br> <?php echo e($rd_by_emp->format('l jS \\of F Y')); ?></li>
                             </ul>
                         </div>
                     </section>
@@ -87,50 +86,51 @@
                  <br>
                     <section class="scrollable">
 			                     <!-- Notification -->
-			            @if (session()->has('flash_notification.message'))
-			                <div class="alert alert-{{ session('flash_notification.level') }}">
+			            <?php if(session()->has('flash_notification.message')): ?>
+			                <div class="alert alert-<?php echo e(session('flash_notification.level')); ?>">
 			                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			                    {!! session('flash_notification.message') !!}
+			                    <?php echo session('flash_notification.message'); ?>
+
 			                </div>
-			            @endif
+			            <?php endif; ?>
 			            <!-- /Notification -->
 
 			             <!-- Page Options  -->
 			                <div class="row collapse" id="leavesform">
-			                    @include('pim.options.leaveForm')
+			                    <?php echo $__env->make('pim.options.leaveForm', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="nok">
-			                    @include('pim.options.nok')
+			                    <?php echo $__env->make('pim.options.nok', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="lga">
-			                    @include('pim.options.editLGA')
+			                    <?php echo $__env->make('pim.options.editLGA', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="sms">
-			                    @include('pim.sms')
+			                    <?php echo $__env->make('pim.sms', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="cCenter">
-			                    @include('pim.options.editBranch')
+			                    <?php echo $__env->make('pim.options.editBranch', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="email">
-			                    @include('pim.email')
+			                    <?php echo $__env->make('pim.email', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="upload">
-			                    @include('pim.documentCenter.personDocument')
+			                    <?php echo $__env->make('pim.documentCenter.personDocument', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="report">
-			                    @include('pim.reportCriteria')
+			                    <?php echo $__env->make('pim.reportCriteria', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="suspend">
-			                    @include('pim.options.disablePerson')
+			                    <?php echo $__env->make('pim.options.disablePerson', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="edit">
-			                    @include('pim.options.edit')
+			                    <?php echo $__env->make('pim.options.edit', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="uploadImage">
-			                    @include('pim.options.uploadImage')
+			                    <?php echo $__env->make('pim.options.uploadImage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			                <div class="row collapse" id="sScale">
-			                    @include('pim.options.editSalaryScale')
+			                    <?php echo $__env->make('pim.options.editSalaryScale', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			                </div>
 			             <!-- /Page Options -->
 		            <br>
@@ -139,14 +139,14 @@
 					            <!-- <header class="panel-heading">Branch Departments <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i>  -->
 					            </header>
 					            <div class="panel-body">
-					            	<p class="h5 "><b>Rank:</b> <br> {{$person->getNounInfos->rank}}  &emsp;&emsp;&emsp;&emsp;&emsp; <b>Salary Scale: &emsp;&emsp; {{isset($person->getNounInfos->getScale)? $person->getNounInfos->getScale->scale : "Not set"}} 
+					            	<p class="h5 "><b>Rank:</b> <br> <?php echo e($person->getNounInfos->rank); ?>  &emsp;&emsp;&emsp;&emsp;&emsp; <b>Salary Scale: &emsp;&emsp; <?php echo e(isset($person->getNounInfos->getScale)? $person->getNounInfos->getScale->scale : "Not set"); ?> 
 
-				                    @if(!$person->getNounInfos->getScale)
+				                    <?php if(!$person->getNounInfos->getScale): ?>
 				                    <a class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#sScale" aria-expanded="false" aria-controls="collapseExample">Edit</a>
-				                    @else
-				                    @endif
+				                    <?php else: ?>
+				                    <?php endif; ?>
 				                    </b></p> <br>
-				                    <p class="h5 "> <b>Study Center: </b><br>{{$person->getNounInfos->getBranch->branch_name}}</p>
+				                    <p class="h5 "> <b>Study Center: </b><br><?php echo e($person->getNounInfos->getBranch->branch_name); ?></p>
 					            </div>
 					        </section>
                     	</div>
@@ -155,7 +155,8 @@
 					            <!-- <header class="panel-heading"> <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i>  -->
 					            </header>
 					            <div class="panel-body" align="center">
-					                 {!!DNS2D::getBarcodeHTML($person->surname.' '.$person->first_name.' '.$person->middle_name, "QRCODE", 3,3);!!} NOUN/{{$person->unique_id}}
+					                 <?php echo DNS2D::getBarcodeHTML($person->surname.' '.$person->first_name.' '.$person->middle_name, "QRCODE", 3,3);; ?> NOUN/<?php echo e($person->unique_id); ?>
+
 					            </div>
 					        </section>
                     	</div>
@@ -229,11 +230,11 @@
 			                            </div>
 			                            <div class="tab-pane" id="jobhistory">
 			                                <!-- <div class="text-center wrapper"> </div> -->
-			                                @if($person->gender == 1)
+			                                <?php if($person->gender == 1): ?>
 			                                <h4 align="center"> No Job history found. This personnel is still at his first call branch/study center.</h4>
-			                                 @else   
+			                                 <?php else: ?>   
 			                                <h4 align="center"> No Job history found. This personnel is still at her first call branch/study center.</h4>
-			                                @endif    
+			                                <?php endif; ?>    
 			                                <div class="line line-dashed"></div>
 			                            </div>
 
@@ -244,7 +245,7 @@
 			                                        </header>
 			                                        <div class="panel-body">
 			                                            <div class="table-responsive">
-			                                                @if(count($person->getPromotions) >0)
+			                                                <?php if(count($person->getPromotions) >0): ?>
 			                                                <table class="table table-striped m-b-none" data-ride="datatables">
 			                                                    <thead>
 			                                                        <tr>
@@ -259,29 +260,29 @@
 			                                                    </thead>
 			                                                    <tbody>
 			                                                    <?php $sn = 1;?>
-			                                                    @foreach($person->getPromotions as $promo)
+			                                                    <?php $__currentLoopData = $person->getPromotions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $promo): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 			                                                        <tr>
-			                                                            <td>{{$sn}}</td>
-			                                                            <td><a href="{{url('/pim/employees/document/one/'.\Crypt::encrypt($promo->id))}}" class="link"> {{$promo->unique_code}}</a></td>
-			                                                            <td>{{$promo->id}}</td>
-			                                                            <td>{{$promo->title}}</td>
-			                                                            <td>{{$promo->issuing_authority}}</td>
-			                                                            <td>{{$promo->expiration}}</td>
+			                                                            <td><?php echo e($sn); ?></td>
+			                                                            <td><a href="<?php echo e(url('/pim/employees/document/one/'.\Crypt::encrypt($promo->id))); ?>" class="link"> <?php echo e($promo->unique_code); ?></a></td>
+			                                                            <td><?php echo e($promo->id); ?></td>
+			                                                            <td><?php echo e($promo->title); ?></td>
+			                                                            <td><?php echo e($promo->issuing_authority); ?></td>
+			                                                            <td><?php echo e($promo->expiration); ?></td>
 			                                                            <td>
-			                                                                @if($promo->status == 1)
+			                                                                <?php if($promo->status == 1): ?>
 			                                                                <span class="label bg-primary">  Valid</span>
-			                                                                @else
+			                                                                <?php else: ?>
 			                                                                <span class="label bg-danger">  Expired</span>
-			                                                                @endif
+			                                                                <?php endif; ?>
 			                                                            </td>
 			                                                        </tr>
 			                                                    <?php $sn++;?>
-			                                                    @endforeach
+			                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 			                                                    </tbody>
 			                                                </table>
-			                                                @else
+			                                                <?php else: ?>
 			                                                <h4 align="center"> No promotion record(s) found for this personnel yet.</h4>
-			                                                @endif
+			                                                <?php endif; ?>
 			                                            </div>
 			                                        </div>
 			                                    </section>
@@ -297,7 +298,7 @@
 			                                        </header>
 			                                        <div class="panel-body">
 			                                            <div class="table-responsive">
-			                                                @if(count($person->getDocuments) >0)
+			                                                <?php if(count($person->getDocuments) >0): ?>
 			                                                <table class="table table-striped m-b-none" data-ride="datatables">
 			                                                    <thead>
 			                                                        <tr>
@@ -312,29 +313,29 @@
 			                                                    </thead>
 			                                                    <tbody>
 			                                                    <?php $sn = 1;?>
-			                                                    @foreach($person->getDocuments as $docs)
+			                                                    <?php $__currentLoopData = $person->getDocuments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $docs): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 			                                                        <tr>
-			                                                            <td>{{$sn}}</td>
-			                                                            <td><a href="{{url('/pim/employees/document/one/'.\Crypt::encrypt($docs->id))}}" class="link"> {{$docs->unique_code}}</a></td>
-			                                                            <td>{{$docs->getParent->classification_name}}</td>
-			                                                            <td>{{$docs->title}}</td>
-			                                                            <td>{{$docs->issuing_authority}}</td>
-			                                                            <td>{{$docs->expiration}}</td>
+			                                                            <td><?php echo e($sn); ?></td>
+			                                                            <td><a href="<?php echo e(url('/pim/employees/document/one/'.\Crypt::encrypt($docs->id))); ?>" class="link"> <?php echo e($docs->unique_code); ?></a></td>
+			                                                            <td><?php echo e($docs->getParent->classification_name); ?></td>
+			                                                            <td><?php echo e($docs->title); ?></td>
+			                                                            <td><?php echo e($docs->issuing_authority); ?></td>
+			                                                            <td><?php echo e($docs->expiration); ?></td>
 			                                                            <td>
-			                                                                @if($docs->status == 1)
+			                                                                <?php if($docs->status == 1): ?>
 			                                                                <span class="label bg-primary">  Valid</span>
-			                                                                @else
+			                                                                <?php else: ?>
 			                                                                <span class="label bg-danger">  Expired</span>
-			                                                                @endif
+			                                                                <?php endif; ?>
 			                                                            </td>
 			                                                        </tr>
 			                                                    <?php $sn++;?>
-			                                                    @endforeach
+			                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 			                                                    </tbody>
 			                                                </table>
-			                                                @else
+			                                                <?php else: ?>
 			                                                <h4 align="center"> No document uploaded for this personnel yet.</h4>
-			                                                @endif
+			                                                <?php endif; ?>
 			                                            </div>
 			                                        </div>
 			                                    </section>
@@ -369,7 +370,7 @@
 			                                        </header>
 			                                        <div class="panel-body">
 			                                            <div class="table-responsive">
-			                                                @if(count($person->getLeaves) >0)
+			                                                <?php if(count($person->getLeaves) >0): ?>
 			                                                <table class="table table-striped m-b-none" data-ride="datatables">
 			                                                    <thead>
 			                                                        <tr>
@@ -383,32 +384,32 @@
 			                                                    </thead>
 			                                                    <tbody>
 			                                                    <?php $sn = 1;?>
-			                                                    @foreach($person->getLeaves as $leaves)
+			                                                    <?php $__currentLoopData = $person->getLeaves; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $leaves): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 			                                                        <tr>
-			                                                            <td>{{$sn}}</td>
-			                                                            <td><a href="{{url('/pim/employees/leaves/'.$leaves->id)}}" class="link"> {{$leaves->unique_code}}</a></td>
-			                                                            <td>{{$leaves->getParent->type_name}}</td>
-			                                                            <td>{{$leaves->start_date}}</td>
-			                                                            <td>{{$leaves->end_date}}</td>
+			                                                            <td><?php echo e($sn); ?></td>
+			                                                            <td><a href="<?php echo e(url('/pim/employees/leaves/'.$leaves->id)); ?>" class="link"> <?php echo e($leaves->unique_code); ?></a></td>
+			                                                            <td><?php echo e($leaves->getParent->type_name); ?></td>
+			                                                            <td><?php echo e($leaves->start_date); ?></td>
+			                                                            <td><?php echo e($leaves->end_date); ?></td>
 			                                                            <td>
-			                                                                @if($leaves->status == 1)
+			                                                                <?php if($leaves->status == 1): ?>
 			                                                                 <span class="label bg-primary">  New</span>
-			                                                                @elseif($leaves->status == 2)
+			                                                                <?php elseif($leaves->status == 2): ?>
 			                                                                 <span class="label bg-info">Seen & Attended to avaiting approval</span>
-			                                                                @elseif($leaves->status == 3)
+			                                                                <?php elseif($leaves->status == 3): ?>
 			                                                                 <span class="label bg-warning">Cancelled</span>
-			                                                                @else
+			                                                                <?php else: ?>
 			                                                                 <span class="label bg-success">Approved</span>
-			                                                                @endif
+			                                                                <?php endif; ?>
 			                                                            </td>
 			                                                        </tr>
 			                                                    <?php $sn++;?>
-			                                                    @endforeach
+			                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 			                                                    </tbody>
 			                                                </table>
-			                                                @else
+			                                                <?php else: ?>
 			                                                <h4 align="center"> No leave applications made by thie personnel yet.</h4>
-			                                                @endif
+			                                                <?php endif; ?>
 			                                            </div>
 			                                        </div>
 			                                    </section>
@@ -425,4 +426,5 @@
         </section>
     </section>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

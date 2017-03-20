@@ -15,6 +15,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+
 // use \App\NountInfo;
 class PersonnelController extends Controller
 {
@@ -409,9 +411,9 @@ class PersonnelController extends Controller
 
     public function doPDF()
     {
-        $personnel = \App\Personnel::all();//->take(10);
+        $personnel = \App\Personnel::all();//->take(50);
         $pdf = \PDF::loadView('pim.reports.personnel', ['personnel' => $personnel], ['dpi' => 150, 'defaultFont' => 'Arial'])->setPaper('a4', 'landscape');
-        // return $pdf->stream('dompdf.pdf');
+        // return $pdf->stream(date('d-m-Y').'-personnel.pdf');
         return $pdf->download(''.date('d-m-Y').'-personnel.pdf');
     }
 

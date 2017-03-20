@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>Personnel Records</title>
-    <link rel="stylesheet" href="{{asset('incs/css/app.v1.css')}}" type="text/css" />
+    <link rel="stylesheet" href="<?php echo e(asset('incs/css/app.v1.css')); ?>" type="text/css" />
 	<!-- <link rel="stylesheet" href=""> -->
 	<style>
       #watermark { position: fixed; bottom: 0px; right: 0px; width: 200px; height: 200px; opacity: .1; }
@@ -10,7 +10,7 @@
 
 <body ">
 <div class="" align="center">
-    <img src="{{asset('incs/images/hr_logobig.png')}}" alt="" style="height: 90px; width: 90px;" align="center">
+    <img src="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" alt="" style="height: 90px; width: 90px;" align="center">
     <p class="h2 " align="center">NATIONAL OPEN UNIVERISY OF NIGERIA <br> Learn & Work</p> 
     <h5 align="center">PERSONNEL RECORDS</h5>
 </div>
@@ -48,25 +48,25 @@
             </thead>
             <tbody>
             <?php $sn = 1;?>
-            @foreach($personnel as $prsn)
+            <?php $__currentLoopData = $personnel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prsn): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                 <tr>
-                    <td border=1 width=9><font size=1>{{$sn}}</font></td>
-                    <td border=1 width=21><font size=1>NOUN/{{$prsn->unique_id}}</font></td>
-                    <td style="font-size: 9px;"> {{$prsn->title .' '.$prsn->surname .' '.$prsn->first_name.' '.$prsn->middle_name}}</td>
-                    <td style="font-size: 9px;">{{$prsn->getNounInfos->rank}}</td>
-                    <td style="font-size: 9px;" >@if($prsn->gender == 1) M @else F @endif</td>
-                    <td style="font-size: 9px;">{{$prsn->getState->state}}</td>
-                    <td style="font-size: 9px;">{{isset($prsn->getLga) ? $prsn->getLga->lga_name : "Not Set"}}</td>
+                    <td border=1 width=9><font size=1><?php echo e($sn); ?></font></td>
+                    <td border=1 width=21><font size=1>NOUN/<?php echo e($prsn->unique_id); ?></font></td>
+                    <td style="font-size: 9px;"> <?php echo e($prsn->title .' '.$prsn->surname .' '.$prsn->first_name.' '.$prsn->middle_name); ?></td>
+                    <td style="font-size: 9px;"><?php echo e($prsn->getNounInfos->rank); ?></td>
+                    <td style="font-size: 9px;" ><?php if($prsn->gender == 1): ?> M <?php else: ?> F <?php endif; ?></td>
+                    <td style="font-size: 9px;"><?php echo e($prsn->getState->state); ?></td>
+                    <td style="font-size: 9px;"><?php echo e(isset($prsn->getLga) ? $prsn->getLga->lga_name : "Not Set"); ?></td>
                     <td style="font-size: 9px;"></td>
-                    <td style="font-size: 9px;">{{$prsn->dob}}</td>
-                    <td style="font-size: 9px;">{{$prsn->dob}}</td>
-                    <td style="font-size: 9px;">{{$prsn->phone_no}}</td>
-                    <td style="font-size: 9px;">{{$prsn->getNounInfos->getAppt->name}}</td>
-                    <td style="font-size: 9px;">{{$prsn->getNounInfos->getScale ? $prsn->getNounInfos->getScale->scale : "Not set" }}</td>
+                    <td style="font-size: 9px;"><?php echo e($prsn->dob); ?></td>
+                    <td style="font-size: 9px;"><?php echo e($prsn->dob); ?></td>
+                    <td style="font-size: 9px;"><?php echo e($prsn->phone_no); ?></td>
+                    <td style="font-size: 9px;"><?php echo e($prsn->getNounInfos->getAppt->name); ?></td>
+                    <td style="font-size: 9px;"><?php echo e($prsn->getNounInfos->getScale ? $prsn->getNounInfos->getScale->scale : "Not set"); ?></td>
                 </tr>
 
             <?php $sn++;?>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
             </tbody>
         </table>
     </div>
@@ -74,7 +74,7 @@
 <br><br><br><br><br>
    Reviewd By:__________________________________________________________________________ Signature & Date:__________________________________________ <br><br>
     <div class="footer">
-        <p>{{strtoupper('For Offical Use Only')}} <div class="pull-right">{{strtoupper("official stamp")}}</div></p> 
+        <p><?php echo e(strtoupper('For Offical Use Only')); ?> <div class="pull-right"><?php echo e(strtoupper("official stamp")); ?></div></p> 
     </div>
 </body>
 </html>

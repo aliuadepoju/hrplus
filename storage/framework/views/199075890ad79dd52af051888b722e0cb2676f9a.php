@@ -2,22 +2,22 @@
 <html lang="en" class="app">
 
 <head>
-    <title>{{ config('app.name', 'Laravel') }} | {{isset($pageName) ? $pageName : ""}}</title>
+    <title><?php echo e(config('app.name', 'Laravel')); ?> | <?php echo e(isset($pageName) ? $pageName : ""); ?></title>
     <meta name="description" content="National Open University of Nigeria Human Resource Portal v1.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="author" content="Umoru Godfrey, E. Natview Technology, Abuja Nigeria, godfrey.umoru@natviewtechnology.com" />
     <meta name="date" content="29th January, 2017" />
-    <link rel="stylesheet" href="{{asset('incs/css/font.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{asset('incs/css/app.v1.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{asset('incs/js/fuelux/fuelux.css')}}" type="text/css" />
+    <link rel="stylesheet" href="<?php echo e(asset('incs/css/font.css')); ?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo e(asset('incs/css/app.v1.css')); ?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo e(asset('incs/js/fuelux/fuelux.css')); ?>" type="text/css" />
     <!-- Select 2 -->
-    <link rel="stylesheet" href="{{asset('incs/js/select2/select2.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{asset('incs/js/select2/theme.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{asset('incs/js/datepicker/datepicker.css')}}" type="text/css" />
+    <link rel="stylesheet" href="<?php echo e(asset('incs/js/select2/select2.css')); ?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo e(asset('incs/js/select2/theme.css')); ?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo e(asset('incs/js/datepicker/datepicker.css')); ?>" type="text/css" />
     <!-- DTable -->
-    <link rel="stylesheet" href="{{asset('incs/js/datatables/datatables.css')}}" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{asset('incs/js/jquery.datatables/bootstrap-adapter/css/datatables.css')}}" />
-    <link type="image/x-icon" href="{{asset('incs/images/hr_logobig.png')}}" rel="shortcut icon"/>
+    <link rel="stylesheet" href="<?php echo e(asset('incs/js/datatables/datatables.css')); ?>" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('incs/js/jquery.datatables/bootstrap-adapter/css/datatables.css')); ?>" />
+    <link type="image/x-icon" href="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" rel="shortcut icon"/>
 
     
     <!--[if lt IE 9]> 
@@ -32,7 +32,7 @@
         <header class="bg-primary dker lter header navbar navbar-fixed-top-xs">
             <div class="navbar-header aside-md">
                 <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html"> <i class="fa fa-bars"></i> </a>
-                <a href="#" class="navbar-brand" data-toggle="fullscreen"><img src="{{asset('incs/images/hr_logo.png')}}" class="m-r-lg"></a>
+                <a href="#" class="navbar-brand" data-toggle="fullscreen"><img src="<?php echo e(asset('incs/images/hr_logo.png')); ?>" class="m-r-lg"></a>
                 <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user"> <i class="fa fa-cog"></i> </a>
             </div>
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<p class="" align="center" id="clockbox"></p>
@@ -42,23 +42,24 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="thumb-sm avatar pull-left"> 
 
                         <?php $fpath = public_path().'/incs/images/usrs/'.Auth::user()->id.'.png' ;?>
-                        @if (file_exists($fpath))
-                            <img src="{{asset('incs/images/usrs/'.Auth::user()->id.'.png')}}"> 
-                        @else
-                            <!-- <img src="{{asset('incs/images/usrs/'.Auth::user()->id.'.png')}}">  -->
-                            <img src="{{asset('incs/images/usrs/no-pic.jpg')}}" class="img-circle"> 
-                        @endif
+                        <?php if(file_exists($fpath)): ?>
+                            <img src="<?php echo e(asset('incs/images/usrs/'.Auth::user()->id.'.png')); ?>"> 
+                        <?php else: ?>
+                            <!-- <img src="<?php echo e(asset('incs/images/usrs/'.Auth::user()->id.'.png')); ?>">  -->
+                            <img src="<?php echo e(asset('incs/images/usrs/no-pic.jpg')); ?>" class="img-circle"> 
+                        <?php endif; ?>
 
-                    </span> {{Auth::user()->surname. ' '. Auth::user()->first_name .' '.Auth::user()->middle_name }} <b class="caret"></b> </a>
+                    </span> <?php echo e(Auth::user()->surname. ' '. Auth::user()->first_name .' '.Auth::user()->middle_name); ?> <b class="caret"></b> </a>
                     <ul class="dropdown-menu animated fadeInRight"> <span class="arrow top"></span>
-                        <li> <a href="{{url('/system/users/profile/'.\Crypt::encrypt(Auth::user()->id))}}">Profile</a> </li>
-                        <li> <a href="{{url('/help/faqs')}}">Help</a> </li>
+                        <li> <a href="<?php echo e(url('/system/users/profile/'.\Crypt::encrypt(Auth::user()->id))); ?>">Profile</a> </li>
+                        <li> <a href="<?php echo e(url('/help/faqs')); ?>">Help</a> </li>
                         <li class="divider"></li>
-                        <li><a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <li><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
-                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
+                            <form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;">
+                                <?php echo e(csrf_field()); ?>
+
                             </form>
                         </li>
                     </ul>
@@ -70,7 +71,7 @@
                 <!-- .aside -->
                 <aside class="bg-light lter b-r aside-md hidden-print hidden-xs" id="nav">
                     <section class="vbox">
-                        @include('layouts.sidebar')
+                        <?php echo $__env->make('layouts.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                         <footer class="footer lt hidden-xs b-t b-light">
                             <div id="chat" class="dropup">
                                 <section class="dropdown-menu on aside-md m-l-n">
@@ -104,7 +105,7 @@
                 </aside>
                 <!-- /.aside -->
                 <section id="content">
-                   @yield('content')
+                   <?php echo $__env->yieldContent('content'); ?>
                 </section>
             </section>
         </section>
@@ -113,29 +114,29 @@
 
 
     <!-- App -->
-    <script src="{{asset('incs/js/app.v1.js')}}"></script>
-    <script src="{{asset('incs/js/app.plugin.js')}}"></script>
+    <script src="<?php echo e(asset('incs/js/app.v1.js')); ?>"></script>
+    <script src="<?php echo e(asset('incs/js/app.plugin.js')); ?>"></script>
     <!-- Sparkline Chart -->
-    <script src="{{asset('incs/js/charts/sparkline/jquery.sparkline.min.js')}}"></script>
+    <script src="<?php echo e(asset('incs/js/charts/sparkline/jquery.sparkline.min.js')); ?>"></script>
     <!-- ChartJs --> 
-    <script src="{{asset('incs/js/charts/chartJs/jsChart.js')}}"></script> 
+    <script src="<?php echo e(asset('incs/js/charts/chartJs/jsChart.js')); ?>"></script> 
 
     <!-- fuelux -->
-    <script src="{{asset('incs/js/fuelux/fuelux.js')}}"></script>
-    <script src="{{asset('incs/js/parsley/parsley.min.js')}}"></script>
+    <script src="<?php echo e(asset('incs/js/fuelux/fuelux.js')); ?>"></script>
+    <script src="<?php echo e(asset('incs/js/parsley/parsley.min.js')); ?>"></script>
 
     <!-- file input -->
-    <script src="{{asset('incs/js/file-input/bootstrap-filestyle.min.js')}}"></script>
+    <script src="<?php echo e(asset('incs/js/file-input/bootstrap-filestyle.min.js')); ?>"></script>
     <!-- combodate -->
-    <script src="{{asset('incs/js/libs/moment.min.js')}}"></script>
-    <script src="{{asset('incs/js/combodate/combodate.js')}}"></script>
+    <script src="<?php echo e(asset('incs/js/libs/moment.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('incs/js/combodate/combodate.js')); ?>"></script>
     <!-- select2 -->
-    <script src="{{asset('incs/js/select2/select2.min.js')}}"></script>
+    <script src="<?php echo e(asset('incs/js/select2/select2.min.js')); ?>"></script>
     <!-- datepicker -->
-    <script src="{{asset('incs/js/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="<?php echo e(asset('incs/js/datepicker/bootstrap-datepicker.js')); ?>"></script>
      <!-- datatables -->
-    <script src="{{asset('incs/js/datatables/jquery.dataTables.min.js')}}"></script>
-    <!-- <script src="{{asset('incs/js/datatables/datatable.js')}}"></script> -->
+    <script src="<?php echo e(asset('incs/js/datatables/jquery.dataTables.min.js')); ?>"></script>
+    <!-- <script src="<?php echo e(asset('incs/js/datatables/datatable.js')); ?>"></script> -->
     <!-- Map API -->
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyBrsKzefSQA6WrokTTGHMa3Tl_wd4uaY_0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.js"></script>
@@ -554,22 +555,22 @@
           zoom: 17
         });
     
-        @foreach($branches as $brn)
+        <?php $__currentLoopData = $branches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brn): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
     
         // var image = base_path().'/incs/images/'.$icon;
         var image = base_path().'/public/incs/images/marker1.png';
-        var marker_{{$brn->id}} = new google.maps.Marker({
-          position: {lat: {{$brn->lat_cord}}, lng:  {{$brn->long_cord}}},
+        var marker_<?php echo e($brn->id); ?> = new google.maps.Marker({
+          position: {lat: <?php echo e($brn->lat_cord); ?>, lng:  <?php echo e($brn->long_cord); ?>},
           map: map,
           background: "#ccc",
           icon: image,
           title: 'Click to view Study Center'
         });
     
-        marker_{{$brn->id}}.addListener('click', function() {
+        marker_<?php echo e($brn->id); ?>.addListener('click', function() {
           location.href = "/branches/data/{$brn->id}}";
         });
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
       }
     </script> -->
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrsKzefSQA6WrokTTGHMa3Tl_wd4uaY_-1&callback=initMap" async defer> -->
