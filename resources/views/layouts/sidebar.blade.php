@@ -178,7 +178,7 @@
                                 <!-- <td>{{number_format(count($jS)/count($SNA) * 100, 2)}}%</td> -->
                             </tr>
                             <tr>
-                                <td></strong>Retiring </strong><br><small> </small></td>
+                                <td><strong>Retiring </strong><br><small> </small></td>
                                 <td>3</td>
                                 <!-- <td> 0.30%</td> -->
                             </tr>
