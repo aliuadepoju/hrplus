@@ -173,18 +173,18 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                             </tr>
                             <tr>
-                                <td > <strong>Total Non Academic</strong></td>
+                                <td style="color: blue;"> <strong>Total Non Academic</strong></td>
                                 <td><strong><?php echo e(number_format($jS->Nos + $SNA->Nos, 0)); ?></strong></td>
                                 <!-- <td><?php echo e(number_format(count($jS)/count($SNA) * 100, 2)); ?>%</td> -->
                             </tr>
                             <tr>
-                                <td></strong>Retiring </strong><br><small> </small></td>
-                                <td>3</td>
+                                <td><strong>Retiring this year </strong><br><small> </small></td>
+                                <td><strong>3</strong></td>
                                 <!-- <td> 0.30%</td> -->
                             </tr>
                             <tr>
-                                <td><strong>Over Due </strong><br><small></small></td>
-                                <td> 2</td>
+                                <td><strong>Over Due this year </strong><br><small></small></td>
+                                <td> <strong>2</strong></td>
                                 <!-- <td> 0.20%</td> -->
                             </tr>
                         </tbody>

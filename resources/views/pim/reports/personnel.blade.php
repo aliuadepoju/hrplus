@@ -47,10 +47,10 @@
                     <td style="font-size: 9px;">{{isset($prsn->getLga) ? $prsn->getLga->lga_name : "Not Set"}}</td>
                     <td style="font-size: 9px;"></td>
                     <td style="font-size: 9px;">{{$prsn->dob}}</td>
-                    <td style="font-size: 9px;">{{$prsn->dob}}</td>
+                    <td style="font-size: 9px;">{{isset($prsn->getNounInfos) ? $prsn->getNounInfos->data_of_entry : "Not set"}}</td>
                     <td style="font-size: 9px;">{{$prsn->phone_no}}</td>
                     <td style="font-size: 9px;">{{isset($prsn->getNounInfos->getAppt) ? $prsn->getNounInfos->getAppt->name : "Not Set"}}</td>
-                    <td style="font-size: 9px;">{{$prsn->getNounInfos->getScale ? $prsn->getNounInfos->getScale->scale : "Not set" }}</td>
+                    <td style="font-size: 9px;">{{isset($prsn->getNounInfos->getScale) ? $prsn->getNounInfos->getScale->scale : "Not set" }}</td>
                 </tr>
 
             <?php $sn++;?>
