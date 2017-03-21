@@ -1,13 +1,10 @@
-
-@extends('layouts.masterpage')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <section class="vbox">
     <section class="scrollable padder">
         <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
-            <li><a href="{{url('/home')}}"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="{{url('/pim/employees')}}"><i class="fa fa-user"></i> Employees</a></li>
+            <li><a href="<?php echo e(url('/home')); ?>"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="<?php echo e(url('/pim/employees')); ?>"><i class="fa fa-user"></i> Employees</a></li>
             <li class="active">Reports</li>
         </ul>
         <div class="m-b-md">
@@ -15,9 +12,9 @@
         </div>
         <div class="row">
         <div class="row collapse" id="emailReport">
-                @include('reports.pim.options.email')
+                <?php echo $__env->make('reports.pim.options.email', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             </div>
-            <form action="{{url('/pim/reports/doPDF')}}" method="get">
+            <form action="<?php echo e(url('/pim/reports/doPDF')); ?>" method="get">
                 <div class="col-md-6">
                     <section class="panel panel-default">
                         <header class="panel-heading"> General Reporting Criteria <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i> </header>
@@ -61,9 +58,9 @@
                                     <label for="">State</label>
                                     <select name="state" id="state" class="form-control">
                                         <option value="0">All</option>
-                                        @foreach($states as $st)
-                                        <option value="{{$st->id}}">{{$st->state}}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $states; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $st): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                        <option value="<?php echo e($st->id); ?>"><?php echo e($st->state); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
@@ -86,9 +83,9 @@
                                 <label for="">Branch/Study Center</label>
                                 <select name="branch" id="branch" class="form-control">
                                     <option value="0">All</option>
-                                    @foreach($branches as $brn)
-                                    <option value="{{$brn->id}}">{{$brn->branch_name}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $branches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brn): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                    <option value="<?php echo e($brn->id); ?>"><?php echo e($brn->branch_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
@@ -118,9 +115,9 @@
                                 <label for="">Nature of Appointment</label>
                                 <select name="dept" id="depts" class="form-control">
                                     <option value="0">All</option>
-                                    @foreach($statuses as $status)
-                                    <option value="{{$status->id}}">{{$status->name}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $statuses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                    <option value="<?php echo e($status->id); ?>"><?php echo e($status->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                 </select>
                             </div>
                         </div>
@@ -150,4 +147,5 @@
     </section>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

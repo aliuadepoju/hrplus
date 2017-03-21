@@ -33,18 +33,6 @@
 		      <td style="font-size: 10px;"> Appt</td>
 		      <td style="font-size: 10px;">Salary Scale</td>
 		    </tr>
-                <!-- <tr>
-                    <th style="font-size: 9px;">S/N</th>
-                    <th style="font-size: 9px;">Staff No</th>
-                    <th style="font-size: 9px;">Surname</th>
-                    <th style="font-size: 9px;">First Name</th>
-                    <th style="font-size: 9px;">Mid. Name</th>
-                    <th style="font-size: 9px;">Phone No</th>
-                    <th style="font-size: 9px;">e-Mail</th>
-                    <th style="font-size: 9px;">State</th>
-                    <th style="font-size: 9px;">LGA</th>
-                    <th style="font-size: 9px;">Sal. Scale</th>
-                </tr> -->
             </thead>
             <tbody>
             <?php $sn = 1;?>
@@ -53,7 +41,7 @@
                     <td border=1 width=9><font size=1><?php echo e($sn); ?></font></td>
                     <td border=1 width=21><font size=1>NOUN/<?php echo e($prsn->unique_id); ?></font></td>
                     <td style="font-size: 9px;"> <?php echo e($prsn->title .' '.$prsn->surname .' '.$prsn->first_name.' '.$prsn->middle_name); ?></td>
-                    <td style="font-size: 9px;"><?php echo e($prsn->getNounInfos->rank); ?></td>
+                    <td style="font-size: 9px;"><?php echo e(isset($prsn->getNounInfos) ? $prsn->getNounInfos->rank : "Not Set"); ?></td>
                     <td style="font-size: 9px;" ><?php if($prsn->gender == 1): ?> M <?php else: ?> F <?php endif; ?></td>
                     <td style="font-size: 9px;"><?php echo e($prsn->getState->state); ?></td>
                     <td style="font-size: 9px;"><?php echo e(isset($prsn->getLga) ? $prsn->getLga->lga_name : "Not Set"); ?></td>
@@ -61,7 +49,7 @@
                     <td style="font-size: 9px;"><?php echo e($prsn->dob); ?></td>
                     <td style="font-size: 9px;"><?php echo e($prsn->dob); ?></td>
                     <td style="font-size: 9px;"><?php echo e($prsn->phone_no); ?></td>
-                    <td style="font-size: 9px;"><?php echo e($prsn->getNounInfos->getAppt->name); ?></td>
+                    <td style="font-size: 9px;"><?php echo e(isset($prsn->getNounInfos->getAppt) ? $prsn->getNounInfos->getAppt->name : "Not Set"); ?></td>
                     <td style="font-size: 9px;"><?php echo e($prsn->getNounInfos->getScale ? $prsn->getNounInfos->getScale->scale : "Not set"); ?></td>
                 </tr>
 
