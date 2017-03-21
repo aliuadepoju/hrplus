@@ -169,7 +169,7 @@
                                                     <td>{{$n}}</td>
                                                     <td><a href="">{{$dept->dept_name}}</a></td>
                                                     <td align="center">{{$dept->getNOUNInfo->count()}}</td>
-                                                    <td align="center">1%</td>
+                                                    <td align="center">{{@number_format($dept->getNOUNInfo->count()/$personnel->count()*100,2)}}%</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>

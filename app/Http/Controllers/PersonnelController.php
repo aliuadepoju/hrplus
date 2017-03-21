@@ -411,7 +411,7 @@ class PersonnelController extends Controller
 
     public function doPDF()
     {
-        $personnel = \App\Personnel::all()->take(50);
+        $personnel = \App\Personnel::all();//->take(50);
         $pdf = \PDF::loadView('pim.reports.personnel', ['personnel' => $personnel], ['dpi' => 150, 'defaultFont' => 'Arial'])->setPaper('a4', 'landscape');
         // return $pdf->stream(date('d-m-Y').'-personnel.pdf');
         return $pdf->download(''.date('d-m-Y').'-personnel.pdf');

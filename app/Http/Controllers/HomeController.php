@@ -57,8 +57,8 @@ class HomeController extends Controller
         $param['states'] = \App\State::all();
         $param['male'] = \App\Personnel::where('gender', '=', 1)->get();
         $param['female'] = \App\Personnel::where('gender', '=', 2)->get();
-        $param['seniorNonAcadStaff'] = DB::select("SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 2 and ss.grouping = 2");
-        $param['juniorNonAcadStaff'] = DB::select("SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2");
+        $param['seniorNonAcadStaff'] = DB::select("SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2");
+        $param['juniorNonAcadStaff'] = DB::select("SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 1");
 
         $param['Hstates'] = DB::select("SELECT state_id, state, count(distinct personnels.unique_id) as Nos from Personnels, states s where s.id = personnels.state_id group by state_id order by Nos  desc LIMIT 5");
         $param['Lstates'] = DB::select("SELECT state_id, state, count(distinct personnels.unique_id) as Nos from Personnels, states s where s.id = personnels.state_id group by state_id order by Nos asc LIMIT 5");
@@ -69,8 +69,8 @@ class HomeController extends Controller
         // dd($param['juniorStaff']);
         $param['fullTimeStaff'] = \App\NounInfo::where('status_id', '=', 1);
         $param['partTimeStaff'] = \App\NounInfo::where('status_id', '!=', 1)->get();
-        $param['acadStaff'] = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 1  LIMIT 1");
-        $param['nonAcadStaff'] = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 2  LIMIT 1");
+        $param['acadStaff'] = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 2  LIMIT 1");
+        $param['nonAcadStaff'] = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 LIMIT 1");
 
         $param['transientStaff'] = \App\NounInfo::where('status_id', '>', 1)->get();
 

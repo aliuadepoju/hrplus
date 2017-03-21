@@ -124,11 +124,11 @@
                 $male = \App\Personnel::where('gender', '=', 1)->get(); 
                 $female = \App\Personnel::where('gender', '=', 2)->get();
                 $seniorStaff = \DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 1  LIMIT 1");
-                $juniorStaff = \DB::select("SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2");
+                $juniorStaff = DB::select("SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 1");
                 $fullTimeStaff = \App\NounInfo::where('status_id', '=', 1);
-                $acadStaff = \DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 1  LIMIT 1");
-                $nonAcadStaff = \DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss, salary_scale_categories sc where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = sc.id and sc.Type = 2  LIMIT 1");
-                $seniorNonACade = \DB::select("SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 2 and ss.grouping = 2");
+                $acadStaff = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 2  LIMIT 1");
+                $nonAcadStaff = DB::select("SELECT count(distinct personnels.id) as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1  LIMIT 1");
+                $seniorNonACade = DB::select("SELECT count(distinct `unique_id` )as Nos from personnels, noun_infos n, salary_scales ss where personnels.id = n.personnel_id and n.salary_scale_id = ss.id and ss.salary_scale_category_id = 1 and ss.grouping = 2");
                 $transientStaff = \App\NounInfo::where('status_id', '!=', 1);
                 
                 ?>
@@ -140,54 +140,52 @@
                                 <th colspan="3" style="text-align: center;">{{strtoupper('Quick Statistics')}}</th>
                             </tr>
                             <tr>
-                                <th>Element</th>
-                                <th>No</th>
-                                <th>%</th>
+                                <th>ELEMENT</th>
+                                <th>VALUE</th>
+                                <!-- <th>%</th> -->
                             </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Total Employee</td>
+                            <td style="color: red"><strong>Total Employee</strong></td>
                             <td>{{number_format($totalStaff->count(), 0)}}</td>
-                            <td>{{number_format(count($totalStaff)/count($totalStaff) * 100, 0)}}%</td>
+                            <!-- <td>{{number_format(count($totalStaff)/count($totalStaff) * 100, 0)}}%</td> -->
                         </tr>
                             <tr>
-                                <td>Academics</td>
+                                <td style="color: blue"><strong>Academics</strong></td>
                                 @foreach($acadStaff as $ACST)
-                                <td>{{number_format($ACST->Nos, 0)}}</td>
-                                <td>{{number_format(count($ACST)/count($totalStaff) * 100, 2)}}%</td>
+                                <td><strong>{{number_format($ACST->Nos, 0)}}</strong></td>
+                                <!-- <td>{{number_format(count($ACST)/count($totalStaff) * 100, 2)}}%</td> -->
                                 @endforeach
                             </tr>
                             <tr>
                                 <td>Senior Non Acad. </td>
                                 @foreach($seniorNonACade as $SNA)
-                                <td>{{number_format($SNA->Nos, 0)}}</td>
-                                <td>{{number_format(count($seniorStaff)/count($totalStaff) * 100, 2)}}%</td>
+                                <td><strong>{{number_format($SNA->Nos, 0)}}</strong></td>
+                                <!-- <td>{{number_format(count($seniorStaff)/count($totalStaff) * 100, 2)}}%</td> -->
                                 @endforeach
                             </tr>
                             <tr>
                                 <td>Junior Non Acad.</td>
                                 @foreach($juniorStaff as $jS)
-                                <td>{{number_format($jS->Nos, 0)}}</td>
-                                <td>{{number_format(count($jS->Nos)/count($totalStaff) * 100, 2)}}%</td>
+                                <td><strong>{{number_format($jS->Nos, 0)}}</strong></td>
+                                <!-- <td>{{number_format(count($jS->Nos)/count($totalStaff) * 100, 2)}}%</td> -->
                                 @endforeach
                             </tr>
                             <tr>
-                                <td>Total </td>
-                               
-                                <td>{{number_format($jS->Nos + $SNA->Nos, 0)}}</td>
-                                <td>{{number_format(count($jS)/count($SNA) * 100, 2)}}%</td>
-                               
+                                <td > <strong>Total Non Academic</strong></td>
+                                <td><strong>{{number_format($jS->Nos + $SNA->Nos, 0)}}</strong></td>
+                                <!-- <td>{{number_format(count($jS)/count($SNA) * 100, 2)}}%</td> -->
                             </tr>
                             <tr>
-                                <td>Retiring <br><small> This year</small></td>
+                                <td></strong>Retiring </strong><br><small> </small></td>
                                 <td>3</td>
-                                <td> 0.30%</td>
+                                <!-- <td> 0.30%</td> -->
                             </tr>
                             <tr>
-                                <td>Over Due <br><small> Generic</small></td>
+                                <td><strong>Over Due </strong><br><small></small></td>
                                 <td> 2</td>
-                                <td> 0.20%</td>
+                                <!-- <td> 0.20%</td> -->
                             </tr>
                         </tbody>
                     </table>
@@ -195,7 +193,6 @@
                <!--  </div>
             </div> -->
         </nav>
-
         <!-- / nav -->
     </div>
 </section>

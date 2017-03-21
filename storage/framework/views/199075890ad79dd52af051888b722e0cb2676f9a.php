@@ -2,11 +2,12 @@
 <html lang="en" class="app">
 
 <head>
-    <title><?php echo e(config('app.name', 'Laravel')); ?> | <?php echo e(isset($pageName) ? $pageName : ""); ?></title>
+    <title><?php echo e(config('app.name', 'NOUN HR-PLUS')); ?> | <?php echo e(isset($pageName) ? $pageName : ""); ?></title>
     <meta name="description" content="National Open University of Nigeria Human Resource Portal v1.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="author" content="Umoru Godfrey, E. Natview Technology, Abuja Nigeria, godfrey.umoru@natviewtechnology.com" />
     <meta name="date" content="29th January, 2017" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
     <link rel="stylesheet" href="<?php echo e(asset('incs/css/font.css')); ?>" type="text/css" />
     <link rel="stylesheet" href="<?php echo e(asset('incs/css/app.v1.css')); ?>" type="text/css" />
     <link rel="stylesheet" href="<?php echo e(asset('incs/js/fuelux/fuelux.css')); ?>" type="text/css" />
@@ -18,8 +19,6 @@
     <link rel="stylesheet" href="<?php echo e(asset('incs/js/datatables/datatables.css')); ?>" type="text/css" />
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('incs/js/jquery.datatables/bootstrap-adapter/css/datatables.css')); ?>" />
     <link type="image/x-icon" href="<?php echo e(asset('incs/images/hr_logobig.png')); ?>" rel="shortcut icon"/>
-
-    
     <!--[if lt IE 9]> 
         <script src="js/ie/html5shiv.js"></script> 
         <script src="js/ie/respond.min.js"></script> 
@@ -32,7 +31,7 @@
         <header class="bg-primary dker lter header navbar navbar-fixed-top-xs">
             <div class="navbar-header aside-md">
                 <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html"> <i class="fa fa-bars"></i> </a>
-                <a href="#" class="navbar-brand" data-toggle="fullscreen"><img src="<?php echo e(asset('incs/images/hr_logo.png')); ?>" class="m-r-lg"></a>
+                <a href="#" class="navbar-brand" data-toggle="fullscreen"><img src="<?php echo e(asset('incs/hr_logo.png')); ?>" class="m-r-lg">HR PLUS</a>
                 <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user"> <i class="fa fa-cog"></i> </a>
             </div>
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<p class="" align="center" id="clockbox"></p>
@@ -111,9 +110,7 @@
         </section>
     </section>
     
-
-
-    <!-- App -->
+    <!-- App JavaScript -->
     <script src="<?php echo e(asset('incs/js/app.v1.js')); ?>"></script>
     <script src="<?php echo e(asset('incs/js/app.plugin.js')); ?>"></script>
     <!-- Sparkline Chart -->
@@ -253,7 +250,7 @@
         var myChart = new Chart(ctx, {
           type: 'pie',
           data: {
-            labels: ["Male", "Female"],
+            labels: ["Male %", "Female %"],
             datasets: [{
               backgroundColor: [
                 "#2ecc71",
@@ -497,85 +494,6 @@
         }
     </script>
     <!-- /Page Script -->
-
-
-<!--BEGIN JAVASCRIPT-->
-<script>
-    // var d4_1 = [["Fulltime", 0],["Temporary", 0],["Contract", 0],["Visit Prof", 0],["Sabbatical", 0],["Part-Time", 0],["Visit Lec", 0]];
-    // var d4_2 = [["Fulltime", 0],["Temporary", 0],["Contract", 0],["Visit Prof", 0],["Sabbatical", 0],["Part-Time", 0],["Visit Lec", 0]];
-    // $.plot("#bar-chart-stack", [{
-    //     data: d4_1,
-    //     label: "Male",
-    //     color: "#07bf29"
-    // },{
-    //     data: d4_2,
-    //     label: "Female",
-    //     color: "#ffc107"
-    // }], {
-    //     series: {
-    //         stack: !0,
-    //         bars: {
-    //             align: "center",
-    //             lineWidth: 0,
-    //             show: !0,
-    //             barWidth: .6,
-    //             fill: .9
-    //         }
-    //     },
-    //     grid: {
-    //         borderColor: "#fafafa",
-    //         borderWidth: 1,
-    //         hoverable: !0
-    //     },
-    //     tooltip: !0,
-    //     tooltipOpts: {
-    //         content: "%x : %y",
-    //         defaultTheme: false
-    //     },
-    //     xaxis: {
-    //         tickColor: "#fafafa",
-    //         mode: "categories"
-    //     },
-    //     yaxis: {
-    //         tickColor: "#fafafa"
-    //     },
-    //     shadowSize: 0
-    // });
-
-</script>
-
-<!-- Map Implementation for Geo Spatial distributions -->
-<!-- <script >
-
-       var map;
-       function initMap() {
-    
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 9.042302, lng:  7.529507},
-          zoom: 17
-        });
-    
-        <?php $__currentLoopData = $branches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brn): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-    
-        // var image = base_path().'/incs/images/'.$icon;
-        var image = base_path().'/public/incs/images/marker1.png';
-        var marker_<?php echo e($brn->id); ?> = new google.maps.Marker({
-          position: {lat: <?php echo e($brn->lat_cord); ?>, lng:  <?php echo e($brn->long_cord); ?>},
-          map: map,
-          background: "#ccc",
-          icon: image,
-          title: 'Click to view Study Center'
-        });
-    
-        marker_<?php echo e($brn->id); ?>.addListener('click', function() {
-          location.href = "/branches/data/{$brn->id}}";
-        });
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-      }
-    </script> -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrsKzefSQA6WrokTTGHMa3Tl_wd4uaY_-1&callback=initMap" async defer> -->
-<!-- </script> -->
-<!-- /Map Implementation for Geo Spatial distributions -->
 
 </body>
 

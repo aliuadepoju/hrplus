@@ -173,7 +173,7 @@
                                                     <td><?php echo e($n); ?></td>
                                                     <td><a href=""><?php echo e($dept->dept_name); ?></a></td>
                                                     <td align="center"><?php echo e($dept->getNOUNInfo->count()); ?></td>
-                                                    <td align="center">1%</td>
+                                                    <td align="center"><?php echo e(@number_format($dept->getNOUNInfo->count()/$personnel->count()*100,2)); ?>%</td>
                                                 </tr>
                                                 
                                             <?php $n++;?>
